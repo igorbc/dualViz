@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Dual Radviz</title>
+
+    </head>
+
+<!-- function called to initialize the system -->
+    <body onload="startRadviz()">
+
+    <div class="inputContainer">
+        <label>Choose file to visualize</label>
+        <br/>
+        <input id="fileName" name="fileName" type="file" accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
+        onchange="handleFile(this.files)"/>
+
+    </div>
+        <div style="margin:auto;">
+            <div style="float:left; ">
+
+                <div id="classContribSlider" style="margin:auto;">
+                    <br/>
+
+<!--  initial text above contribution slider -->
+                    <h4 style="margin: 0 auto;"> <span id="contribution">Class: 0% / Attributes: 100%</span></h4>
+
+                </div>
+
+                <br/>
+                <br/>
+                <div id="chart"></div>
+                <div id="attrCircles"></div>
+                <div id="instanceCircles"></div>
+            </div>
+            <div id="sliderContainer" style="float:left; ">
+
+                <br/>
+                <div id="parc" class="parcoords" style="width:650px;height:350px; "></div >
+            </div>
+        </div>
+
+<!--  inclusion of scripts -->
+        <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="js/d3.slider.js"></script>
+        <script type="text/javascript" src="js/d3extension.js"></script>
+        <script type="text/javascript" src="js/d3.parcoords.js"></script>
+        <script type="text/javascript" src="js/polybrush.js"></script>
+        <!--  <script type="text/javascript" src="js/numeric-1.2.6.min.js"></script> -->
+
+        <script type="text/javascript" src="js/setupAssistent.js"></script>
+        <script type="text/javascript" src="js/keyHandler.js"></script>
+        <script type="text/javascript" src="js/avap.js"></script>
+        <script type="text/javascript" src="js/avapContainer.js"></script>
+        <script type="text/javascript" src="js/vizContainer.js"></script>
+        <script type="text/javascript" src="js/legend.js"></script>
+        <script type="text/javascript" src="js/dragManager.js"></script>
+        <script type="text/javascript" src="js/sliderManager.js"></script>
+        <script type="text/javascript" src="js/tooltipManager.js"></script>
+        <script type="text/javascript" src="js/loadFile.js"></script>
+        <script type="text/javascript" src="js/vec.js"></script>
+
+        <script src="opencpu/jquery-3.2.1.min.js"></script>
+        <script src="opencpu/opencpu-0.5.js"></script>
+
+<!-- inclusion of styles -->
+        <link rel="stylesheet" href="stylesheets/d3.parcoords.css" />
+        <link rel="stylesheet" href="stylesheets/d3.slider.css" />
+        <link rel="stylesheet" href="stylesheets/styles.css" />
+
+        <script>
+            var sa = new SetupAssistent();
+            var vc = new VizContainer();
+
+            var headersAttr = [];
+
+            var classIndex;
+
+            var headersClass = [];
+            var classNames = [];
+            var parcoords;
+            var csv;
+            var sliderConfigured;
+            var colorAll = true;
+            var PI = Math.PI;
+            var TWO_PI = PI * 2;
+
+            svgContainer = sa.getSvgContainer();
+
+            function startRadviz(fileName) {
+
+                if(fileName == undefined) {
+                    fileName = sa.defaultFile;
+                }
+
+                vc.createAcApContainers();
+                vc.colorScheme = sa.getClassColorScheme();
+
+                console.log(fileName);
+
+                d3.csv(fileName, function (csv) {
+                    var headers = sa.getAttrAndClassHeaders(csv);
+                    headersAttr = headers[0];
+                    headersClass = headers[1];
+                    classNames = sa.getClassNames(headersClass);
+
+                    sa.setupBrush(csv, svgContainer, vc.acAttr);
+
+                    vc.acAttr.initializeAvApInfo(headersAttr, csv);
+                    vc.acClass.initializeAvApInfo(headersClass, csv, classNames, vc.colorScheme);
+
+                    if(vc.isRadviz){
+                        vc.acAttr.createPath(sa.delay);
+                        vc.acClass.createPath(sa.delay);
+                    }
+                    else{
+                        vc.acAttr.createStarCoordLines();
+                        vc.acClass.createStarCoordLines();
+                    }
+                    vc.initializeInstGroup(csv);
+                    vc.acClass.createAvApGroup();
+                    vc.acAttr.createAvApGroup();
+
+                    vc.acAttr.addDoubleClickBehaviour(sa.delay);
+                    vc.acClass.rotate(-TWO_PI/headersAttr.length, "z", false);
+
+                    vc.updateInst(sa.delay);
+
+                    csv = csv.map(function (d) {
+                        d.mouseOver = "false";
+                        return d;
+                    });
+
+                    setupTooltip(headersAttr, headersClass, csv);
+
+                    addSvgLegend(classNames, svgContainer);
+                    setupDragBehaviour(vc.acAttr, vc.acClass);
+
+                    sliderConfigured = configSlider(sliderConfigured);
+
+                    handleKeys();
+                });
+            }
+        </script>
+    </body>
+</html>
