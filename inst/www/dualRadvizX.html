@@ -79,7 +79,7 @@
             var headersClass = [];
             var classNames = [];
             var parcoords;
-            var csv;
+            var allData;
             var sliderConfigured;
             var colorAll = true;
             var PI = Math.PI;
@@ -99,46 +99,7 @@
                 console.log(fileName);
 
                 d3.csv(fileName, function (csv) {
-                    var headers = sa.getAttrAndClassHeaders(csv);
-                    headersAttr = headers[0];
-                    headersClass = headers[1];
-                    classNames = sa.getClassNames(headersClass);
-
-                    sa.setupBrush(csv, svgContainer, vc.acAttr);
-
-                    vc.acAttr.initializeAvApInfo(headersAttr, csv);
-                    vc.acClass.initializeAvApInfo(headersClass, csv, classNames, vc.colorScheme);
-
-                    if(vc.isRadviz){
-                        vc.acAttr.createPath(sa.delay);
-                        vc.acClass.createPath(sa.delay);
-                    }
-                    else{
-                        vc.acAttr.createStarCoordLines();
-                        vc.acClass.createStarCoordLines();
-                    }
-                    vc.initializeInstGroup(csv);
-                    vc.acClass.createAvApGroup();
-                    vc.acAttr.createAvApGroup();
-
-                    vc.acAttr.addDoubleClickBehaviour(sa.delay);
-                    vc.acClass.rotate(-TWO_PI/headersAttr.length, "z", false);
-
-                    vc.updateInst(sa.delay);
-
-                    csv = csv.map(function (d) {
-                        d.mouseOver = "false";
-                        return d;
-                    });
-
-                    setupTooltip(headersAttr, headersClass, csv);
-
-                    addSvgLegend(classNames, svgContainer);
-                    setupDragBehaviour(vc.acAttr, vc.acClass);
-
-                    sliderConfigured = configSlider(sliderConfigured);
-
-                    handleKeys();
+                    useFile(csv);
                 });
             }
         </script>

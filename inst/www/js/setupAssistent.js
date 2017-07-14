@@ -3,10 +3,12 @@
 function SetupAssistent(){
     //this.defaultFile = "db/ecoli.csv";
     //this.defaultFile = "db/iris.csv";
+    this.data;
+
     this.defaultFile = "db/iris naive bayes.csv"
 
     this.dataPointOpacity = 0.8;
-    this.dataPointRadius = 1.5;
+    this.dataPointRadius = 2.5;
 
     this.svgWidth = 820;
     this.svgHeight = 620;
@@ -53,6 +55,7 @@ function SetupAssistent(){
         acAttr.normalizedContribution = 1;
         acAttr.color = this.vizAttrColor;
         acAttr.r = this.innerRadvizRadius;
+        vc.acAttr = acAttr;
         return acAttr;
     }
 
@@ -64,6 +67,7 @@ function SetupAssistent(){
         acClass.normalizedContribution = 0;
         acClass.color = this.vizClassColor;
         acClass.r = this.radvizClassRadius;
+        vc.acClass = acClass;
         return acClass;
     }
 

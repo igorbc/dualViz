@@ -17,7 +17,10 @@ setupTooltip = function(headers, headersClass, csv) {
     vc.instGroup.selectAll("circle").on("mouseover", function (d) {
 
         d.mouseOver = 1;
+        
         tooltip.html(getInstanceStr(d, headers, headersClass));
+
+
 
         var x = parseInt(d3.select(this).attr("cx"));
         var y = parseInt(d3.select(this).attr("cy"));
@@ -58,7 +61,8 @@ setupTooltip = function(headers, headersClass, csv) {
 getInstanceStr = function (d, headers, headersClass) {
     var str = "";
     for (var i = 0; i < headers.length; i++) {
-        str = str + "<p>" + headers[i] + ": " + d[headers[i]] + "</p>"
+        str = str + "<p>" + headers[i] + ": " + d[headers[i]] +
+                " (" + Math.round(vc.acAttr.avap[i].scale(d[headers[i]]) * 100) / 100 + ")</p>"
     }
     for (var i = 0; i < headersClass.length; i++) {
         str = str + "<p>" + headersClass[i] + ": " + Math.round(d[headersClass[i]] * 100) / 100 + "</p>"

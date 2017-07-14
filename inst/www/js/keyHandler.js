@@ -6,6 +6,28 @@ handleKeys = function(){
             d3.event.preventDefault();
 
             switch(d3.event.code){
+                case "KeyT":
+                    //console.log(allData);
+                    var req = ocpu.rpc("mlRpart",
+                       {
+                           ds : allData
+                       }, function(output)
+                       {
+                           console.log(output);
+                           sa.destroyCurrent();
+                           vc.createAcApContainers();
+                           vc.colorScheme = sa.getClassColorScheme();
+                           useFile(output);
+                       });
+
+                       //if R returns an error, alert the error message
+                       req.fail(function()
+                       {
+                           alert("Server error: " + req.responseText);
+                       });
+
+                    break;
+
                 case "KeyP":
                     vc.toggleRvSc(sa.delay);
                     break;
