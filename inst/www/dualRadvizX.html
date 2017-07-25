@@ -1,46 +1,12 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Dual Radviz</title>
 
-    </head>
+<!-- inclusion of styles -->
+        <link rel="stylesheet" href="stylesheets/d3.parcoords.css" />
+        <link rel="stylesheet" href="stylesheets/d3.slider.css" />
+        <link rel="stylesheet" href="stylesheets/styles.css" />
 
-<!-- function called to initialize the system -->
-    <body onload="startRadviz()">
-
-    <div class="inputContainer">
-        <label>Choose file to visualize</label>
-        <br/>
-        <input id="fileName" name="fileName" type="file" accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
-        onchange="handleFile(this.files)"/>
-
-    </div>
-        <div style="margin:auto;">
-            <div style="float:left; ">
-
-                <div id="classContribSlider" style="margin:auto;">
-                    <br/>
-
-<!--  initial text above contribution slider -->
-                    <h4 style="margin: 0 auto;"> <span id="contribution">Class: 0% / Attributes: 100%</span></h4>
-
-                </div>
-
-                <br/>
-                <br/>
-                <div id="chart"></div>
-                <div id="attrCircles"></div>
-                <div id="instanceCircles"></div>
-            </div>
-            <div id="sliderContainer" style="float:left; ">
-
-                <br/>
-                <div id="parc" class="parcoords" style="width:650px;height:350px; "></div >
-            </div>
-        </div>
-
-<!--  inclusion of scripts -->
+        <!--  inclusion of scripts -->
         <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
         <script type="text/javascript" src="js/d3.slider.js"></script>
         <script type="text/javascript" src="js/d3extension.js"></script>
@@ -63,10 +29,49 @@
         <script src="opencpu/jquery-3.2.1.min.js"></script>
         <script src="opencpu/opencpu-0.5.js"></script>
 
-<!-- inclusion of styles -->
-        <link rel="stylesheet" href="stylesheets/d3.parcoords.css" />
-        <link rel="stylesheet" href="stylesheets/d3.slider.css" />
-        <link rel="stylesheet" href="stylesheets/styles.css" />
+    <head>
+        <meta charset="utf-8">
+        <title>Dual Radviz</title>
+
+    </head>
+
+<!-- function called to initialize the system -->
+    <body id="main" onload="startRadviz()">
+        <div id="mySidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Clients</a>
+          <a href="#">Contact</a>
+        </div>
+        <nav><ul>
+            <li><a href="javascript:openNav()">File</a></li>
+            <li><a href="#">Train</a></li>
+            <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+        <div class="body">
+            <div class=mainHeader>
+                <div class="inputContainer">
+                    <label>Choose file to visualize</label>
+                    <br/>
+                    <input id="fileName" name="fileName" type="file"
+                        accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
+                        onchange="handleFile(this.files)"
+                    />
+                </div>
+
+                <div id="classContribSlider">
+                    <!--  initial text above contribution slider -->
+                    <h4><span id="contribution">Class: 0% / Attributes: 100%</span></h4>
+                    <div id="sliderContainer"></div>
+                </div>
+
+            </div>
+
+            <div id="chart"></div>
+            <div id="parc" class="parcoords"></div>
+        </div>
 
         <script>
             var sa = new SetupAssistent();
@@ -101,6 +106,18 @@
                 d3.csv(fileName, function (csv) {
                     useFile(csv);
                 });
+            }
+
+            /* Set the width of the side navigation to 250px */
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "250px";
+                document.getElementById("main").style.marginRight = "250px";
+            }
+
+            /* Set the width of the side navigation to 0 */
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+                document.getElementById("main").style.marginRight = "0";
             }
         </script>
     </body>

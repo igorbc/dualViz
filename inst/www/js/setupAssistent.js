@@ -109,7 +109,9 @@ function SetupAssistent(){
         return [headerAttr, headerClass];
     }
 
-    this.getClassNames = function(headerClass){
+    this.getClassNames = function(data){
+        return d3.map(data, function(d){return d.class;}).keys();
+        /*
         var classNames = [];
 
         for (var i = 0; i < headerClass.length; i++) {
@@ -118,6 +120,7 @@ function SetupAssistent(){
             classNames.push(keyName);
         }
         return classNames;
+        */
     }
 
     this.setupBrush = function(csv, svgContainer, acAttr) {
@@ -160,11 +163,11 @@ function SetupAssistent(){
         color = this.getClassColorScheme();
 
         d3.selectAll("#parc").remove();
-        d3.selectAll("#sliderContainer").append("div")
+        d3.selectAll(".body").append("div")
                 .attr("id", "parc")
-                .attr("class", "parcoords")
-                .style("width","650px")
-                .style("height","350px");
+                .attr("class", "parcoords");
+                //.style("width","650px")
+                //.style("height","350px");
     }
 
     this.getClassColorScheme = function(){

@@ -18,7 +18,7 @@ function useFile(data){
     var headers = sa.getAttrAndClassHeaders(data);
     headersAttr = headers[0];
     headersClass = headers[1];
-    classNames = sa.getClassNames(headersClass);
+    classNames = sa.getClassNames(data);
 
     sa.setupBrush(data, svgContainer, vc.acAttr);
 

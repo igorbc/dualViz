@@ -1,7 +1,9 @@
 
 mlRpart <- function(ds){
-  #filename <- "file:///Applications/XAMPP/xamppfiles/htdocs/dualViz/inst/www/db/iris.csv"
-  #ds <- read.csv(filename, header = TRUE)
+  if(is.null(ds)){
+    filename <- "file:///Applications/XAMPP/xamppfiles/htdocs/dualViz/inst/www/db/winedata.csv"
+    ds <- read.csv(filename, header = TRUE)
+  }
 
   #dsg <- as.list(as.data.frame(t(ds)))
 
@@ -14,11 +16,17 @@ mlRpart <- function(ds){
   #return(ds)
 
   colnames(ds)[length(colnames(ds))] <- "class"
+  ds$class <- factor(ds$class)
+
   index <- createDataPartition(ds$class, p=0.80, list=FALSE)
+
   testset <- ds[-index,]
   trainset <- ds[index,]
 
+  #return(trainset)
   model.rpart <- train(class ~., method = "rpart", data=trainset)
+
+
   predictions <- predict(object = model.rpart$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="prob")
   predictions_class <- predict(object = model.rpart$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="class")
 

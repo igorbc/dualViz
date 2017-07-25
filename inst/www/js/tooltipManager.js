@@ -17,7 +17,7 @@ setupTooltip = function(headers, headersClass, csv) {
     vc.instGroup.selectAll("circle").on("mouseover", function (d) {
 
         d.mouseOver = 1;
-        
+
         tooltip.html(getInstanceStr(d, headers, headersClass));
 
 
@@ -30,8 +30,11 @@ setupTooltip = function(headers, headersClass, csv) {
 
         tooltip.style("display", "block");
         tooltip.transition().duration(150).style("opacity", .9)
-        d3.select(this).attr("stroke", "black");
-        d3.select(this).attr("stroke-width", 3);
+        d3.select(this).classed("selected", true);
+        //d3.select(this).attr("stroke", "black");
+        //d3.select(this).attr("stroke-width", 3);
+
+        console.log(d3.select(this));
 
         colorAll = false;
         pc.data(csv).alpha(1).render();
@@ -39,7 +42,8 @@ setupTooltip = function(headers, headersClass, csv) {
 
     vc.instGroup.selectAll("circle").on("mouseout", function (d) {
         d.mouseOver = 0;
-        d3.select(this).attr("stroke-width", 0);
+        //d3.select(this).attr("stroke-width", 0);
+        d3.select(this).classed("selected", false);
         tooltip.transition().duration(150).style("opacity", 0);
         tooltip.style("display", "none");
         colorAll = true;

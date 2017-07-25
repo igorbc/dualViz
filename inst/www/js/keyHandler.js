@@ -33,8 +33,11 @@ handleKeys = function(){
                     break;
 
                 case "KeyC":
-                    vc.acAttr.instGroup.selectAll(".selected").classed("selected", false);
-                    console.log("c");
+                    //console.log()
+                    var selection = vc.instGroup.selectAll(".selected");
+                    if(selection) selection.classed("selected", false);
+
+                    console.log(svgContainer.selectAll(".brush"));
                     break;
 
                 case "ArrowLeft":
