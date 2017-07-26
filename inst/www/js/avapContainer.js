@@ -53,6 +53,13 @@ function AvApContainer(){
         }
     }
 
+    this.toggleAvap = function(index){
+        console.log("indice passado: " + index);
+        this.avap[index].enabled = !this.avap[index].enabled;
+        vc.updateInst(sa.delay/2);
+        this.updateAvApPositionOnScreen(sa.delay/2);
+    }
+
     this.createPath = function(delay = 0) {
         /*
         var data = [];

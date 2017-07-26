@@ -152,8 +152,11 @@
                     //container.appendChild(document.createTextNode("Member " + avaps[i].key));
                     // Create an <input> element, set its type and name attributes
                     var a = document.createElement("a");
-                    a.href = "#";
+                    a.value = i;
+                    a.href = "javascript:vc.acAttr.toggleAvap("+i+")";
                     a.innerHTML = avaps[i].key;
+                    //a.onclick =
+
                     //input.name = "member" + i;
                     container.appendChild(a);
                     // Append a line break
