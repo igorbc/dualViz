@@ -68,6 +68,14 @@
 
           <a href="#">About</a>
         </div>
+
+        <div id="dataSidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav('dataSidenav')">&times;</a>
+          <a href="javascript:addFields()">Show dimensions</a>
+          <div id="dimensionSelector"></div>
+          <a href="#">About</a>
+        </div>
+
         <div id="trainSidenav" class="sidenav">
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav('trainSidenav')">&times;</a>
           <a href="javascript:train(allData)">Train data</a>
@@ -77,6 +85,7 @@
         <nav><ul>
             <li><a href="javascript:openNav('fileSidenav')">File</a></li>
             <li><a href="javascript:openNav('settingsSidenav')">Settings</a></li>
+            <li><a href="javascript:openNav('dataSidenav')">Data</a></li>
             <li><a href="javascript:openNav('trainSidenav')">Training</a></li>
             <li><a href="#">About</a></li>
             </ul>
@@ -130,6 +139,27 @@
                 });
             }
 
+            function addFields(){
+                // Container <div> where dynamic content will be placed
+                var container = document.getElementById("dimensionSelector");
+                // Clear previous contents of the container
+                while (container.hasChildNodes()) {
+                    container.removeChild(container.lastChild);
+                }
+                var avaps = vc.acAttr.avap;
+                for (i=0; i<avaps.length; i++){
+                    // Append a node with a random text
+                    //container.appendChild(document.createTextNode("Member " + avaps[i].key));
+                    // Create an <input> element, set its type and name attributes
+                    var a = document.createElement("a");
+                    a.href = "#";
+                    a.innerHTML = avaps[i].key;
+                    //input.name = "member" + i;
+                    container.appendChild(a);
+                    // Append a line break
+                    //container.appendChild(document.createElement("br"));
+                }
+            }
             /* Set the width of the side navigation to 250px */
             function openNav(id) {
                 if(curSidebar == id){

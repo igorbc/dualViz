@@ -43,7 +43,8 @@ function AvApContainer(){
         }
     }
 
-    this.getOpacity = function(){
+    this.getOpacity = function(isEnabled){
+        if(!isEnabled) return 0;
         if(this.vc.dynamicOpacity){
             return this.contribution;
         }
@@ -162,7 +163,7 @@ function AvApContainer(){
             .attr("opacity", 0)
             .transition()
             .duration(delay)
-            .attr("opacity", this.getOpacity())
+            .attr("opacity", function(d){return d.avapContainer.getOpacity(d.enabled)})
             ;
         this.avapLineGroup.moveToBack();
 
@@ -180,7 +181,7 @@ function AvApContainer(){
             .attr("stroke","black")
             .attr("stroke-width", 2)
             .attr("fill", function(d){ return d.color;})
-            .attr("opacity", this.getOpacity());
+            .attr("opacity", function(d){return d.avapContainer.getOpacity(d.enabled)});
 
         this.avapLabelGroup = svgContainer.append("g");
         this.avapLabelGroup.selectAll("text")
@@ -191,7 +192,7 @@ function AvApContainer(){
             .attr("y", function(d){ return d.labelPos[1];})
             .text(function(d){ return d.key;})
             .attr("fill", "black")
-            .attr("opacity", this.getOpacity())
+            .attr("opacity", function(d){return d.avapContainer.getOpacity(d.enabled)})
             .style("font-family", "verdana")
             .style("font-size", 12)
             .attr("text-anchor", "middle")
@@ -218,12 +219,12 @@ function AvApContainer(){
         text = this.avapLabelGroup.selectAll("text").transition().duration(delay);
 
         circles
-            .attr("opacity", this.getOpacity())
+            .attr("opacity", function(d){return d.avapContainer.getOpacity(d.enabled)})
             .attr("cx", function(d) {return d.pos[0];})
             .attr("cy", function(d) {return d.pos[1];});
 
         text
-            .attr("opacity", this.getOpacity())
+            .attr("opacity", function(d){return d.avapContainer.getOpacity(d.enabled)})
             .attr("x", function(d) {return d.labelPos[0];})
             .attr("y", function(d) {return d.labelPos[1];});
 
@@ -233,7 +234,7 @@ function AvApContainer(){
         else{
             lines = this.avapLineGroup.selectAll("line").transition().duration(delay);
             lines
-                .attr("opacity", this.getOpacity())
+                .attr("opacity", function(d){return d.avapContainer.getOpacity(d.enabled)})
                 .attr("x2", function(d){ return d.pos[0];})     // x position of the second end of the line
                 .attr("y2", function(d){ return d.pos[1];});
         }

@@ -91,12 +91,15 @@ function VizContainer(){
             for(var j = 0; j < contributions.length; j++){
                 var avap = avaps[j];
                 for(var i = 0; i < avap.length; i++) {
-                    var val = (avap[i].inverted)?
-                              1 - avap[i].scale(+d[avap[i].key]) :
-                                  avap[i].scale(+d[avap[i].key]);
+                    if(avap[i].enabled){
+                        var val = (avap[i].inverted)?
+                                  1 - avap[i].scale(+d[avap[i].key]) :
+                                      avap[i].scale(+d[avap[i].key]);
 
-                    sum = add3(sum, mul3(avap[i].normalizedPosFixedRadius, val * contributions[j]));
-                    denominatorSum += val * contributions[j];
+
+                        sum = add3(sum, mul3(avap[i].normalizedPosFixedRadius, val * contributions[j]));
+                        denominatorSum += val * contributions[j];
+                    }
                 }
             }
             if (denominatorSum == 0)
@@ -109,11 +112,13 @@ function VizContainer(){
             for(var j = 0; j < contributions.length; j++){
                 var avap = avaps[j];
                 for(var i = 0; i < avap.length; i++) {
-                    var val = (avap[i].inverted)?
-                              1 - avap[i].scale(+d[avap[i].key]) :
-                                  avap[i].scale(+d[avap[i].key]);
+                    if(avap[i].enabled){
+                        var val = (avap[i].inverted)?
+                                  1 - avap[i].scale(+d[avap[i].key]) :
+                                      avap[i].scale(+d[avap[i].key]);
 
-                    sum = add3(sum, mul3(avap[i].normalizedPos, val * contributions[j]));
+                        sum = add3(sum, mul3(avap[i].normalizedPos, val * contributions[j]));
+                    }
                 }
             }
             return add3(mul3(sum, vc.r), vc.center);
