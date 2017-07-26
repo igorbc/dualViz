@@ -22,6 +22,7 @@ function AvAp(){
     this.vy;
     this.avapContainer; // the AvApContainer which is parent of the AvAp.
     this.inverted = 0;
+    this.enabled = true;
 
     this.rotate = function(angle, axis = "z"){
         this.setNewPos(rotate3around(angle, this.pos, this.avapContainer.vc.center, axis));

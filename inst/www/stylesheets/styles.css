@@ -12,6 +12,7 @@ body {
 .body {
     margin: 0.5%;
     padding: 0;
+    margin-top: 35px;
 }
 
 a {
@@ -19,9 +20,14 @@ a {
 }
 
 nav {
+    overflow: hidden;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0;
     background-color: #666;
-    height: 40px;
-    margin: 0 auto;
+    height: 30px;
+    width: 100%;
+    z-index: 1;
+    //margin: 0 auto;
 }
 
 nav ul {
@@ -37,7 +43,7 @@ nav ul li {
 nav a:link, nav a:visited {
     color: #fff;
     display: inline-block;
-    padding: 10px 25px;
+    padding: 5px 25px;
     height: 20px;
 }
 
@@ -47,10 +53,23 @@ nav .active a:link, nav .active a:visited {
     background-color: #888;
 }
 
-#sliderContainer {
-    position:relative;
+.inputFile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#classContribSlider{
+    z-index:0;
     width:300px;
-    z-index:15;
+    margin: auto;
+}
+
+#classContribSlider h4{
+    text-align: center;
 }
 
 #chart {
@@ -73,6 +92,10 @@ nav .active a:link, nav .active a:visited {
     margin-top: 8px;
 }
 
+.paracoords {
+    width: 100%;
+}
+
 #circle {
     pos = [];
 }
@@ -92,7 +115,7 @@ nav .active a:link, nav .active a:visited {
     text-align: left;
     top: 95px;
     width: 200px;
-    z-index: 10;
+    z-index: 3;
 }
 
 .mainHeader {
@@ -106,26 +129,6 @@ nav .active a:link, nav .active a:visited {
     //border: 2px solid #000;
 
 }
-
-.inputContainer {
-    //height: 10px;
-    width: 30%;
-    float: left;
-    margin: 0 auto;
-}
-
-#classContribSlider {
-    //height: 10px;
-    width: 300px;
-    float: left;
-    /*left: -.25em;*/
-
-    margin: 0 auto;
-}
-#classContribSlider h4{
-    text-align: center;
-}
-
 
 .brush .extent {
     stroke: #000;
@@ -166,13 +169,16 @@ circle.selected {
     stroke-width: 2;
 }
 
+.checkb {
+    outline: 1px solid #1e5180;
+}
 
 /* The side navigation menu */
 .sidenav {
     height: 100%; /* 100% Full-height */
     width: 0; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
+    z-index: 2; /* Stay on top */
     top: 0;
     right: 0;
     background-color: #111; /* Black*/
@@ -185,10 +191,11 @@ circle.selected {
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 25px;
-    color: #818181;
+    font-size: 14px;
+    color: #a1a1a1;
     display: block;
-    transition: 0.3s
+    transition: 0.3s;
+    white-space: nowrap;
 }
 
 /* When you mouse over the navigation links, change their color */
@@ -205,7 +212,8 @@ circle.selected {
     margin-left: 50px;
 }
 
-/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+/* Style page content - use this if you want to push the page content
+to the right when you open the side navigation */
 #main {
     transition: margin-right .5s;
     padding: 20px;
@@ -213,7 +221,8 @@ circle.selected {
     padding: 0;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+/* On smaller screens, where height is less than 450px,
+change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}

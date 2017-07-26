@@ -2,14 +2,22 @@
  * Created by igorcorrea on 03/12/2015.
  */
 
-function handleFile(files) {
-    if(files != undefined){
+function handleFile(files, isClassified) {
+    if(typeof files === "undefined"){
+        return false;
+    }
+    else {
+        isFileClassified = isClassified;
+        if (isClassified)
+            console.log("IS classified");
+        else
+            console.log("is NOT classified");
+
         console.log(files[0]);
         var fileUrl;
         fileUrl = window.URL.createObjectURL(files[0]);
         sa.destroyCurrent();
         startRadviz(fileUrl);
-
     }
 }
 

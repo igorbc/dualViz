@@ -8,23 +8,7 @@ handleKeys = function(){
             switch(d3.event.code){
                 case "KeyT":
                     //console.log(allData);
-                    var req = ocpu.rpc("mlRpart",
-                       {
-                           ds : allData
-                       }, function(output)
-                       {
-                           console.log(output);
-                           sa.destroyCurrent();
-                           vc.createAcApContainers();
-                           vc.colorScheme = sa.getClassColorScheme();
-                           useFile(output);
-                       });
-
-                       //if R returns an error, alert the error message
-                       req.fail(function()
-                       {
-                           alert("Server error: " + req.responseText);
-                       });
+                    train(allData);
 
                     break;
 
@@ -42,11 +26,7 @@ handleKeys = function(){
 
                 case "ArrowLeft":
                     if(sa.shiftPressed){
-                        vc.acClass.r -= 50;
-                        vc.acClass.updatePath(sa.delay);
-                        vc.acClass.alignAvApsWithRadviz();
-                        vc.acClass.updateAvApPositionOnScreen(sa.delay);
-                        vc.updateInst(sa.delay);
+                        changeAcClassRadius(-50);
                     }
                     else {
                         rotateBasedOnKey(vc, "y");
@@ -56,11 +36,7 @@ handleKeys = function(){
 
                 case "ArrowRight":
                     if(sa.shiftPressed){
-                        vc.acClass.r += 50;
-                        vc.acClass.updatePath(sa.delay);
-                        vc.acClass.alignAvApsWithRadviz();
-                        vc.acClass.updateAvApPositionOnScreen(sa.delay);
-                        vc.updateInst(sa.delay);
+                        changeAcClassRadius(50);
                     }
                     else {
                         rotateBasedOnKey(vc, "y", -1);
@@ -68,29 +44,20 @@ handleKeys = function(){
                     break;
                 case "ArrowUp":
                     if(sa.shiftPressed){
-                        vc.dataPointRadius += .5;
-                        vc.updateInst(sa.delay);
+                        increasePointSize();
                     }
-                    else
+                    else {
                         rotateBasedOnKey(vc, "x");
-                    /*
-                    else{
-                        vc.acAttr.r+=2;
-                        vc.acAttr.updatePath();
-                        vc.acAttr.alignAvApsWithRadviz();
-                        vc.acAttr.updateAvApPositionOnScreen();
-                        vc.updateInst();
                     }
-                    */
                     break;
 
                 case "ArrowDown":
                     if(sa.shiftPressed){
-                        vc.dataPointRadius -= .5;
-                        vc.updateInst(sa.delay);
+                        decreasePointSize();
                     }
-                    else
+                    else {
                         rotateBasedOnKey(vc, "x", -1);
+                    }
                     break;
 
                 /*

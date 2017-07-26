@@ -17,6 +17,8 @@ function VizContainer(){
     this.colorScheme;
     this.confusionClass = 0;
 
+    this.dynamicOpacity = true;
+
     this.createAcApContainers = function(){
         this.acAttr = new AvApContainer();
         this.acClass = new AvApContainer();

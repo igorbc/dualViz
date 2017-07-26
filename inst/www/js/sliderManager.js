@@ -16,7 +16,8 @@ onSlideFunction = function(evt, value) {
     vc.acClass.normalizedContribution = cContr;
 
     d3.select("#contribution")
-            .text("Class: " + Math.round(cContr * 100) + "% / Attributes: " + Math.round(aContr * 100) + "%");
+            .text("Class: " + Math.round(cContr * 100) + "% / Attributes: "
+                + Math.round(aContr * 100) + "%");
 
     vc.acAttr.updateAvApPositionOnScreen();
     vc.acClass.updateAvApPositionOnScreen();

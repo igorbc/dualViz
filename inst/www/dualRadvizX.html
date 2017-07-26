@@ -26,6 +26,9 @@
         <script type="text/javascript" src="js/loadFile.js"></script>
         <script type="text/javascript" src="js/vec.js"></script>
 
+        <script type="text/javascript" src="js/train.js"></script>
+        <script type="text/javascript" src="js/settings.js"></script>
+
         <script src="opencpu/jquery-3.2.1.min.js"></script>
         <script src="opencpu/opencpu-0.5.js"></script>
 
@@ -37,36 +40,52 @@
 
 <!-- function called to initialize the system -->
     <body id="main" onload="startRadviz()">
-        <div id="mySidenav" class="sidenav">
-          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+        <div id="fileSidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav('fileSidenav')">&times;</a>
+          <input id="openFile" name="openFile" type="file" class="inputFile"
+              accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
+              onchange="handleFile(this.files, false)"/>
+          <a href="" onclick="document.getElementById('openFile').click(); return false">Open file</a>
+          <input id="openClassifiedFile" name="openClassifiedFile" type="file" class="inputFile"
+              accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
+              onchange="handleFile(this.files, true)"/>
+          <a href="" onclick="document.getElementById('openClassifiedFile').click(); return false">Open classified file</a>
           <a href="#">About</a>
-          <a href="#">Services</a>
-          <a href="#">Clients</a>
-          <a href="#">Contact</a>
         </div>
+        <div id="settingsSidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav('settingsSidenav')">&times;</a>
+          <a href="#">
+                <input type="checkbox" class="checkb" id="separateRadvz" onclick="toggleAcClassRadius(this.checked)"/>
+                  Separate RadViz circles
+          </a>
+          <a href="#">
+                <input type="checkbox" class="checkb" id="dynamicRvOpacity" checked onclick="toggleDynamicOpacity(this.checked)"/>
+                  Dynamic Radviz opacity
+          </a>
+          <a href="javascript:increasePointSize()">Increase point size</a>
+          <a href="javascript:decreasePointSize()">Decrease point size</a>
+
+          <a href="#">About</a>
+        </div>
+        <div id="trainSidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav('trainSidenav')">&times;</a>
+          <a href="javascript:train(allData)">Train data</a>
+          <a href="#">About</a>
+        </div>
+
         <nav><ul>
-            <li><a href="javascript:openNav()">File</a></li>
-            <li><a href="#">Train</a></li>
+            <li><a href="javascript:openNav('fileSidenav')">File</a></li>
+            <li><a href="javascript:openNav('settingsSidenav')">Settings</a></li>
+            <li><a href="javascript:openNav('trainSidenav')">Training</a></li>
             <li><a href="#">About</a></li>
             </ul>
         </nav>
         <div class="body">
             <div class=mainHeader>
-                <div class="inputContainer">
-                    <label>Choose file to visualize</label>
-                    <br/>
-                    <input id="fileName" name="fileName" type="file"
-                        accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
-                        onchange="handleFile(this.files)"
-                    />
-                </div>
-
                 <div id="classContribSlider">
-                    <!--  initial text above contribution slider -->
                     <h4><span id="contribution">Class: 0% / Attributes: 100%</span></h4>
-                    <div id="sliderContainer"></div>
                 </div>
-
             </div>
 
             <div id="chart"></div>
@@ -80,6 +99,9 @@
             var headersAttr = [];
 
             var classIndex;
+
+            var curSidebar = 0;
+            var isFileClassified = true;
 
             var headersClass = [];
             var classNames = [];
@@ -109,14 +131,24 @@
             }
 
             /* Set the width of the side navigation to 250px */
-            function openNav() {
-                document.getElementById("mySidenav").style.width = "250px";
-                document.getElementById("main").style.marginRight = "250px";
+            function openNav(id) {
+                if(curSidebar == id){
+                    closeNav(id);
+                }
+                else {
+                    if(curSidebar)
+                        document.getElementById(curSidebar).style.width = "0";
+
+                    curSidebar = id;
+                    document.getElementById(id).style.width = "250px";
+                    document.getElementById("main").style.marginRight = "250px";
+                }
             }
 
             /* Set the width of the side navigation to 0 */
-            function closeNav() {
-                document.getElementById("mySidenav").style.width = "0";
+            function closeNav(id) {
+                curSidebar = 0;
+                document.getElementById(id).style.width = "0";
                 document.getElementById("main").style.marginRight = "0";
             }
         </script>

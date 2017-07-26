@@ -31,7 +31,7 @@ function SetupAssistent(){
 
     this.shitfPressed = false;
     this.rotAngle = 5;
-    this.delay = 600;
+    this.delay = 500;
 
     this.setBasicVizContainerInfo = function(vc){
         vc.center = [this.svgWidth/2, this.svgHeight/2, 0];

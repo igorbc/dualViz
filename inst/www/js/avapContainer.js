@@ -33,6 +33,25 @@ function AvApContainer(){
     this.dragging = false;
     this.arc = 0;
     this.vc; // the VizContainer which is parent of the AvApContainer.
+
+    this.getPathOpacity = function(){
+        if(this.vc.dynamicOpacity){
+            return this.normalizedContribution;
+        }
+        else {
+            return 1;
+        }
+    }
+
+    this.getOpacity = function(){
+        if(this.vc.dynamicOpacity){
+            return this.contribution;
+        }
+        else {
+            return 1;
+        }
+    }
+
     this.createPath = function(delay = 0) {
         /*
         var data = [];
@@ -66,7 +85,7 @@ function AvApContainer(){
             this.path
                 .transition()
                 .duration(delay)
-                .attr("opacity", this.normalizedContribution)
+                .attr("opacity", this.getPathOpacity())
                 ;
             this.path.moveToBack();
 
@@ -87,7 +106,7 @@ function AvApContainer(){
         .transition()
         .duration(delay)
         .attr("d", this.arcFunction())
-        .attr("opacity", this.normalizedContribution);
+        .attr("opacity", this.getPathOpacity());
         //*/
     }
 
@@ -143,7 +162,7 @@ function AvApContainer(){
             .attr("opacity", 0)
             .transition()
             .duration(delay)
-            .attr("opacity", this.contribution)
+            .attr("opacity", this.getOpacity())
             ;
         this.avapLineGroup.moveToBack();
 
@@ -161,7 +180,7 @@ function AvApContainer(){
             .attr("stroke","black")
             .attr("stroke-width", 2)
             .attr("fill", function(d){ return d.color;})
-            .attr("opacity", this.contribution);
+            .attr("opacity", this.getOpacity());
 
         this.avapLabelGroup = svgContainer.append("g");
         this.avapLabelGroup.selectAll("text")
@@ -172,7 +191,7 @@ function AvApContainer(){
             .attr("y", function(d){ return d.labelPos[1];})
             .text(function(d){ return d.key;})
             .attr("fill", "black")
-            .attr("opacity", this.contribution)
+            .attr("opacity", this.getOpacity())
             .style("font-family", "verdana")
             .style("font-size", 12)
             .attr("text-anchor", "middle")
@@ -199,12 +218,12 @@ function AvApContainer(){
         text = this.avapLabelGroup.selectAll("text").transition().duration(delay);
 
         circles
-            .attr("opacity", this.contribution)
+            .attr("opacity", this.getOpacity())
             .attr("cx", function(d) {return d.pos[0];})
             .attr("cy", function(d) {return d.pos[1];});
 
         text
-            .attr("opacity", this.contribution)
+            .attr("opacity", this.getOpacity())
             .attr("x", function(d) {return d.labelPos[0];})
             .attr("y", function(d) {return d.labelPos[1];});
 
@@ -214,7 +233,7 @@ function AvApContainer(){
         else{
             lines = this.avapLineGroup.selectAll("line").transition().duration(delay);
             lines
-                .attr("opacity", this.contribution)
+                .attr("opacity", this.getOpacity())
                 .attr("x2", function(d){ return d.pos[0];})     // x position of the second end of the line
                 .attr("y2", function(d){ return d.pos[1];});
         }
