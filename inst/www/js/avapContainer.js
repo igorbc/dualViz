@@ -55,6 +55,7 @@ function AvApContainer(){
 
     this.toggleAvap = function(index){
         console.log("indice passado: " + index);
+        document.getElementById(this.avap[index].key).classList.toggle("enabled");
         this.avap[index].enabled = !this.avap[index].enabled;
         vc.updateInst(sa.delay/2);
         this.updateAvApPositionOnScreen(sa.delay/2);
@@ -114,7 +115,8 @@ function AvApContainer(){
         .transition()
         .duration(delay)
         .attr("d", this.arcFunction())
-        .attr("opacity", this.getPathOpacity());
+        .attr("opacity", this.getPathOpacity())
+        .attr("transform", "translate(" + this.vc.center[0] + ", " + this.vc.center[1] + ")");
         //*/
     }
 
@@ -242,6 +244,8 @@ function AvApContainer(){
             lines = this.avapLineGroup.selectAll("line").transition().duration(delay);
             lines
                 .attr("opacity", function(d){return d.avapContainer.getOpacity(d.enabled)})
+                .attr("x1", this.vc.center[0])     // x position of the first end of the line
+                .attr("y1", this.vc.center[1])      // y position of the first end of the line
                 .attr("x2", function(d){ return d.pos[0];})     // x position of the second end of the line
                 .attr("y2", function(d){ return d.pos[1];});
         }

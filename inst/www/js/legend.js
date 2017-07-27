@@ -15,7 +15,7 @@ addSvgLegend = function(classNames, svgContainer) {
         .style("fill", function(d){return vc.colorScheme(d)})
         .on("click", function(d){
             //console.log("click");
-            console.log(d3.select("#id" + d));
+            //console.log(d3.select("#id" + d));
             if(vc.confusionClass == 0){
                 vc.confusionClass = d;
                 d3.select("#id" + d).attr("selected", true);

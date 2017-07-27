@@ -64,4 +64,5 @@ function useFile(data){
     sliderConfigured = configSlider(sliderConfigured);
 
     handleKeys();
+    addDimensionFields();
 }

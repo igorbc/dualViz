@@ -6,6 +6,35 @@ handleKeys = function(){
             d3.event.preventDefault();
 
             switch(d3.event.code){
+                case "Minus":
+                    vc.addToRadius(-sa.zoomPx);
+                    vc.drawEverything(sa.delay/2);
+                    break;
+                case "Equal":
+                    vc.addToRadius(sa.zoomPx);
+                    vc.drawEverything(sa.delay/2);
+                    break;
+
+                case "KeyW":
+                    vc.addToCenter([0,-sa.translatePx,0]);
+                    vc.drawEverything(sa.delay/2);
+                    break;
+
+                case "KeyS":
+                    vc.addToCenter([0,sa.translatePx,0]);
+                    vc.drawEverything(sa.delay/2);
+                    break;
+
+                case "KeyD":
+                    vc.addToCenter([sa.translatePx,0,0]);
+                    vc.drawEverything(sa.delay/2);
+                    break;
+
+                case "KeyA":
+                    vc.addToCenter([-sa.translatePx,0,0]);
+                    vc.drawEverything(sa.delay/2);
+                    break;
+
                 case "KeyT":
                     //console.log(allData);
                     train(allData);
@@ -26,7 +55,7 @@ handleKeys = function(){
 
                 case "ArrowLeft":
                     if(sa.shiftPressed){
-                        changeAcClassRadius(-50);
+                        //changeAcClassRadius(-50);
                     }
                     else {
                         rotateBasedOnKey(vc, "y");
@@ -36,7 +65,7 @@ handleKeys = function(){
 
                 case "ArrowRight":
                     if(sa.shiftPressed){
-                        changeAcClassRadius(50);
+                        //changeAcClassRadius(50);
                     }
                     else {
                         rotateBasedOnKey(vc, "y", -1);
@@ -73,6 +102,7 @@ handleKeys = function(){
         })
         .on("keyup", function () {
             sa.shiftPressed = d3.event.shiftKey;
+
         });
 }
 

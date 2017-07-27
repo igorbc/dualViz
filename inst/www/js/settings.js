@@ -40,3 +40,13 @@ decreasePointSize = function(){
         vc.updateInst(sa.delay/2);
     }
 }
+
+increasePointOpacity = function(){
+    vc.dataPointOpacity = Math.min(vc.dataPointOpacity + .1, 1);
+    vc.updateInst();
+}
+
+decreasePointOpacity = function(){
+    vc.dataPointOpacity = Math.max(vc.dataPointOpacity - .1, .1);
+    vc.updateInst();
+}

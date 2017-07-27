@@ -144,12 +144,23 @@ nav .active a:link, nav .active a:visited {
     rx: 5px;
     ry: 5px;
     stroke-width: 0;
+    stroke: #333;
 
-    stroke: rgb(6,6,6);
+}
+
+.legendRect:hover,
+.legendRect[selected=false]:hover{
+    stroke-width: 2;
+    fill-opacity: .6;
+}
+
+.legendRect[selected=true]:hover{
+    fill-opacity: .6;
 }
 
 .legendRect[selected=true] {
-    stroke-width: 3;
+    stroke-width: 4;
+    fill-opacity: 1;
 }
 
 .legendRect[selected=false] {
@@ -201,6 +212,12 @@ circle.selected {
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .offcanvas a:focus{
     color: #f1f1f1;
+    background-color: #333;
+
+}
+
+.sidenav a.enabled{
+    color: #98dafc;
 }
 
 /* Position and style the close button (top right corner) */

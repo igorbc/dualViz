@@ -193,4 +193,34 @@ function VizContainer(){
                 }
         }
     }
+
+    this.addToCenter = function(val){
+        vc.center = add3(vc.center, val);
+        vc.acAttr.avap.forEach(function(avap){
+            avap.updatePosNewCenter();
+        });
+        vc.acClass.avap.forEach(function(avap){
+            avap.updatePosNewCenter();
+        });
+    }
+
+    this.addToRadius = function(val){
+        if((vc.r + val) > sa.zoomPx){
+            vc.r += val;
+            vc.acAttr.r += val;
+            vc.acClass.r += val;
+            vc.acAttr.avap.forEach(function(avap){
+                avap.updatePosNewRadius();
+            });
+            vc.acClass.avap.forEach(function(avap){
+                avap.updatePosNewRadius();
+            });
+        }
+    }
+
+    this.drawEverything = function(delay = 0){
+        this.updateInst(delay);
+        this.acAttr.updateAvApPositionOnScreen(delay);
+        this.acClass.updateAvApPositionOnScreen(delay);
+    }
 }

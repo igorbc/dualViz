@@ -53,26 +53,27 @@
           <a href="" onclick="document.getElementById('openClassifiedFile').click(); return false">Open classified file</a>
           <a href="#">About</a>
         </div>
+
         <div id="settingsSidenav" class="sidenav">
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav('settingsSidenav')">&times;</a>
           <a href="#">
                 <input type="checkbox" class="checkb" id="separateRadvz" onclick="toggleAcClassRadius(this.checked)"/>
-                  Separate RadViz circles
-          </a>
+                  Separate RadViz circles</a>
           <a href="#">
                 <input type="checkbox" class="checkb" id="dynamicRvOpacity" checked onclick="toggleDynamicOpacity(this.checked)"/>
-                  Dynamic Radviz opacity
-          </a>
-          <a href="javascript:increasePointSize()">Increase point size</a>
-          <a href="javascript:decreasePointSize()">Decrease point size</a>
+                  Dynamic Radviz opacity</a>
 
+          <a href="javascript:increasePointSize()">Point size &uarr;</a>
+          <a href="javascript:decreasePointSize()">Point size &darr;</a>
+          <a href="javascript:increasePointOpacity()">Point opacity &uarr;</a>
+          <a href="javascript:decreasePointOpacity()">Point opacity &darr;</a>
           <a href="#">About</a>
         </div>
 
         <div id="dataSidenav" class="sidenav">
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav('dataSidenav')">&times;</a>
-          <a href="javascript:addFields()">Show dimensions</a>
           <div id="dimensionSelector"></div>
+
           <a href="#">About</a>
         </div>
 
@@ -139,7 +140,7 @@
                 });
             }
 
-            function addFields(){
+            function addDimensionFields(){
                 // Container <div> where dynamic content will be placed
                 var container = document.getElementById("dimensionSelector");
                 // Clear previous contents of the container
@@ -155,6 +156,9 @@
                     a.value = i;
                     a.href = "javascript:vc.acAttr.toggleAvap("+i+")";
                     a.innerHTML = avaps[i].key;
+                    if(avaps[i].enabled)
+                        a.classList.add("enabled");
+                    a.id = avaps[i].key;
                     //a.onclick =
 
                     //input.name = "member" + i;

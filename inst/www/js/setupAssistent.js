@@ -12,6 +12,8 @@ function SetupAssistent(){
 
     this.svgWidth = 820;
     this.svgHeight = 620;
+    this.zoomPx = 13;
+    this.translatePx = 13;
 
     // used for some experimental things regarding opacity and size
     // of circles representing instances.

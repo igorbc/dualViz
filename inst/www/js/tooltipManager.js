@@ -34,7 +34,7 @@ setupTooltip = function(headers, headersClass, csv) {
         //d3.select(this).attr("stroke", "black");
         //d3.select(this).attr("stroke-width", 3);
 
-        console.log(d3.select(this));
+        //console.log(d3.select(this));
 
         colorAll = false;
         pc.data(csv).alpha(1).render();
