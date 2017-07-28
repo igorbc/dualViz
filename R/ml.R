@@ -1,19 +1,14 @@
 
-mlRpart <- function(ds){
+mlRpart <- function(ds, modelPath){
+
   if(is.null(ds)){
     filename <- "file:///Applications/XAMPP/xamppfiles/htdocs/dualViz/inst/www/db/winedata.csv"
     ds <- read.csv(filename, header = TRUE)
   }
-
-  #dsg <- as.list(as.data.frame(t(ds)))
-
-  #return(dsg)
   ds <- ds[,!grepl( "confidence|prediction|mouseOver" , names(ds))]
   ind <- !grepl( "class" , names(ds))
   ds[,ind] <- sapply(ds[,ind], as.numeric)
   library(caret)
-
-  #return(ds)
 
   colnames(ds)[length(colnames(ds))] <- "class"
   ds$class <- factor(ds$class)
@@ -23,10 +18,21 @@ mlRpart <- function(ds){
   testset <- ds[-index,]
   trainset <- ds[index,]
 
-  #return(trainset)
-  model.rpart <- train(class ~., method = "rpart", data=trainset)
+  print(modelPath)
 
-
+  #if(modelPath == "noPath"){
+    print("Training model")
+    model.rpart <- train(class ~., method = "rpart", data=trainset)
+  #} else {
+    #print("Loading model")
+    #f<- "test"
+    #f <- file(modelPath)
+    #print(f)
+    #print(isOpen(f))
+    #close(f)
+    #return("sucesso?")
+    #model.rpart <- load(f)
+  #}
   predictions <- predict(object = model.rpart$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="prob")
   predictions_class <- predict(object = model.rpart$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="class")
 
@@ -40,5 +46,9 @@ mlRpart <- function(ds){
   result <- result[order(nchar(result$Row.names), result$Row.names), ]
   result[, "prediction(class)"] <- predictions_class
   result[, "Row.names"] <- NULL
+
+  #save(model.rpart, file = "myModel.rds")
+
+
   return(result)
 }
