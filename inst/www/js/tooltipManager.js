@@ -2,6 +2,34 @@
  * Created by igorcorrea on 03/12/2015.
  */
 
+var mouseDown = false;
+
+function mouseMove(ev, el) {
+    var x = ev.offsetX;
+    var y = ev.offsetY;
+    if(mouseDown){
+        if(vc.isRadviz){
+            var arcZ = ev.movementY + -ev.movementX;
+
+            vc.acClass.rotate(deg2rad(arcZ), "z");
+            vc.acAttr.rotate(deg2rad(arcZ), "z");
+        }
+        else{
+            var arcX = -ev.movementY * 1.5
+            var arcY =  ev.movementX * 1.5;
+            vc.acClass.rotate(deg2rad(arcY), "y");
+            vc.acClass.rotate(deg2rad(arcX), "x");
+            vc.acAttr.rotate(deg2rad(arcY), "y");
+            vc.acAttr.rotate(deg2rad(arcX), "x");
+        }
+        vc.drawEverything();
+    }
+}
+
+function mouseDownUp(ev, el, val) {
+    mouseDown = val;
+}
+
 setupTooltip = function(headers, headersClass, csv) {
 
     var tooltip = d3.select("#chart")

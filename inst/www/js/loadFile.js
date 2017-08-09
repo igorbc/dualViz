@@ -2,6 +2,22 @@
  * Created by igorcorrea on 03/12/2015.
  */
 
+function handleModel(files, isClassified) {
+    if(typeof files === "undefined"){
+        return false;
+    }
+    else {
+        f = files[0];
+        console.log(files[0]);
+        var fileUrl;
+        fileUrl = window.URL.createObjectURL(files[0]);
+        console.log("the url: " + fileUrl);
+        pathToModel = fileUrl + "/m1.rds";
+        train(allData);
+    }
+}
+
+
 function handleFile(files, isClassified) {
     if(typeof files === "undefined"){
         return false;

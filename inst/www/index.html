@@ -7,6 +7,9 @@
         <link rel="stylesheet" href="stylesheets/styles.css" />
 
         <!--  inclusion of scripts -->
+        <script src="opencpu/jquery-3.2.1.min.js"></script>
+        <script src="opencpu/opencpu-0.5.js"></script>
+
         <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
         <script type="text/javascript" src="js/d3.slider.js"></script>
         <script type="text/javascript" src="js/d3extension.js"></script>
@@ -28,9 +31,6 @@
 
         <script type="text/javascript" src="js/train.js"></script>
         <script type="text/javascript" src="js/settings.js"></script>
-
-        <script src="opencpu/jquery-3.2.1.min.js"></script>
-        <script src="opencpu/opencpu-0.5.js"></script>
 
     <head>
         <meta charset="utf-8">
@@ -67,6 +67,7 @@
           <a href="javascript:decreasePointSize()">Point size &darr;</a>
           <a href="javascript:increasePointOpacity()">Point opacity &uarr;</a>
           <a href="javascript:decreasePointOpacity()">Point opacity &darr;</a>
+          <a href="javascript:vc.adjustStarCoord()">Adjust Star Coordinates</a>
           <a href="#">About</a>
         </div>
 
@@ -79,15 +80,28 @@
 
         <div id="trainSidenav" class="sidenav">
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav('trainSidenav')">&times;</a>
-          <a href="javascript:train(allData)">Train data</a>
+          <div class="styled-select slate"><select id="modelSelector" onchange="methodSelected.call(this, event)">
+              <option selected disabled>Choose method</option>
+          </select></div>
+
+          <a href="javascript:train(allData)" id="trainButton">Train model</a>
+          <a href="javascript:saveModel()" class="disabled" id="saveModel" download>Save model</a>
+          <input id="openModel" name="openModel" type="file" class="inputFile"
+              accept=".rds"
+              onchange="handleModel(this.files, false)"/>
+          <a href="" onclick="document.getElementById('openModel').click(); return false" class="disabled">Load trained model</a>
+          <!-- <a href="javascript:void(0)" onclick="checkTrainedModel()">Check trained model</a> -->
           <a href="#">About</a>
         </div>
 
         <nav><ul>
+            <li><div class="loader" id="loadingIcon" visible=false></div></li>
             <li><a href="javascript:openNav('fileSidenav')">File</a></li>
             <li><a href="javascript:openNav('settingsSidenav')">Settings</a></li>
             <li><a href="javascript:openNav('dataSidenav')">Data</a></li>
             <li><a href="javascript:openNav('trainSidenav')">Training</a></li>
+            <li><a href="javascript:vc.setViz(true)" class = "curViz" id="useRadViz">RadViz</a></li>
+            <li><a href="javascript:vc.setViz(false)" id="useStarCoord">Star Coordinates</a></li>
             <li><a href="#">About</a></li>
             </ul>
         </nav>
@@ -98,7 +112,12 @@
                 </div>
             </div>
 
-            <div id="chart"></div>
+            <div id="chart">
+                <div id="coordiv"
+                onmousedown="mouseDownUp(event, this, true)" onmouseup="mouseDownUp(event, this, false)"
+                onmouseout="mouseDownUp(event, this, false)"
+                onmousemove="mouseMove(event, this)" class="pressed"></div>
+            </div>
             <div id="parc" class="parcoords"></div>
         </div>
 
@@ -138,6 +157,8 @@
                 d3.csv(fileName, function (csv) {
                     useFile(csv);
                 });
+
+                getAllModelsInfo()
             }
 
             function addDimensionFields(){

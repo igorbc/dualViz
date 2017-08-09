@@ -32,6 +32,8 @@ function AvApContainer(){
     this.opacity;
     this.dragging = false;
     this.arc = 0;
+    this.n; // number of AvAps
+    this.nEnabled; // number of AvAps that are currently enabled
     this.vc; // the VizContainer which is parent of the AvApContainer.
 
     this.getPathOpacity = function(){
@@ -57,6 +59,12 @@ function AvApContainer(){
         console.log("indice passado: " + index);
         document.getElementById(this.avap[index].key).classList.toggle("enabled");
         this.avap[index].enabled = !this.avap[index].enabled;
+        if(this.avap[index].enabled){
+            this.nEnabled++;
+        }
+        else {
+            this.nEnabled--;
+        }
         vc.updateInst(sa.delay/2);
         this.updateAvApPositionOnScreen(sa.delay/2);
     }
@@ -123,6 +131,8 @@ function AvApContainer(){
     this.initializeAvApInfo = function(headers, data, colorKeys = 0, colorScheme = 0) {
         var normalizedPos = [];
         var avapCount = headers.length;
+        this.n = avapCount;
+        this.nEnabled = avapCount;
         for (var i = 0; i < avapCount; i++) {
             var thisAvAp = new AvAp();
             thisAvAp.arc = i/avapCount * TWO_PI;
@@ -197,6 +207,7 @@ function AvApContainer(){
             .data(this.avap)
             .enter()
             .append("text")
+            .attr("class", "noselect crosshair")
             .attr("x", function(d){ return d.labelPos[0];})
             .attr("y", function(d){ return d.labelPos[1];})
             .text(function(d){ return d.key;})

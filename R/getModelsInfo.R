@@ -1,6 +1,6 @@
 
 getModelsInfo <- function(){
-  return(test)
+
   library(caret)
   modelInfo <- getModelInfo()
 

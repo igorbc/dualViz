@@ -6,7 +6,7 @@
 // as it can be used in Star Coordinates and RadViz, respectively.
 function AvAp(){
     this.normalizedPos = []; // position relative to center. It will be between
-                             // 0 and 1 if the DA is at the initial distance
+                             // 0 and 1 if the AvAp is at the initial distance
                              // from the visualization's center
     this.normalizedPosFixedRadius = [];
     this.centeredPos = []; // position relative to center, in pixels
@@ -47,7 +47,6 @@ function AvAp(){
     }
 
     this.updatePosNewRadius = function(){
-        
         this.pos = add3(this.avapContainer.vc.center, mul3(this.normalizedPosFixedRadius, this.avapContainer.r));
         this.labelPos = [this.pos[0], this.pos[1]-15];
         this.centeredPos = sub3(this.pos, this.avapContainer.vc.center);

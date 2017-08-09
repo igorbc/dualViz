@@ -36,7 +36,7 @@ addSvgLegend = function(classNames, svgContainer) {
         .data(classNames)
         .enter()
         .append("text")
-        .attr("class", "legendText")
+        .attr("class", "noselect legendText crosshair")
         .attr("x", 30)
         .attr("y", function(d, i) {
             return 45 + 30*i

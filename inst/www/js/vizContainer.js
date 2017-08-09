@@ -125,9 +125,20 @@ function VizContainer(){
         }
     }
 
-    this.toggleRvSc = function(delay = 0){
+    this.setViz = function(setToRadviz){
+        if(( setToRadviz && !this.isRadviz) ||
+           (!setToRadviz &&  this.isRadviz))
+           this.toggleRvSc();
+    }
+
+    this.toggleRvSc = function(delay = 500){
         this.isRadviz = !this.isRadviz;
+        radVizLink = document.getElementById("useRadViz");
+        starCoordLink = document.getElementById("useStarCoord");
         if(this.isRadviz){
+            starCoordLink.classList.remove("curViz");
+            radVizLink.classList.add("curViz");
+
             vc.acAttr.avapLineGroup.selectAll("line")
                 .transition()
                 .duration(delay)
@@ -144,6 +155,9 @@ function VizContainer(){
             vc.acClass.alignAvApsWithRadviz();
         }
         else{
+            radVizLink.classList.remove("curViz");
+            starCoordLink.classList.add("curViz");
+
             vc.acAttr.path
                 .transition()
                 .duration(delay)
@@ -162,6 +176,7 @@ function VizContainer(){
         vc.acAttr.updateAvApPositionOnScreen(delay);
         vc.acClass.updateAvApPositionOnScreen(delay);
         vc.updateInst(delay);
+        return(this.isRadviz);
         //onD3TransitionsEnd(t1,t2,cb);
     }
 
@@ -172,6 +187,7 @@ function VizContainer(){
             .transition().duration(delay)
             .attr("fill", vc.colorFunction);
     }
+
     this.colorFunction = function(d){
         if(!vc.confusionClass){
             return vc.colorScheme(d["class"]);
@@ -192,6 +208,74 @@ function VizContainer(){
                     return "grey" // true negative
                 }
         }
+    }
+
+    this.adjustStarCoord = function(){
+        if(this.isRadviz) return false;
+
+        if(vc.acAttr.nEnabled == 2){
+            vc.setNewCenter([sa.svgWidth * .2, sa.svgHeight * .9, 0]);
+            var first = true;
+            vc.acAttr.avap.forEach(function(avap){
+                if(avap.enabled){
+                    if(first){
+                        avap.setNewPos(add3(mul3([0, -1, 0],(.8 * sa.svgHeight)),
+                                            vc.center));
+                        first = false;
+                    }
+                    else{
+                        avap.setNewPos(add3(mul3([1, 0, 0],(.7 * sa.svgWidth)),
+                                            vc.center));
+                    }
+                }
+            });
+
+            vc.drawEverything(sa.delay);
+        }
+        else if (vc.acAttr.nEnabled == 3) {
+            var n = 1;
+            for(var i = 0; i < vc.acAttr.avap.length; i++){
+
+                var avap = vc.acAttr.avap[i];
+                if(avap.enabled){
+                    switch(n){
+                        case 1:
+                            avap.setNewPos(add3(mul3([0, -1, 0],(.5 * sa.svgHeight)),
+                                            vc.center));
+                            console.log("first");
+                        break;
+
+                        case 2:
+                            avap.setNewPos(add3(mul3([1, 0, 0],(.5 * sa.svgHeight)),
+                                        vc.center));
+                            console.log("second");
+                        break;
+
+                        case 3:
+                            avap.setNewPos(add3(mul3([0, 0, -1],(.5 * sa.svgHeight)),
+                                    vc.center));
+                            console.log("third");
+                    }
+                    n++;
+                }
+            }
+
+            vc.acClass.rotate(deg2rad(45), "y", false);
+            vc.acClass.rotate(deg2rad(35), "x", false);
+            vc.acAttr.rotate(deg2rad(45), "y", false);
+            vc.acAttr.rotate(deg2rad(35), "x", false);
+            vc.drawEverything(sa.delay);
+        }
+    }
+
+    this.setNewCenter = function(pos){
+        vc.center = pos;
+        vc.acAttr.avap.forEach(function(avap){
+            avap.updatePosNewCenter();
+        });
+        vc.acClass.avap.forEach(function(avap){
+            avap.updatePosNewCenter();
+        });
     }
 
     this.addToCenter = function(val){

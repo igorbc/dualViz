@@ -1,29 +1,106 @@
 var mySession = [] ;
 var sCount = 0;
+var mFile;
+var pathToModel = "";
+var methodsInfo;
 
-getAllModelsInfo = function(){
+// global variable used to save the session object
+var previousSession = null;
 
-    var req = ocpu.call("getModelsInfo",
+var myReq;
+
+
+useOcpu = function(){
+    var path = "";
+    if(previousSession != null)
+        path = previousSession.getFileURL("m1.rds");
+
+    console.log("path is: " + path);
+    var req = ocpu.call("saveOrLoadModel",
        {
-
-       }, function(session)
-       {
+           modelPath : path
+       }, function(session) {
+           previousSession = session;
 
            session.getObject(function(data){
                console.log(data);
            });
 
-           /*
-           console.log(output[0]);
-           console.log(output[1]);
-           */
+       });
+
+       //if R returns an error, alert the error message
+       req.fail(function() {
+           alert("Server error: " + req.responseText);
+       });
+}
+
+useModel = function(){
+    console.log("useModel");
+    $("#useResult").text("useModel called");
+}
+
+getAllModelsInfo = function(){
+    document.getElementById("loadingIcon").setAttribute("visible", true);
+    var req = ocpu.call("getModelsInfo",
+       {
+
+       }, function(session)
+       {
+           session.getObject(function(data){
+               console.log(data);
+               var selector = document.getElementById("modelSelector");
+               var methods = data[0];
+               var attrInfo = data[1];
+               for (i=0; i<methods.length; i++){
+                   var o = document.createElement("option");
+                   o.value = methods[i].name;
+                   o.innerHTML = methods[i].label + " (" + methods[i].name + ")";
+                   selector.appendChild(o);
+               }
+           });
        });
 
        //if R returns an error, alert the error message
        req.fail(function()
        {
-           alert("Server error: " + req.responseText);
+           console.log("Server error: " + req.responseText);
+           //alert("Server error: " + req.responseText);
+
        });
+       req.always(function(){
+           document.getElementById("loadingIcon").setAttribute("visible", false);
+       });
+   return(null);
+}
+
+checkTrainedModel = function(){
+    if(sCount == 0){
+        alert("call Train Model first.");
+        pathToModel = "";
+    }
+    else{
+        pathToModel = mySession[sCount-1].getFileURL("myModel.rds");
+        console.log(pathToModel);
+        var req = ocpu.call("checkModel",
+           {
+               rdsUrl : pathToModel,
+           }, function(session)
+           {
+               mySession.push(session);
+               sCount++;
+           });
+
+           //if R returns an error, alert the error message
+           req.fail(function()
+           {
+               alert("Server error: " + req.responseText);
+           });
+           req.always(function()
+           {
+               console.log("request made");
+           });
+    }
+
 }
 
 train = function(allData){
@@ -34,32 +111,39 @@ train = function(allData){
         return false;
     }
     */
-    var pathToModel;
 
-    if(sCount == 0){
-        pathToModel = "noPath";
+    var selector = document.getElementById("modelSelector");
+    if(selector.selectedIndex == 0 && pathToModel == ""){
+        alert("Choose a method or load a model first.");
+        return false;
     }
-    else{
-        pathToModel = mySession[sCount-1].getFileURL("myModel.rds");
-        console.log(pathToModel);
-    }
-    var req = ocpu.call("mlRpart",
+
+    var method = selector.options[selector.selectedIndex].value;
+    console.log(selector.options[selector.selectedIndex].value);
+
+    document.getElementById("trainButton").classList.add("disabled");
+    document.getElementById("loadingIcon").setAttribute("visible", true);
+
+    var req = ocpu.call("ml",
        {
            ds : allData,
-           modelPath : pathToModel
+           mlMethod: method,
+           modelPath: pathToModel
        }, function(session)
        {
-
            mySession.push(session);
            sCount++;
+
+           document.getElementById("saveModel").href = session.getFileURL("m1.rds");
+           document.getElementById("saveModel").classList.remove("disabled");
            session.getObject(function(data){
                console.log(data);
-               /*
+               //*
                sa.destroyCurrent();
                vc.createAcApContainers();
                vc.colorScheme = sa.getClassColorScheme();
                useFile(data);
-               */
+               //*/
            });
        });
 
@@ -68,4 +152,14 @@ train = function(allData){
        {
            alert("Server error: " + req.responseText);
        });
+
+       req.always(function()
+       {
+           document.getElementById("trainButton").classList.remove("disabled");
+           document.getElementById("loadingIcon").setAttribute("visible", false);
+       });
+}
+
+methodSelected = function(event){
+    //alert(this.selectedIndex + " " + this.options[this.selectedIndex].text);
 }
