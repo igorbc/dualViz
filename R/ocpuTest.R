@@ -1,17 +1,19 @@
 
-saveOrLoadModel <- function(modelPath){
+saveOrLoadModel <- function(theFile, modelPaths, justPaths){
     library(caret)
-    filename <- "file:///Applications/XAMPP/xamppfiles/htdocs/dualViz/inst/www/db/iris_original.csv"
-    ds <- read.csv(filename, header = TRUE)
+
+    ds <- read.csv(theFile, TRUE)
     index <- createDataPartition(ds$class, p=0.80, list=FALSE)
     testset <- ds[-index,]
     trainset <- ds[index,]
 
-    modelPath <- "/Users/igorcorrea/Desktop/m1.rds"
-
     m1 <- NULL
     m1 <- train(class ~., method = "rpart", data=trainset)
-    if(modelPath == ""){
+
+    print("wd")
+    print(getwd())
+
+    if(length(modelPaths) == 0){
 
 
         # the file is saved normally
@@ -19,30 +21,30 @@ saveOrLoadModel <- function(modelPath){
 
         # this works too
         #save(m1, file="m1.rds")
+        return("saved")
     }
     else{
         # neither work...
-        print("omg???")
-        m1 <- readRDS(modelPath)
+        l <- list()
+        for(p in modelPaths){
+          l <- c(l,paste(p, file.exists(p)))
+        }
+
+        l2 <- list()
+        for(p in justPaths){
+          l2 <- c(l2,paste(p, dir(p)))
+        }
+
+        return(list(l, l2))
+
+        #m1 <- readRDS(modelPath)
 
         #load(modelPath)
     }
 
-    predictions <- predict(object = m1$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="class")
+    #predictions <- predict(object = m1$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="class")
 
-    # print("root dir")
-    # print(dir())
-    # print(".. dir")
-    # print(dir(".."))
-    # print("../.. dir")
-    # print(dir("../.."))
-    # print("../../.. dir")
-    # print(dir("../../.."))
-    # print("../../../.. dir")
-    # print(dir("../../../.."))
-    #
-    # print("wd")
-    # print(getwd())
 
-    return(predictions)
+
+    #return(predictions)
 }

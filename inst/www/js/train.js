@@ -3,6 +3,7 @@ var sCount = 0;
 var mFile;
 var pathToModel = "";
 var methodsInfo;
+var modelFile = null;
 
 // global variable used to save the session object
 var previousSession = null;
@@ -79,7 +80,8 @@ checkTrainedModel = function(){
         pathToModel = "";
     }
     else{
-        pathToModel = mySession[sCount-1].getFileURL("myModel.rds");
+        //pathToModel = mySession[sCount-1].getFileURL("myModel.rds");
+        pathToModel = mySession[sCount-1].output[7];
         console.log(pathToModel);
         var req = ocpu.call("checkModel",
            {
@@ -103,7 +105,7 @@ checkTrainedModel = function(){
 
 }
 
-train = function(allData){
+train = function(allData, m){
     /*
     if(isFileClassified){
         alert("This file aready contains information about classification results.\n" +
@@ -128,11 +130,13 @@ train = function(allData){
        {
            ds : allData,
            mlMethod: method,
-           modelPath: pathToModel
+           modelPath: m
        }, function(session)
        {
            mySession.push(session);
            sCount++;
+
+           pathToModel = mySession[sCount-1].output[7];
 
            document.getElementById("saveModel").href = session.getFileURL("m1.rds");
            document.getElementById("saveModel").classList.remove("disabled");

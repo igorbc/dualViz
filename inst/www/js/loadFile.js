@@ -13,7 +13,7 @@ function handleModel(files, isClassified) {
         fileUrl = window.URL.createObjectURL(files[0]);
         console.log("the url: " + fileUrl);
         pathToModel = fileUrl + "/m1.rds";
-        train(allData);
+        train(allData, files[0]);
     }
 }
 

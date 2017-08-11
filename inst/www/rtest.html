@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-    <script type="text/javascript" src="js/train.js"></script>
+    <script type="text/javascript" src="js/rtest.js"></script>
     <script src="opencpu/jquery-3.2.1.min.js"></script>
     <script src="opencpu/opencpu-0.5.js"></script>
 
@@ -10,10 +10,14 @@
         <title>OpenCPU/js Test</title>
     </head>
     <body>
+        <input id = "load" value="Load File" accept="text/csv,.csv"
+        onchange="loadTestFile(this.files)" type="file"/><br />
+
         <input id = "train" type="button" value="Generate model" onclick="useOcpu()"/><br />
-        <input id = "use" type="button" value="Use model" onclick="useModel()"/><br />
+
+        <p id = "loadResult"/>
         <p id = "trainResult"/>
-        <p id = "useResult"/>
+
     </body>
 
 </html>

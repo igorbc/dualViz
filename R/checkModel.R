@@ -3,7 +3,6 @@ checkModel <- function(rdsUrl){
 
   warning(getwd())
 
-
   print(getwd())
 
   print("--- type of rdsurl ---")

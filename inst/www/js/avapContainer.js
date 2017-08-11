@@ -198,6 +198,7 @@ function AvApContainer(){
             .attr("cy", function(d){ return d.pos[1];})
             .attr("r", function(d){ return d.radiusSize;})
             .attr("stroke","black")
+            .attr("class","avap grabbable")
             .attr("stroke-width", 2)
             .attr("fill", function(d){ return d.color;})
             .attr("opacity", function(d){return d.avapContainer.getOpacity(d.enabled)});

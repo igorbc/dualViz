@@ -1,7 +1,5 @@
 
-ml <- function(ds, mlMethod = "rpart", modelPath =""){
-
-  print(modelPath)
+ml <- function(ds, mlMethod = "rpart", modelPath = ""){
 
   if(is.null(ds)){
     filename <- "file:///Applications/XAMPP/xamppfiles/htdocs/dualViz/inst/www/db/winedata.csv"
@@ -25,7 +23,7 @@ ml <- function(ds, mlMethod = "rpart", modelPath =""){
     number = 10,
     ## repeated ten times
     repeats = 10)
-  print("Training model")
+
   #m <- train(class ~., method = mlMethod, data=trainset, trControl=fitControl, verbose = FALSE)
 
   if(modelPath == ""){
@@ -33,10 +31,29 @@ ml <- function(ds, mlMethod = "rpart", modelPath =""){
     saveRDS(m, file = "m1.rds")
   }
   else{
+
+
     #u <- url(modelPath)
     #modelPath <- summary(u)$description
-    #m <- train(class ~., method = mlMethod, data=trainset)
+
+    print(modelPath)
+
+#    return(file.exists(modelPath))
+
+    m = NULL
+    print("model was never trained, see")
+    print(m)
     m <- readRDS(modelPath)
+    print("but now!")
+    print(m)
+
+    print("this was used to open the model file")
+    print(modelPath)
+
+
+
+    m <- train(class ~., method = mlMethod, data=trainset)
+
   }
 
   predictions <- predict(object = m$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="prob")

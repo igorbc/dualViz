@@ -14,7 +14,19 @@ body {
     padding: 0;
     margin-top: 35px;
 }
+.grabbable {
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
 
+ /* (Optional) Apply a "closed-hand" cursor during drag operation. */
+.grabbable:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
 a {
     text-decoration: none;
 }
@@ -219,7 +231,6 @@ circle.selected {
 .sidenav a:hover, .offcanvas a:focus{
     color: #f1f1f1;
     background-color: #333;
-
 }
 
 .sidenav a.disabled {
@@ -232,8 +243,12 @@ circle.selected {
     color: #98dafc;
 }
 
+a:hover[class="closebtn"]{
+    background-color: #111;
+}
+
 /* Position and style the close button (top right corner) */
-.sidenav .closebtn {
+.sidenav .closebtn{
     position: absolute;
     top: 0;
     right: 25px;
