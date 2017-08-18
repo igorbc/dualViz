@@ -72,13 +72,14 @@
           <a href="#">About</a>
         </div>
 
+<!--
         <div id="dataSidenav" class="sidenav">
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav('dataSidenav')">&times;</a>
           <div id="dimensionSelector"></div>
 
           <a href="#">About</a>
         </div>
-
+-->
         <div id="trainSidenav" class="sidenav">
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav('trainSidenav')">&times;</a>
           <div class="styled-select slate"><select id="modelSelector" onchange="methodSelected.call(this, event)">
@@ -99,10 +100,8 @@
             <li><div class="loader" id="loadingIcon" visible=false></div></li>
             <li><a href="javascript:openNav('fileSidenav')">File</a></li>
             <li><a href="javascript:openNav('settingsSidenav')">Settings</a></li>
-            <li><a href="javascript:openNav('dataSidenav')">Data</a></li>
+            <!--<li><a href="javascript:openNav('dataSidenav')">Data</a></li>-->
             <li><a href="javascript:openNav('trainSidenav')">Training</a></li>
-            <li><a href="javascript:vc.setViz(true)" class = "curViz" id="useRadViz">RadViz</a></li>
-            <li><a href="javascript:vc.setViz(false)" id="useStarCoord">Star Coordinates</a></li>
             <li><a href="#">About</a></li>
             </ul>
         </nav>
@@ -113,6 +112,17 @@
                 </div>
             </div>
 
+
+            <div id="mainMenu">
+                <div id="vizSelector">
+                    <div class="menuTitle">Viz Selector</div>
+                    <a href="javascript:vc.setViz(true)" class = "curViz" id="useRadViz">RadViz</a>
+                    <a href="javascript:vc.setViz(false)" id="useStarCoord">Star Coordinates</a>
+                </div>
+                <br>
+                <div class="menuTitle">Dimensions</div>
+                <div id="dimensionSelector"></div>
+            </div>
             <div id="chart">
                 <div id="coordiv"
                 onmousedown="mouseDownUp(event, this, true)" onmouseup="mouseDownUp(event, this, false)"
@@ -120,6 +130,7 @@
                 onmousemove="mouseMove(event, this)" class="pressed"></div>
             </div>
             <div id="parc" class="parcoords"></div>
+
         </div>
 
         <script>
@@ -142,7 +153,9 @@
             var PI = Math.PI;
             var TWO_PI = PI * 2;
 
+
             svgContainer = sa.getSvgContainer();
+            window.onresize = windowResized;
 
             function startRadviz(fileName) {
 
@@ -160,6 +173,26 @@
                 });
 
                 getAllModelsInfo()
+            }
+
+            function windowResized(){
+                var el = document.getElementById("chart");
+                el.getElementsByTagName("svg")[0].setAttribute("width", el.clientWidth + "px");
+
+                el = document.getElementById("parc");
+
+                if(el.offsetTop > 100){
+                    if(!el.classList.contains("fullWidth"))
+                        el.classList.add("fullWidth");
+
+                    paracoords.width(el.clientWidth);
+                    paracoords.resize();
+                    paracoords.render();
+                }
+                else{
+                    if(el.classList.contains("fullWidth"))
+                        el.classList.remove("fullWidth");
+                }
             }
 
             function addDimensionFields(){
@@ -191,6 +224,7 @@
             }
             /* Set the width of the side navigation to 250px */
             function openNav(id) {
+
                 if(curSidebar == id){
                     closeNav(id);
                 }
@@ -202,13 +236,16 @@
                     document.getElementById(id).style.width = "250px";
                     document.getElementById("main").style.marginRight = "250px";
                 }
+                windowResized();
             }
 
             /* Set the width of the side navigation to 0 */
             function closeNav(id) {
+
                 curSidebar = 0;
                 document.getElementById(id).style.width = "0";
                 document.getElementById("main").style.marginRight = "0";
+                windowResized();
             }
         </script>
     </body>

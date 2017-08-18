@@ -3,14 +3,15 @@
 function SetupAssistent(){
     //this.defaultFile = "db/ecoli.csv";
     //this.defaultFile = "db/iris.csv";
+    //this.defaultFile = "db/iris naive bayes.csv"
     this.data;
 
-    this.defaultFile = "db/iris naive bayes.csv"
+    this.defaultFile = "db/iris_original.csv"
 
     this.dataPointOpacity = 0.8;
     this.dataPointRadius = 2.5;
 
-    this.svgWidth = 820;
+    this.svgWidth = window.innerWidth/2;
     this.svgHeight = 620;
     this.zoomPx = 13;
     this.translatePx = 13;
@@ -78,6 +79,7 @@ function SetupAssistent(){
             .append("svg:svg")
             .attr("width", this.svgWidth)
             .attr("height", this.svgHeight)
+
             //.style("border", "1px solid black")
             .attr("transform", "translate(0,0)")
             ;

@@ -35,6 +35,7 @@ useOcpu = function(paths){
         paths.push("/../" + previousSession.key + "/m1.rds");
         paths.push("/" + previousSession.key + "/m1.rds");
         paths.push(previousSession.key + "/m1.rds");
+        paths.push("../../../ocpu-store/" + previousSession.key + "/m1.rds");
 
         justPaths.push(previousSession.key);
         justPaths.push("/ocpu/tmp/" + previousSession.key);

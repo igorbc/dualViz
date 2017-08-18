@@ -35,16 +35,13 @@ saveOrLoadModel <- function(theFile, modelPaths, justPaths){
           l2 <- c(l2,paste(p, dir(p)))
         }
 
-        return(list(l, l2))
+        #return(list(l, l2))
 
-        #m1 <- readRDS(modelPath)
 
-        #load(modelPath)
+
+        m1 <- readRDS(modelPaths[13])
+
+        predictions <- predict(object = m1$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="class")
+        return(predictions)
     }
-
-    #predictions <- predict(object = m1$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="class")
-
-
-
-    #return(predictions)
 }

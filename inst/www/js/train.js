@@ -48,7 +48,7 @@ getAllModelsInfo = function(){
        }, function(session)
        {
            session.getObject(function(data){
-               console.log(data);
+               //console.log(data);
                var selector = document.getElementById("modelSelector");
                var methods = data[0];
                var attrInfo = data[1];
@@ -58,7 +58,9 @@ getAllModelsInfo = function(){
                    o.innerHTML = methods[i].label + " (" + methods[i].name + ")";
                    selector.appendChild(o);
                }
+               selector.value = "rpart"
            });
+
        });
 
        //if R returns an error, alert the error message

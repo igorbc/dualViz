@@ -14,6 +14,7 @@ body {
     padding: 0;
     margin-top: 35px;
 }
+
 .grabbable {
     cursor: move; /* fallback if grab cursor is unsupported */
     cursor: grab;
@@ -39,7 +40,7 @@ nav {
     height: 30px;
     width: 100%;
     z-index: 1;
-    //margin: 0 auto;
+    /*margin: 0 auto;*/
 }
 
 nav ul {
@@ -88,29 +89,171 @@ nav .active a:link, nav .active a:visited {
     text-align: center;
 }
 
+
+/*
+#rightSide {
+    height: 620px;
+    margin: 0 auto;
+    margin-top: 8px;
+    margin-left: 10px;
+    position: relative;
+
+    background: #aaffaa;
+
+    width:48%;
+    min-width: 200px;
+
+    border-radius: 8px;
+    float: left;
+
+}
+*/
+/*
+#mainMenu {
+    height: 49%;
+    margin: 0 auto;
+
+    position: absolute;
+    background: #fff;
+
+    width:100%;
+    border-radius: 8px;
+
+}
+*/
+
+#mainMenu{
+    height: 620px;
+    margin: 0 auto;
+    margin-top: 8px;
+    margin-left: 0;
+    left: 0;
+
+    position: relative;
+    overflow: scroll;
+    background: #fff;
+
+    min-width: 140px;
+    overflow: scroll;
+    width: 15%;
+
+    border-radius: 8px;
+    float: left;
+}
+
+.menuTitle{
+    margin: 0 auto;
+    padding: 6px;
+    text-align: center;
+}
+
+#dimensionSelector a {
+    padding: 3px 8px 6px 10px;
+    text-decoration: none;
+    margin: 5px;
+    font-size: 12px;
+    height: 15px;
+
+    color: #818181;
+    background-color: #fefefe;
+    //border-bottom: 1px solid #888;
+    border-left: 6px solid #888;
+    display: block;
+    transition: 0.2s;
+    white-space: nowrap;
+    overflow-x: hidden;
+    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+
+}
+
+/* When you mouse over the navigation links, change their color */
+#dimensionSelector a:hover{
+    background-color: #fff;
+    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+#dimensionSelector a.enabled{
+    color: #06c;
+    border-left: 6px solid #06c;
+}
+
+#dimensionSelector a.enabled:hover {
+    color: #03c;
+}
+
+#vizSelector a {
+    margin: 6px 6px 10px 6px;
+    padding-top: 9px;
+    color: #666;
+    color: #fff;
+    display: block;
+    text-align: center;
+
+    height: 30px;
+    background-color: #555;
+    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+#vizSelector a.curViz {
+    color: #FFA500;
+}
+
+#vizSelector a:hover, #vizSelector a:active,
+#vizSelector .active a:link, #vizSelector .active a:visited {
+    text-shadow: none;
+    background-color: #666;
+    box-shadow: 0px 0px 3px 2px rgba(255, 165, 0, 0.5);
+}
+
 #chart {
     height: 620px;
     margin: 0 auto;
     margin-top: 8px;
+    margin-left: 8px;
     position: relative;
     background: #fff;
-    width: 800px;
+    width: 50%;
+    min-width: 620px;
     border-radius: 8px;
     float: left;
-    clear: both;
 }
 
 #parc {
+    height: 300px;
+    margin: 8px;
+    position: relative;
+
+    width:30%;
+    min-width: 200px;
+
     border-radius: 8px;
-    width: 100%;
-    height: 200px;
+
     float: left;
-    margin-top: 8px;
 }
 
-.paracoords {
-    width: 100%;
+#parc.fullWidth {
+    left:0;
+    width: 99%;
 }
+
+
+/*
+#parc {
+    overflow: auto;
+    border-radius: 8px;
+
+    width: 100%;
+    height: 49%;
+
+
+    bottom: 0px;
+    position: absolute;
+}
+*/
 
 #circle {
     pos = [];
@@ -135,16 +278,16 @@ nav .active a:link, nav .active a:visited {
 }
 
 .mainHeader {
-    width: 99%;
+    width: 98%;
 
-    margin: 0 auto;
-    //margin-top: -20px;
+    margin: 0 auto 0 0;
+    /*margin-top: -20px;*/
     padding: 5px;
     clear: both;
     height: 40px;
     background-color: #fff;
     border-radius: 8px;
-    //border: 2px solid #000;
+    /*border: 2px solid #000;*/
 
 }
 
@@ -163,6 +306,7 @@ nav .active a:link, nav .active a:visited {
     ry: 5px;
     stroke-width: 0;
     stroke: #333;
+    transition: 0.2s;
 
 }
 
@@ -188,12 +332,10 @@ nav .active a:link, nav .active a:visited {
 .legendText {
     width: 80px;
     height: 20px;
-//text-align: left;
     font-size: 12px;
 }
 
 circle.selected {
-//fill: red;
     stroke: black;
     stroke-width: 2;
 }

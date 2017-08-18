@@ -39,16 +39,14 @@ setupTooltip = function(headers, headersClass, csv) {
     tooltip.append("div")
         .attr("class", "label");
 
-    var pc = createParCoords(csv, headers);
-    pc.colorAll = true;
+    paracoords = createParCoords(csv, headers);
+    paracoords.colorAll = true;
 //*
     vc.instGroup.selectAll("circle").on("mouseover", function (d) {
 
         d.mouseOver = 1;
 
         tooltip.html(getInstanceStr(d, headers, headersClass));
-
-
 
         var x = parseInt(d3.select(this).attr("cx"));
         var y = parseInt(d3.select(this).attr("cy"));
@@ -65,7 +63,7 @@ setupTooltip = function(headers, headersClass, csv) {
         //console.log(d3.select(this));
 
         colorAll = false;
-        pc.data(csv).alpha(1).render();
+        paracoords.data(csv).alpha(1).render();
     });
 
     vc.instGroup.selectAll("circle").on("mouseout", function (d) {
@@ -75,7 +73,7 @@ setupTooltip = function(headers, headersClass, csv) {
         tooltip.transition().duration(150).style("opacity", 0);
         tooltip.style("display", "none");
         colorAll = true;
-        pc.data(csv).alpha(0.4).render();
+        paracoords.data(csv).alpha(0.4).render();
     });
 
 
@@ -87,7 +85,7 @@ setupTooltip = function(headers, headersClass, csv) {
             .style("left", (x + 10) + "px");
     });
     //*/
-    return pc;
+    return paracoords;
 }
 
 getInstanceStr = function (d, headers, headersClass) {
