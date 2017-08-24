@@ -11,7 +11,7 @@ function SetupAssistent(){
     this.dataPointOpacity = 0.8;
     this.dataPointRadius = 2.5;
 
-    this.svgWidth = window.innerWidth/2;
+    this.svgWidth = 700;
     this.svgHeight = 620;
     this.zoomPx = 13;
     this.translatePx = 13;
@@ -148,9 +148,7 @@ function SetupAssistent(){
                         } else {
                             d3.select(this).classed("selected", false);
                             d.mouseOver = 0;
-
                         }
-
                     });
                     colorAll = false;
                     parcoords.data(csv).alpha(1).render();

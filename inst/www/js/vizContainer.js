@@ -18,6 +18,7 @@ function VizContainer(){
     this.confusionClass = 0;
 
     this.dynamicOpacity = true;
+    this.pcHiddenAxes = ["class", "mouseOver"];
 
     this.createAcApContainers = function(){
         this.acAttr = new AvApContainer();
@@ -102,8 +103,10 @@ function VizContainer(){
                     }
                 }
             }
-            if (denominatorSum == 0)
+            if (denominatorSum == 0){
                 console.log("denom: " + denominatorSum);
+                return [0,0,0];
+            }
             return add3(mul3(mul3(sum, vc.r),1/denominatorSum), vc.center);
         }
 

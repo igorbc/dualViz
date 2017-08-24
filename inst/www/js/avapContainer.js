@@ -56,17 +56,33 @@ function AvApContainer(){
     }
 
     this.toggleAvap = function(index){
-        console.log("indice passado: " + index);
-        document.getElementById(this.avap[index].key).classList.toggle("enabled");
+        //console.log("indice passado: " + index);
+        var key = this.avap[index].key;
+        document.getElementById(key).classList.toggle("enabled");
+        document.getElementById("avap" + key).classList.toggle("enabled");
         this.avap[index].enabled = !this.avap[index].enabled;
         if(this.avap[index].enabled){
+            var i = this.vc.pcHiddenAxes.indexOf(key);
+            this.vc.pcHiddenAxes.splice(i, 1);
             this.nEnabled++;
+
+            parcoords.detectDimensions();
+            parcoords.hideAxis(this.vc.pcHiddenAxes);
+            parcoords.updateAxes();
+            parcoords.render();
         }
         else {
             this.nEnabled--;
+            this.vc.pcHiddenAxes.push(key);
+            parcoords.createAxes();
+            parcoords.hideAxis(this.vc.pcHiddenAxes);
+            parcoords.updateAxes();
+            parcoords.render();
         }
         vc.updateInst(sa.delay/2);
         this.updateAvApPositionOnScreen(sa.delay/2);
+
+
     }
 
     this.createPath = function(delay = 0) {
@@ -198,7 +214,8 @@ function AvApContainer(){
             .attr("cy", function(d){ return d.pos[1];})
             .attr("r", function(d){ return d.radiusSize;})
             .attr("stroke","black")
-            .attr("class","avap grabbable")
+            .attr("class","avap grabbable invisibleWhenDisabled enabled")
+            .attr("id", function(d){ return "avap" + d.key;})
             .attr("stroke-width", 2)
             .attr("fill", function(d){ return d.color;})
             .attr("opacity", function(d){return d.avapContainer.getOpacity(d.enabled)});
@@ -208,7 +225,7 @@ function AvApContainer(){
             .data(this.avap)
             .enter()
             .append("text")
-            .attr("class", "noselect crosshair")
+            .attr("class", "noselect crosshair invisibleWhenDisabled enabled")
             .attr("x", function(d){ return d.labelPos[0];})
             .attr("y", function(d){ return d.labelPos[1];})
             .text(function(d){ return d.key;})
@@ -229,6 +246,7 @@ function AvApContainer(){
             d.inverted = !d.inverted;
             console.log(d.color + " " + d.inverted + " " + d.key);
             d3.select(this).style("fill", d.color);
+            //parcoords.flipAxisAndUpdatePCP()
             vc.updateInst(delay);
         });
     }

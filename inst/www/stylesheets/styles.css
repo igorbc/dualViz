@@ -5,14 +5,16 @@ body {
     font-size: 85%;
     line-height: 1.5;
     color: #000305;
-    background-color: #ddd;
+    background-color: #fff;
 
 }
 
 .body {
-    margin: 0.5%;
+    position: absolute;
+    margin: 0;
     padding: 0;
-    margin-top: 35px;
+    margin-top: 30px;
+    width: 100%;
 }
 
 .grabbable {
@@ -28,6 +30,7 @@ body {
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
 }
+
 a {
     text-decoration: none;
 }
@@ -39,7 +42,7 @@ nav {
     background-color: #666;
     height: 30px;
     width: 100%;
-    z-index: 1;
+    z-index: 2;
     /*margin: 0 auto;*/
 }
 
@@ -60,8 +63,8 @@ nav a:link, nav a:visited {
     height: 20px;
 }
 
-nav a.curViz {
-    color: #FFA500;
+nav a.current {
+    color: #FFB500;
 }
 
 nav a:hover, nav a:active,
@@ -79,71 +82,66 @@ nav .active a:link, nav .active a:visited {
 	z-index: -1;
 }
 
+#mainHeader {
+    width: 85%;
+    display: inline-block;
+    margin: 0;
+    /*margin-top: -20px;*/
+    padding: 0;
+
+    height: 40px;
+    background-color: #fff;
+    border-radius: 0px;
+    position: relative;
+    z-index: 1;
+    /*border: 2px solid #000;*/
+}
+
 #classContribSlider{
     z-index:0;
     width:300px;
-    margin: auto;
+    margin: 0 auto;
+
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-left: 200px;
+    margin-top: -15px;
+
+    vertical-align: middle;
 }
 
 #classContribSlider h4{
     text-align: center;
+    font-size: 12px;
+    font-weight: normal;
+    color: #111;
 }
-
-
-/*
-#rightSide {
-    height: 620px;
-    margin: 0 auto;
-    margin-top: 8px;
-    margin-left: 10px;
-    position: relative;
-
-    background: #aaffaa;
-
-    width:48%;
-    min-width: 200px;
-
-    border-radius: 8px;
-    float: left;
-
-}
-*/
-/*
-#mainMenu {
-    height: 49%;
-    margin: 0 auto;
-
-    position: absolute;
-    background: #fff;
-
-    width:100%;
-    border-radius: 8px;
-
-}
-*/
 
 #mainMenu{
-    height: 620px;
+    height: 660px;
     margin: 0 auto;
-    margin-top: 8px;
+    margin-top: 0px;
     margin-left: 0;
     left: 0;
 
     position: relative;
-    overflow: scroll;
     background: #fff;
 
     min-width: 140px;
     overflow: scroll;
     width: 15%;
 
-    border-radius: 8px;
+    //border-radius: 8px;
+    display: inline-block;
+    z-index: 2;
     float: left;
 }
 
 .menuTitle{
     margin: 0 auto;
-    padding: 6px;
+    border-top: 1px solid #ddd;
+    padding: 10px 0 3px 0;
     text-align: center;
 }
 
@@ -154,7 +152,7 @@ nav .active a:link, nav .active a:visited {
     font-size: 12px;
     height: 15px;
 
-    color: #818181;
+    color: #999;
     background-color: #fefefe;
     //border-bottom: 1px solid #888;
     border-left: 6px solid #888;
@@ -166,6 +164,12 @@ nav .active a:link, nav .active a:visited {
     -moz-box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
 
+}
+
+.shadowed {
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 /* When you mouse over the navigation links, change their color */
@@ -186,48 +190,48 @@ nav .active a:link, nav .active a:visited {
 }
 
 #vizSelector a {
-    margin: 6px 6px 10px 6px;
+    margin: 6px 8px;
     padding-top: 9px;
-    color: #666;
     color: #fff;
     display: block;
     text-align: center;
 
     height: 30px;
-    background-color: #555;
+    background-color: #666;
     box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
 }
 
 #vizSelector a.curViz {
-    color: #FFA500;
+    color: #FFB500;
 }
 
 #vizSelector a:hover, #vizSelector a:active,
 #vizSelector .active a:link, #vizSelector .active a:visited {
     text-shadow: none;
-    background-color: #666;
+    background-color: #6A6A6A;
     box-shadow: 0px 0px 3px 2px rgba(255, 165, 0, 0.5);
 }
 
 #chart {
     height: 620px;
     margin: 0 auto;
-    margin-top: 8px;
     margin-left: 8px;
     position: relative;
     background: #fff;
-    width: 50%;
-    min-width: 620px;
-    border-radius: 8px;
+    width: 700px;
+    min-width: 700px;
+    //border-radius: 8px;
     float: left;
+    z-index: 0;
 }
 
 #parc {
     height: 300px;
-    margin: 8px;
+    margin: 0;
+    padding: 8px;
     position: relative;
 
-    width:30%;
+    width:34%;
     min-width: 200px;
 
     border-radius: 8px;
@@ -240,6 +244,13 @@ nav .active a:link, nav .active a:visited {
     width: 99%;
 }
 
+.invisibleWhenDisabled{
+    display: none;
+}
+
+.invisibleWhenDisabled.enabled{
+    display: inline;
+}
 
 /*
 #parc {
@@ -255,21 +266,17 @@ nav .active a:link, nav .active a:visited {
 }
 */
 
-#circle {
-    pos = [];
-}
-
 .tooltip {
 
     background: #eee;
     box-shadow: 0 0 5px #999999;
     color: #333;
 
+    margin: 0 auto;
     display: none;
     opacity: 1;
-    font-size: 12px;
+    font-size: 10px;
     left: 130px;
-    padding: 10px;
     position: absolute;
     text-align: left;
     top: 95px;
@@ -277,19 +284,11 @@ nav .active a:link, nav .active a:visited {
     z-index: 3;
 }
 
-.mainHeader {
-    width: 98%;
-
-    margin: 0 auto 0 0;
-    /*margin-top: -20px;*/
-    padding: 5px;
-    clear: both;
-    height: 40px;
-    background-color: #fff;
-    border-radius: 8px;
-    /*border: 2px solid #000;*/
-
+.tooltip p{
+    margin: 2px auto;
+    padding: 0 0 0 6px;
 }
+
 
 .brush .extent {
     stroke: #000;
@@ -349,7 +348,7 @@ circle.selected {
     height: 100%; /* 100% Full-height */
     width: 0; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
-    z-index: 2; /* Stay on top */
+    z-index: 3; /* Stay on top */
     top: 0;
     right: 0;
     background-color: #111; /* Black*/
@@ -402,7 +401,6 @@ a:hover[class="closebtn"]{
 to the right when you open the side navigation */
 #main {
     transition: margin-right .5s;
-    padding: 20px;
     margin: 0 auto;
     padding: 0;
 }

@@ -39,8 +39,8 @@ setupTooltip = function(headers, headersClass, csv) {
     tooltip.append("div")
         .attr("class", "label");
 
-    paracoords = createParCoords(csv, headers);
-    paracoords.colorAll = true;
+    parcoords = createParCoords(csv, headers);
+    parcoords.colorAll = true;
 //*
     vc.instGroup.selectAll("circle").on("mouseover", function (d) {
 
@@ -63,7 +63,7 @@ setupTooltip = function(headers, headersClass, csv) {
         //console.log(d3.select(this));
 
         colorAll = false;
-        paracoords.data(csv).alpha(1).render();
+        parcoords.data(csv).alpha(1).render();
     });
 
     vc.instGroup.selectAll("circle").on("mouseout", function (d) {
@@ -73,7 +73,7 @@ setupTooltip = function(headers, headersClass, csv) {
         tooltip.transition().duration(150).style("opacity", 0);
         tooltip.style("display", "none");
         colorAll = true;
-        paracoords.data(csv).alpha(0.4).render();
+        parcoords.data(csv).alpha(0.4).render();
     });
 
 
@@ -85,7 +85,7 @@ setupTooltip = function(headers, headersClass, csv) {
             .style("left", (x + 10) + "px");
     });
     //*/
-    return paracoords;
+    return parcoords;
 }
 
 getInstanceStr = function (d, headers, headersClass) {
@@ -119,19 +119,19 @@ createParCoords = function(csv, headers){
     //else
     //    console.log("já inicializado");
 
+
     parcoords
         .data(dataAttributes)
-        .hideAxis(["class", "mouseOver"])
+        .hideAxis(vc.pcHiddenAxes)
         .alpha(0.4)
         .color(function(d){
-            //console.log(color(d.class));
+            //console.log(d);
             if (colorAll){
                 return vc.colorScheme(d.class);
             }
             else {
                 return (d.mouseOver == 1)? vc.colorScheme(d.class): "rgba(100,100,100,0.1)";
             }
-
         })
         .render()
         .createAxes()
