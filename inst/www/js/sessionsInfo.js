@@ -15,7 +15,7 @@ function SessionsInfo(){
         this.dataIds.push(dataId);
 
 
-        var filePath = session.output[7]
+        var filePath = session.output[session.output.length - 2];
         this.fileNames.push(filePath.substring(filePath.lastIndexOf("/")+1));
         this.filePaths.push("../../../ocpu-store/" + session.key + "/");
 
