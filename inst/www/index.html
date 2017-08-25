@@ -2,93 +2,107 @@
 <html>
 
 <!-- inclusion of styles -->
-        <link rel="stylesheet" href="stylesheets/d3.parcoords.css" />
-        <link rel="stylesheet" href="stylesheets/d3.slider.css" />
-        <link rel="stylesheet" href="stylesheets/styles.css" />
+    <link rel="stylesheet" href="stylesheets/d3.parcoords.css" />
+    <link rel="stylesheet" href="stylesheets/d3.slider.css" />
+    <link rel="stylesheet" href="stylesheets/styles.css" />
 
-        <!--  inclusion of scripts -->
-        <script src="opencpu/jquery-3.2.1.min.js"></script>
-        <script src="opencpu/opencpu-0.5.js"></script>
+    <!--  inclusion of scripts -->
+    <script src="opencpu/jquery-3.2.1.min.js"></script>
+    <script src="opencpu/opencpu-0.5.js"></script>
 
-        <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
-        <script type="text/javascript" src="js/d3.slider.js"></script>
-        <script type="text/javascript" src="js/d3extension.js"></script>
-        <script type="text/javascript" src="js/d3.parcoords.js"></script>
-        <script type="text/javascript" src="js/polybrush.js"></script>
-        <!--  <script type="text/javascript" src="js/numeric-1.2.6.min.js"></script> -->
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/d3.slider.js"></script>
+    <script type="text/javascript" src="js/d3extension.js"></script>
+    <script type="text/javascript" src="js/d3.parcoords.js"></script>
+    <script type="text/javascript" src="js/polybrush.js"></script>
+    <!--  <script type="text/javascript" src="js/numeric-1.2.6.min.js"></script> -->
 
-        <script type="text/javascript" src="js/setupAssistent.js"></script>
-        <script type="text/javascript" src="js/keyHandler.js"></script>
-        <script type="text/javascript" src="js/avap.js"></script>
-        <script type="text/javascript" src="js/avapContainer.js"></script>
-        <script type="text/javascript" src="js/vizContainer.js"></script>
-        <script type="text/javascript" src="js/legend.js"></script>
-        <script type="text/javascript" src="js/dragManager.js"></script>
-        <script type="text/javascript" src="js/sliderManager.js"></script>
-        <script type="text/javascript" src="js/tooltipManager.js"></script>
-        <script type="text/javascript" src="js/loadFile.js"></script>
-        <script type="text/javascript" src="js/vec.js"></script>
+    <script type="text/javascript" src="js/setupAssistent.js"></script>
+    <script type="text/javascript" src="js/keyHandler.js"></script>
+    <script type="text/javascript" src="js/avap.js"></script>
+    <script type="text/javascript" src="js/avapContainer.js"></script>
+    <script type="text/javascript" src="js/vizContainer.js"></script>
+    <script type="text/javascript" src="js/legend.js"></script>
+    <script type="text/javascript" src="js/dragManager.js"></script>
+    <script type="text/javascript" src="js/sliderManager.js"></script>
+    <script type="text/javascript" src="js/tooltipManager.js"></script>
+    <script type="text/javascript" src="js/loadFile.js"></script>
+    <script type="text/javascript" src="js/vec.js"></script>
 
-        <script type="text/javascript" src="js/train.js"></script>
-        <script type="text/javascript" src="js/settings.js"></script>
-        <script type="text/javascript" src="js/rtest.js"></script>
+    <script type="text/javascript" src="js/train.js"></script>
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/rtest.js"></script>
+    <script type="text/javascript" src="js/sessionsInfo.js"></script>
 
     <head>
         <meta charset="utf-8">
         <title>Dual Radviz</title>
     </head>
 
-<!-- function called to initialize the system -->
+    <!-- function called to initialize the system -->
     <body id="main" onload="startRadviz()">
 
         <!-- SIDENAV -->
 
         <!-- FILE SIDENAV -->
         <div id="fileSidenav" class="sidenav">
-          <a href="javascript:void(0)" class="closebtn" onclick="closeNav('file')">&times;</a>
-          <input id="openFile" name="openFile" type="file" class="inputFile"
-              accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
-              onchange="handleFile(this.files, false)"/>
-          <a href="" onclick="document.getElementById('openFile').click(); return false">Open file</a>
-          <input id="openClassifiedFile" name="openClassifiedFile" type="file" class="inputFile"
-              accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
-              onchange="handleFile(this.files, true)"/>
-          <a href="" onclick="document.getElementById('openClassifiedFile').click(); return false">Open classified file</a>
-          <a href="#">About</a>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('file')">&times;</a>
+            <input id="openFile" name="openFile" type="file" class="inputFile"
+                accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
+                onchange="handleFile(this.files, false)"/>
+            <a href="" onclick="document.getElementById('openFile').click(); return false">Open file</a>
+            <input id="openClassifiedFile" name="openClassifiedFile" type="file" class="inputFile"
+                accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
+                onchange="handleFile(this.files, true)"/>
+            <a href="" onclick="document.getElementById('openClassifiedFile').click(); return false">Open classified file</a>
+            <a href="#">About</a>
         </div>
 
         <!-- SETTINGS SIDENAV -->
         <div id="settingsSidenav" class="sidenav">
-          <a href="javascript:void(0)" class="closebtn" onclick="closeNav('settings')">&times;</a>
-          <a href="#">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('settings')">&times;</a>
+            <a href="#">
                 <input type="checkbox" class="checkb" id="separateRadvz" onclick="toggleAcClassRadius(this.checked)"/>
-                  Separate RadViz circles</a>
-          <a href="#">
+                Separate RadViz circles</a>
+            <a href="#">
                 <input type="checkbox" class="checkb" id="dynamicRvOpacity" checked
                 onclick="toggleDynamicOpacity(this.checked)"/>Dynamic Radviz opacity</a>
 
-          <a href="javascript:increasePointSize()">Point size &uarr;</a>
-          <a href="javascript:decreasePointSize()">Point size &darr;</a>
-          <a href="javascript:increasePointOpacity()">Point opacity &uarr;</a>
-          <a href="javascript:decreasePointOpacity()">Point opacity &darr;</a>
-          <a href="javascript:vc.adjustStarCoord()">Adjust Star Coordinates</a>
-          <a href="#">About</a>
+            <a href="javascript:increasePointSize()">Point size &uarr;</a>
+            <a href="javascript:decreasePointSize()">Point size &darr;</a>
+            <a href="javascript:increasePointOpacity()">Point opacity &uarr;</a>
+            <a href="javascript:decreasePointOpacity()">Point opacity &darr;</a>
+            <a href="javascript:vc.adjustStarCoord()">Adjust Star Coordinates</a>
+            <a href="#">About</a>
         </div>
 
         <!-- TRAIN SIDENAV -->
         <div id="trainSidenav" class="sidenav">
-          <a href="javascript:void(0)" class="closebtn" onclick="closeNav('train')">&times;</a>
-          <div class="styled-select slate"><select id="modelSelector" onchange="methodSelected.call(this, event)">
-              <option selected disabled>Choose method</option>
-          </select></div>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('train')">&times;</a>
+            <div class="styled-select slate">
+                <select id="methodSelector" onchange="methodSelected.call(this, event)">
+                    <option selected disabled>Choose method</option>
+                </select>
+            </div>
 
-          <a href="javascript:train(allData)" id="trainButton">Train model</a>
-          <a href="javascript:saveModel()" class="disabled" id="saveModel" download>Save model</a>
-          <input id="openModel" name="openModel" type="file" class="inputFile"
-              accept=".rds"
-              onchange="handleModel(this.files, false)"/>
-          <a href="" onclick="document.getElementById('openModel').click(); return false" >Load trained model</a>
-          <a href="#">About</a>
+            <a href="javascript:train(allData)" id="trainButton">Train model</a>
+
+            <div class = "pretrainedModel">
+                <p>Loaded model</p>
+                <div id="chosenModel">none</div>
+            </div>
+            <div class="styled-select slate">
+                <select id="modelSelector" onchange="modelSelected.call(this, event)">
+                    <option selected disabled>Available models</option>
+                </select>
+            </div>
+            <a href="" onclick="document.getElementById('openModel').click(); return false">Load trained model</a>
+            <a href="javascript:saveModel()" class="disabled" id="saveModel" download>Save model</a>
+            <input id="openModel" name="openModel" type="file" class="inputFile"
+                accept=".rds"
+                onchange="handleModel(this.files, false)"/>
+            <a href="javascript:useModel(allData)" class="disabled" id="useModelButton">Use chosen model</a>
+            <a href="#">About</a>
         </div>
 
 
@@ -132,13 +146,16 @@
         <script>
             var sa = new SetupAssistent();
             var vc = new VizContainer();
-
+            var trainSessions = new SessionsInfo();
+            var classificationSessions = new SessionsInfo();
+            var curChosenModel;
             var headersAttr = [];
 
             var classIndex;
 
             var curSidebar = 0;
             var isFileClassified = false;
+            var curDataFileName;
 
             var headersClass = [];
             var classNames = [];
@@ -158,6 +175,7 @@
                 if(fileName == undefined) {
                     fileName = sa.defaultFile;
                 }
+                curDataFileName = fileName;
 
                 vc.createAcApContainers();
                 vc.colorScheme = sa.getClassColorScheme();

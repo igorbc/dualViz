@@ -1,10 +1,12 @@
 
 ml <- function(ds, mlMethod = "rpart", modelPath = ""){
+  set.seed(42)
 
   if(is.null(ds)){
     filename <- "file:///Applications/XAMPP/xamppfiles/htdocs/dualViz/inst/www/db/winedata.csv"
     ds <- read.csv(filename, header = TRUE)
   }
+
   ds <- ds[,!grepl( "confidence|prediction|mouseOver" , names(ds))]
   ind <- !grepl( "class" , names(ds))
   ds[,ind] <- sapply(ds[,ind], as.numeric)
@@ -28,32 +30,12 @@ ml <- function(ds, mlMethod = "rpart", modelPath = ""){
 
   if(modelPath == ""){
     m <- train(class ~., method = mlMethod, data=trainset)
-    saveRDS(m, file = "m1.rds")
+    saveRDS(m, file = paste(mlMethod, ".rds", sep=""))
   }
   else{
-
-
-    #u <- url(modelPath)
-    #modelPath <- summary(u)$description
-
-    print(modelPath)
-
-#    return(file.exists(modelPath))
-
     m = NULL
-    print("model was never trained, see")
-    print(m)
     m <- readRDS(modelPath)
-    print("but now!")
-    print(m)
-
-    print("this was used to open the model file")
-    print(modelPath)
-
-
-
-    m <- train(class ~., method = mlMethod, data=trainset)
-
+    print("loaded model was used.")
   }
 
   predictions <- predict(object = m$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="prob")
@@ -70,13 +52,6 @@ ml <- function(ds, mlMethod = "rpart", modelPath = ""){
   result <- result[order(nchar(result$Row.names), result$Row.names), ]
   result[, "prediction(class)"] <- predictions_class
   result[, "Row.names"] <- NULL
-
-  print("root dir")
-  print(dir())
-  print(".. dir")
-  print(dir(".."))
-  print("../.. dir")
-  print(dir("../.."))
 
   return(result)
 }

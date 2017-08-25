@@ -2,18 +2,16 @@
  * Created by igorcorrea on 03/12/2015.
  */
 
-function handleModel(files, isClassified) {
-    if(typeof files === "undefined"){
+function handleModel(files) {
+    if(files === "undefined"){
         return false;
     }
     else {
-        f = files[0];
-        console.log(files[0]);
-        var fileUrl;
-        fileUrl = window.URL.createObjectURL(files[0]);
-        console.log("the url: " + fileUrl);
-        pathToModel = fileUrl + "/m1.rds";
-        train(allData, files[0]);
+        document.getElementById("chosenModel").innerHTML = files[0].name + " (from disk)";
+        document.getElementById("saveModel").classList.add("disabled");
+        document.getElementById("modelSelector").selectedIndex = 0;
+        document.getElementById("useModelButton").classList.remove("disabled");
+        curChosenModel = files[0];
     }
 }
 
@@ -30,10 +28,10 @@ function handleFile(files, isClassified) {
             console.log("is NOT classified");
 
         console.log(files[0]);
-        var fileUrl;
-        fileUrl = window.URL.createObjectURL(files[0]);
+
+        curDataFileName = window.URL.createObjectURL(files[0]);
         sa.destroyCurrent();
-        startRadviz(fileUrl);
+        startRadviz(curDataFileName);
     }
 }
 

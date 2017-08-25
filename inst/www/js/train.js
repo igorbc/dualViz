@@ -1,16 +1,46 @@
-var mySession = [] ;
-var sCount = 0;
-var mFile;
-var pathToModel = "";
-var methodsInfo;
-var modelFile = null;
 
-// global variable used to save the session object
-var previousSession = null;
+useModel = function(allData){
+    if(!chosenModel){
+        alert("Load an .rds model from disk or select from the available");
+        return false;
+    }
+    else{
+        document.getElementById("useModelButton").classList.add("disabled");
+        document.getElementById("loadingIcon").setAttribute("visible", true);
+        var req = ocpu.call("ml",
+           {
+               ds: allData,
+               mlMethod: "",
+               modelPath: curChosenModel
+           }, function(session)
+           {
+               classificationSessions.add(session);
 
-var myReq;
+               session.getObject(function(data){
+                   console.log(data);
 
-train = function(allData, m){
+                   sa.destroyCurrent();
+                   vc.createAcApContainers();
+                   vc.colorScheme = sa.getClassColorScheme();
+                   useFile(data);
+               });
+           });
+
+           //if R returns an error, alert the error message
+           req.fail(function()
+           {
+               alert("Server error: " + req.responseText);
+           });
+
+           req.always(function()
+           {
+               document.getElementById("useModelButton").classList.remove("disabled");
+               document.getElementById("loadingIcon").setAttribute("visible", false);
+           });
+    }
+}
+
+train = function(allData){
     /*
     if(isFileClassified){
         alert("This file aready contains information about classification results.\n" +
@@ -19,41 +49,37 @@ train = function(allData, m){
     }
     */
 
-    var selector = document.getElementById("modelSelector");
-    if(selector.selectedIndex == 0 && pathToModel == ""){
-        alert("Choose a method or load a model first.");
+    var selector = document.getElementById("methodSelector");
+    if(selector.selectedIndex == 0){
+        alert("Choose a method first.");
         return false;
     }
 
     var method = selector.options[selector.selectedIndex].value;
-    console.log(selector.options[selector.selectedIndex].value);
+    console.log("method: " + method);
 
     document.getElementById("trainButton").classList.add("disabled");
     document.getElementById("loadingIcon").setAttribute("visible", true);
 
     var req = ocpu.call("ml",
        {
-           ds : allData,
+           ds: allData,
            mlMethod: method,
-           modelPath: m
+           modelPath: ""
        }, function(session)
        {
-           mySession.push(session);
-           sCount++;
+           trainSessions.add(session, method, curDataFileName);
 
-           pathToModel = mySession[sCount-1].output[7];
-
-           document.getElementById("saveModel").href = session.getFileURL("m1.rds");
-           document.getElementById("saveModel").classList.remove("disabled");
            session.getObject(function(data){
                console.log(data);
-               //*
+
                sa.destroyCurrent();
                vc.createAcApContainers();
                vc.colorScheme = sa.getClassColorScheme();
                useFile(data);
-               //*/
            });
+
+           addModelToOptions();
        });
 
        //if R returns an error, alert the error message
@@ -73,16 +99,24 @@ methodSelected = function(event){
     //alert(this.selectedIndex + " " + this.options[this.selectedIndex].text);
 }
 
+modelSelected = function(event){
+    document.getElementById("chosenModel").innerHTML = this.options[this.selectedIndex].text;
+    curChosenModel = trainSessions.getFullFilePath(this.value);
+    document.getElementById("saveModel").href = trainSessions.getLastDownloadPath();
+    document.getElementById("saveModel").classList.remove("disabled");
+    document.getElementById("useModelButton").classList.remove("disabled");
+    console.log(curChosenModel);
+}
+
 getAllModelsInfo = function(){
     document.getElementById("loadingIcon").setAttribute("visible", true);
     var req = ocpu.call("getModelsInfo",
        {
-
        }, function(session)
        {
            session.getObject(function(data){
                //console.log(data);
-               var selector = document.getElementById("modelSelector");
+               var selector = document.getElementById("methodSelector");
                var methods = data[0];
                var attrInfo = data[1];
                for (i=0; i<methods.length; i++){
@@ -93,7 +127,6 @@ getAllModelsInfo = function(){
                }
                selector.value = "rpart"
            });
-
        });
 
        //if R returns an error, alert the error message
@@ -109,31 +142,11 @@ getAllModelsInfo = function(){
    return(null);
 }
 
-/*
-useOcpu = function(){
-    var path = "";
-    if(previousSession != null)
-        path = previousSession.getFileURL("m1.rds");
+addModelToOptions = function(){
+    var selector = document.getElementById("modelSelector");
+    var o = document.createElement("option");
+    o.value = trainSessions.count - 1;
+    o.innerHTML = trainSessions.getLastModelStr();
+    selector.appendChild(o);
 
-    console.log("path is: " + path);
-    var req = ocpu.call("saveOrLoadModel",
-       {
-           modelPath : path
-       }, function(session) {
-           previousSession = session;
-
-           session.getObject(function(data){
-               console.log(data);
-           });
-       });
-
-       //if R returns an error, alert the error message
-       req.fail(function() {
-           alert("Server error: " + req.responseText);
-       });
-}
-*/
-useModel = function(){
-    console.log("useModel");
-    $("#useResult").text("useModel called");
 }
