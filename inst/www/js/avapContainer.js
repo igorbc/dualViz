@@ -24,6 +24,8 @@ function AvApContainer(){
     this.pxThickness;
     this.color;
     this.avap = [];
+    this.indices = []; // stores key: value for each dimension name (key) and
+                       // index (value) pair
     this.avapGroup;
     this.avapLabelGroup;
     this.avapLineGroup;
@@ -35,6 +37,20 @@ function AvApContainer(){
     this.n; // number of AvAps
     this.nEnabled; // number of AvAps that are currently enabled
     this.vc; // the VizContainer which is parent of the AvApContainer.
+    this.scale;
+    this.invertedScale;
+
+    this.getAvap = function(key){
+        if(typeof(key) == "number")
+            return this.avap[key];
+        else
+            return this.avap[this.indices[key]];
+
+    }
+
+    this.getKey = function(i){
+        return avap[i].key;
+    }
 
     this.getPathOpacity = function(){
         if(this.vc.dynamicOpacity){
@@ -172,15 +188,18 @@ function AvApContainer(){
                 thisAvAp.color = "white";
             }
 
+            var min = d3.min(data, function(d) {return +d[thisAvAp.key]});
+            var max = d3.max(data, function(d) {return +d[thisAvAp.key]})
             thisAvAp.scale = d3.scale.linear()
-                .domain([
-                    d3.min(data,function(d) {return +d[thisAvAp.key]}),
-                    d3.max(data,function(d) {return +d[thisAvAp.key]})
-                ])
+                .domain([min, max])
                 .range([0, 1]);
 
-            this.avap[i] = thisAvAp;
+            thisAvAp.invertedScale = d3.scale.linear()
+                .domain([0, 1])
+                .range([min, max]);
 
+            this.avap[i] = thisAvAp;
+            this.indices[thisAvAp.key] = i;
         }
     }
 
@@ -213,10 +232,8 @@ function AvApContainer(){
             .attr("cx", function(d){ return d.pos[0];})
             .attr("cy", function(d){ return d.pos[1];})
             .attr("r", function(d){ return d.radiusSize;})
-            .attr("stroke","black")
             .attr("class","avap grabbable invisibleWhenDisabled enabled")
             .attr("id", function(d){ return "avap" + d.key;})
-            .attr("stroke-width", 2)
             .attr("fill", function(d){ return d.color;})
             .attr("opacity", function(d){return d.avapContainer.getOpacity(d.enabled)});
 

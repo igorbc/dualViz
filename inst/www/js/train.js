@@ -1,5 +1,23 @@
+createTestInstances = function(d, attrIndex, n){
+    var r = [];
+    var avap = vc.acAttr.getAvap(attrIndex);
+    var keys = Object.keys(vc.acAttr.indices);
 
-useModel = function(allData){
+    for(var i = 0; i < n; i++){
+        var newData = {};
+        for(var j = 0; j < keys.length; j++){
+
+            newData[keys[j]] = d[keys[j]].toString();
+        }
+        newData["class"] = d["class"];
+        newData[avap.key] = avap.invertedScale(i/(n-1)).toString();
+
+        r.push(newData);
+    }
+    return r;
+}
+
+useModel = function(data){
     if(!chosenModel){
         alert("Load an .rds model from disk or select from the available");
         return false;
@@ -7,23 +25,24 @@ useModel = function(allData){
     else{
         document.getElementById("useModelButton").classList.add("disabled");
         document.getElementById("loadingIcon").setAttribute("visible", true);
-        var req = ocpu.call("ml",
-           {
-               ds: allData,
-               mlMethod: "",
-               modelPath: curChosenModel
-           }, function(session)
-           {
-               classificationSessions.add(session);
 
-               session.getObject(function(data){
-                   console.log(data);
+        var req = ocpu.call("useModel",
+            {
+                ds: data,
+                modelPath: curChosenModel,
+            }, function(session)
+            {
+                classificationSessions.add(session);
 
-                   sa.destroyCurrent();
-                   vc.createAcApContainers();
-                   vc.colorScheme = sa.getClassColorScheme();
-                   useFile(data);
-               });
+                session.getObject(function(data){
+                    console.log(data);
+
+                    //sa.destroyCurrent();
+                    //vc.createAcApContainers();
+                    //vc.colorScheme = sa.getClassColorScheme();
+                    //useFile(data);
+                    newData = data;
+                });
            });
 
            //if R returns an error, alert the error message
@@ -60,12 +79,14 @@ train = function(allData){
 
     document.getElementById("trainButton").classList.add("disabled");
     document.getElementById("loadingIcon").setAttribute("visible", true);
+    var splitRatio = document.getElementById("trainTestSplit").value / 100;
 
     var req = ocpu.call("ml",
        {
            ds: allData,
            mlMethod: method,
-           modelPath: ""
+           modelPath: "",
+           splitRatio: splitRatio
        }, function(session)
        {
            trainSessions.add(session, method, curDataFileName);

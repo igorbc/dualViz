@@ -3,49 +3,57 @@ handleKeys = function(){
     d3.select("body")
         .on("keydown", function () {
             sa.shiftPressed = d3.event.shiftKey;
-            d3.event.preventDefault();
 
             switch(d3.event.code){
                 case "Minus":
+                    d3.event.preventDefault();
                     vc.addToRadius(-sa.zoomPx);
                     vc.drawEverything(sa.delay/2);
                     break;
                 case "Equal":
+                    d3.event.preventDefault();
                     vc.addToRadius(sa.zoomPx);
                     vc.drawEverything(sa.delay/2);
                     break;
 
                 case "KeyW":
+                    d3.event.preventDefault();
                     vc.addToCenter([0,-sa.translatePx,0]);
                     vc.drawEverything(sa.delay/2);
                     break;
 
                 case "KeyS":
+                    d3.event.preventDefault();
                     vc.addToCenter([0,sa.translatePx,0]);
                     vc.drawEverything(sa.delay/2);
                     break;
 
                 case "KeyD":
+                    d3.event.preventDefault();
                     vc.addToCenter([sa.translatePx,0,0]);
                     vc.drawEverything(sa.delay/2);
                     break;
 
                 case "KeyA":
+                    d3.event.preventDefault();
                     vc.addToCenter([-sa.translatePx,0,0]);
                     vc.drawEverything(sa.delay/2);
                     break;
 
                 case "KeyT":
+                    d3.event.preventDefault();
                     //console.log(allData);
                     train(allData);
 
                     break;
 
                 case "KeyP":
+                    d3.event.preventDefault();
                     vc.toggleRvSc(sa.delay);
                     break;
 
                 case "KeyC":
+                    d3.event.preventDefault();
                     //console.log()
                     var selection = vc.instGroup.selectAll(".selected");
                     if(selection) selection.classed("selected", false);
@@ -54,6 +62,7 @@ handleKeys = function(){
                     break;
 
                 case "ArrowLeft":
+                    d3.event.preventDefault();
                     if(sa.shiftPressed){
                         //changeAcClassRadius(-50);
                     }
@@ -64,6 +73,7 @@ handleKeys = function(){
                     break;
 
                 case "ArrowRight":
+                    d3.event.preventDefault();
                     if(sa.shiftPressed){
                         //changeAcClassRadius(50);
                     }
@@ -72,15 +82,30 @@ handleKeys = function(){
                     }
                     break;
                 case "ArrowUp":
+                    d3.event.preventDefault();
+                    console.log(tCount);
+                    console.log(allData[25]);
+                    allData[25] = newData[tCount==19?tCount:tCount++];
+                    vc.instGroup.selectAll("circle").data(allData);
+                    vc.updateInst(sa.delay/2);
+                    /*
                     if(sa.shiftPressed){
                         increasePointSize();
                     }
                     else {
                         rotateBasedOnKey(vc, "x");
                     }
+                    */
                     break;
 
                 case "ArrowDown":
+                    d3.event.preventDefault();
+                    console.log(tCount);
+                    console.log(allData[25]);
+                    allData[25] = newData[tCount==0?tCount:tCount--];
+                    vc.instGroup.selectAll("circle").data(allData);
+                    vc.updateInst(sa.delay/2);
+                    /*
                     if(sa.shiftPressed){
                         decreasePointSize();
                     }
@@ -88,6 +113,7 @@ handleKeys = function(){
                         rotateBasedOnKey(vc, "x", -1);
                     }
                     break;
+                    */
 
                 /*
                 case "":
