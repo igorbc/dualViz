@@ -65,7 +65,7 @@ function useFile(data){
     vc.updateInst(sa.delay);
 
 
-    allData = data.map(function (d) {
+    dm.data = data.map(function (d) {
         d.mouseOver = "false";
         return d;
     });

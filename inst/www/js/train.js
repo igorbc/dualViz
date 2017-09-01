@@ -1,21 +1,3 @@
-createTestInstances = function(d, attrIndex, n){
-    var r = [];
-    var avap = vc.acAttr.getAvap(attrIndex);
-    var keys = Object.keys(vc.acAttr.indices);
-
-    for(var i = 0; i < n; i++){
-        var newData = {};
-        for(var j = 0; j < keys.length; j++){
-
-            newData[keys[j]] = d[keys[j]].toString();
-        }
-        newData["class"] = d["class"];
-        newData[avap.key] = avap.invertedScale(i/(n-1)).toString();
-
-        r.push(newData);
-    }
-    return r;
-}
 
 useModel = function(data){
     if(!chosenModel){
@@ -41,7 +23,7 @@ useModel = function(data){
                     //vc.createAcApContainers();
                     //vc.colorScheme = sa.getClassColorScheme();
                     //useFile(data);
-                    newData = data;
+                    dm.vData = data;
                 });
            });
 
@@ -59,7 +41,7 @@ useModel = function(data){
     }
 }
 
-train = function(allData){
+train = function(data){
     /*
     if(isFileClassified){
         alert("This file aready contains information about classification results.\n" +
@@ -83,7 +65,7 @@ train = function(allData){
 
     var req = ocpu.call("ml",
        {
-           ds: allData,
+           ds: data,
            mlMethod: method,
            modelPath: "",
            splitRatio: splitRatio

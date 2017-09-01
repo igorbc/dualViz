@@ -3,10 +3,9 @@
 function SetupAssistent(){
     //this.defaultFile = "db/ecoli.csv";
     //this.defaultFile = "db/iris.csv";
-    //this.defaultFile = "db/iris naive bayes.csv"
+    //this.defaultFile = "db/iris_original.csv"
+    this.defaultFile = "db/iris naive bayes.csv"
     this.data;
-
-    this.defaultFile = "db/iris_original.csv"
 
     this.dataPointOpacity = 0.8;
     this.dataPointRadius = 2.5;

@@ -15,9 +15,6 @@
     <script type="text/javascript" src="js/d3extension.js"></script>
     <script type="text/javascript" src="js/d3.parcoords.js"></script>
     <script type="text/javascript" src="js/polybrush.js"></script>
-    <script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
-    <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
-    <script type="text/javascript" src="js/exportSvgToPng.js"></script>
     <!--  <script type="text/javascript" src="js/numeric-1.2.6.min.js"></script> -->
 
     <script type="text/javascript" src="js/setupAssistent.js"></script>
@@ -33,6 +30,7 @@
     <script type="text/javascript" src="js/vec.js"></script>
 
     <script type="text/javascript" src="js/train.js"></script>
+    <script type="text/javascript" src="js/dataManager.js"></script>
     <script type="text/javascript" src="js/settings.js"></script>
     <script type="text/javascript" src="js/rtest.js"></script>
     <script type="text/javascript" src="js/sessionsInfo.js"></script>
@@ -79,22 +77,9 @@
             <a href="#">About</a>
         </div>
 
-        <!-- TRAIN SIDENAV -->
-        <div id="trainSidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('train')">&times;</a>
-            <div class="styled-select slate">
-                <select id="methodSelector" onchange="methodSelected.call(this, event)">
-                    <option selected disabled>Choose method</option>
-                </select>
-            </div>
-
-            <a href="javascript:train(allData)" id="trainButton">Train model</a>
-
-            <div id="trainTestSplitContainer">
-                <a href="#" id="trainTestSplitLink">Train/test %</a>
-                <input type="number" value="80" min="0" max="100" id="trainTestSplit" oninput="javascript:handleSplitInput()">
-            </div>
-
+        <!-- CHOOSE MODEL SIDENAV -->
+        <div id="chooseModelSidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('settings')">&times;</a>
             <div class = "pretrainedModel">
                 <p>Loaded model</p>
                 <div id="chosenModel">none</div>
@@ -105,21 +90,53 @@
                 </select>
             </div>
             <a href="" onclick="document.getElementById('openModel').click(); return false">Load trained model</a>
+            <!-- <a href="javascript:increasePointSize()">Point size &uarr;</a> -->
+            <a href="#">About</a>
+        </div>
+
+        <!-- TRAIN SIDENAV -->
+        <div id="trainSidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('train')">&times;</a>
+            <div class="styled-select slate">
+                <select id="methodSelector" onchange="methodSelected.call(this, event)">
+                    <option selected disabled>Choose method</option>
+                </select>
+            </div>
+
+            <a href="javascript:train(dm.data)" id="trainButton">Train model</a>
+
+            <div id="trainTestSplitContainer">
+                <a href="#" id="trainTestSplitLink">Train/test %</a>
+                <input type="number" value="80" min="0" max="100" id="trainTestSplit" oninput="javascript:handleSplitInput()">
+            </div>
             <a href="javascript:saveModel()" class="disabled" id="saveModel" download>Save model</a>
             <input id="openModel" name="openModel" type="file" class="inputFile"
                 accept=".rds"
                 onchange="handleModel(this.files, false)"/>
-            <a href="javascript:useModel(allData)" class="disabled" id="useModelButton">Use chosen model</a>
+            <a href="javascript:useModel(dm.data)" class="disabled" id="useModelButton">Use chosen model</a>
             <a href="#">About</a>
         </div>
 
+        <!-- VARY ATTRIBUTE SIDENAV -->
+        <div id="varyAttrSidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('varyAttr')">&times;</a>
+            <div class="styled-select slate">
+                <select id="varyAttrSelector" onchange="dm.varyAttrSelected.call(this, event)">
+                    <option selected disabled>Choose attribute</option>
+                </select>
+            </div>
+            <a href="javascript:dm.varyAttribute()" id="varyAttr">Vary attribute</a>
+            <a href="#">About</a>
+        </div>
 
         <!-- NAVIGATION BAR -->
         <nav class="shadowed"><ul>
             <li><div class="loader" id="loadingIcon" visible=false></div></li>
             <li><a id="fileNav" href="javascript:openNav('file')">File</a></li>
             <li><a id="settingsNav" href="javascript:openNav('settings')">Settings</a></li>
+            <li><a id="chooseModelNav" href="javascript:openNav('chooseModel')">Choose Model</a></li>
             <li><a id="trainNav" href="javascript:openNav('train')">Training</a></li>
+            <li><a id="varyAttrNav" href="javascript:openNav('varyAttr')">Vary Attribute</a></li>
             <li><a id="aboutNav" href="#">About</a></li>
             </ul>
         </nav>
@@ -158,6 +175,7 @@
             var classificationSessions = new SessionsInfo();
             var curChosenModel;
             var headersAttr = [];
+            var dm = new DataManager();
 
             var classIndex;
 
@@ -168,8 +186,7 @@
             var headersClass = [];
             var classNames = [];
             var parcoords;
-            var allData;
-            var newData;
+
             var sliderConfigured;
             var colorAll = true;
             var PI = Math.PI;
@@ -195,6 +212,7 @@
                 d3.csv(fileName, function (csv) {
                     useFile(csv);
                     getAllModelsInfo();
+                    addVaryAttrFields()
                     windowResized();
 
                 });
@@ -256,6 +274,24 @@
                     //container.appendChild(document.createElement("br"));
                 }
             }
+
+            function addVaryAttrFields(){
+                // Container <div> where dynamic content will be placed
+                //var container = document.getElementById("dimensionSelector");
+                var selector = document.getElementById("varyAttrSelector");
+                // Clear previous contents of the container
+                while (selector.hasChildNodes()) {
+                    selector.removeChild(selector.lastChild);
+                }
+                var avaps = vc.acAttr.avap;
+                for (i=0; i<avaps.length; i++){
+                    var o = document.createElement("option");
+                    o.value = i;
+                    o.innerHTML = avaps[i].key;
+                    selector.appendChild(o);
+                }
+            }
+
             /* Set the width of the side navigation to 250px */
             function openNav(id) {
 

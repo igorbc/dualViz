@@ -66,14 +66,43 @@ setupTooltip = function(headers, headersClass, csv) {
         parcoords.data(csv).alpha(1).render();
     });
 
+    vc.instGroup.selectAll("circle").on("click", function (d) {
+
+        d.mouseOver = 1;
+        d.clicked = !d.clicked;
+
+        tooltip.html(getInstanceStr(d, headers, headersClass));
+
+        var x = parseInt(d3.select(this).attr("cx"));
+        var y = parseInt(d3.select(this).attr("cy"));
+
+        tooltip.style("top", (y + 10) + "px")
+            .style("left", (x + 10) + "px");
+
+        tooltip.style("display", "block");
+        tooltip.transition().duration(150).style("opacity", .9)
+        d3.select(this).classed("selected", true);
+        //d3.select(this).attr("stroke", "black");
+        //d3.select(this).attr("stroke-width", 3);
+
+        //console.log(d3.select(this));
+
+        colorAll = false;
+        parcoords.data(csv).alpha(1).render();
+    });
+
     vc.instGroup.selectAll("circle").on("mouseout", function (d) {
-        d.mouseOver = 0;
-        //d3.select(this).attr("stroke-width", 0);
-        d3.select(this).classed("selected", false);
         tooltip.transition().duration(150).style("opacity", 0);
         tooltip.style("display", "none");
-        colorAll = true;
-        parcoords.data(csv).alpha(0.4).render();
+        d.mouseOver = 0;
+        if(d.clicked != 1){
+            //d3.select(this).attr("stroke-width", 0);
+            d3.select(this).classed("selected", false);
+            tooltip.transition().duration(150).style("opacity", 0);
+            tooltip.style("display", "none");
+            colorAll = true;
+            parcoords.data(csv).alpha(0.4).render();
+        }
     });
 
 

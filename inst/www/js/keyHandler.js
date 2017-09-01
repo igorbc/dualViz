@@ -42,8 +42,8 @@ handleKeys = function(){
 
                 case "KeyT":
                     d3.event.preventDefault();
-                    //console.log(allData);
-                    train(allData);
+
+                    train(dm.data);
 
                     break;
 
@@ -84,9 +84,9 @@ handleKeys = function(){
                 case "ArrowUp":
                     d3.event.preventDefault();
                     console.log(tCount);
-                    console.log(allData[25]);
-                    allData[25] = newData[tCount==19?tCount:tCount++];
-                    vc.instGroup.selectAll("circle").data(allData);
+                    //console.log(dm.data[25]);
+                    dm.data[25] = dm.vData[tCount==19?tCount:tCount++];
+                    vc.instGroup.selectAll("circle").data(dm.data);
                     vc.updateInst(sa.delay/2);
                     /*
                     if(sa.shiftPressed){
@@ -101,9 +101,9 @@ handleKeys = function(){
                 case "ArrowDown":
                     d3.event.preventDefault();
                     console.log(tCount);
-                    console.log(allData[25]);
-                    allData[25] = newData[tCount==0?tCount:tCount--];
-                    vc.instGroup.selectAll("circle").data(allData);
+                    //console.log(dm.data[25]);
+                    dm.data[25] = dm.vData[tCount==0?tCount:tCount--];
+                    vc.instGroup.selectAll("circle").data(dm.data);
                     vc.updateInst(sa.delay/2);
                     /*
                     if(sa.shiftPressed){
