@@ -18,7 +18,7 @@ function VizContainer(){
     this.confusionClass = 0;
 
     this.dynamicOpacity = true;
-    this.pcHiddenAxes = ["class", "mouseOver"];
+    this.pcHiddenAxes = ["class", "selected"];
 
     this.createAcApContainers = function(){
         this.acAttr = new AvApContainer();

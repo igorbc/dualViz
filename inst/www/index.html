@@ -126,7 +126,11 @@
                 </select>
             </div>
             <a href="javascript:dm.varyAttribute()" id="varyAttr">Vary attribute</a>
+            <a href="javascript:dm.restoreData()" id="restoreDatar">Restore data</a>
             <a href="#">About</a>
+            <div id="attrVarSlider">
+                <h4><span id="attrLabel">Value: </span></h4>
+            </div>
         </div>
 
         <!-- NAVIGATION BAR -->
@@ -214,6 +218,7 @@
                     getAllModelsInfo();
                     addVaryAttrFields()
                     windowResized();
+                    dm.setupSlider();
 
                 });
             }

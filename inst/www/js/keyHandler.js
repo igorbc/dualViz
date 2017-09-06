@@ -85,7 +85,8 @@ handleKeys = function(){
                     d3.event.preventDefault();
                     console.log(tCount);
                     //console.log(dm.data[25]);
-                    dm.data[25] = dm.vData[tCount==19?tCount:tCount++];
+
+                    dm.updateVaryingData(tCount==19?tCount:++tCount);
                     vc.instGroup.selectAll("circle").data(dm.data);
                     vc.updateInst(sa.delay/2);
                     /*
@@ -102,7 +103,7 @@ handleKeys = function(){
                     d3.event.preventDefault();
                     console.log(tCount);
                     //console.log(dm.data[25]);
-                    dm.data[25] = dm.vData[tCount==0?tCount:tCount--];
+                    dm.updateVaryingData(tCount==0?tCount:--tCount);
                     vc.instGroup.selectAll("circle").data(dm.data);
                     vc.updateInst(sa.delay/2);
                     /*

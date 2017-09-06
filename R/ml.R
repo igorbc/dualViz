@@ -7,7 +7,7 @@ ml <- function(ds, mlMethod = "rpart", modelPath = "", splitRatio = 0.80){
     ds <- read.csv(filename, header = TRUE)
   }
 
-  ds <- ds[,!grepl( "confidence|prediction|mouseOver" , names(ds))]
+  ds <- ds[,!grepl( "confidence|prediction|selected|clickSelected" , names(ds))]
   ind <- !grepl( "class" , names(ds))
   ds[,ind] <- sapply(ds[,ind], as.numeric)
   library(caret)
@@ -64,7 +64,7 @@ useModel <- function(ds, modelPath){
     ds <- read.csv(filename, header = TRUE)
   }
 
-  ds <- ds[,!grepl( "confidence|prediction|mouseOver" , names(ds))]
+  ds <- ds[,!grepl( "confidence|prediction|selected|clickSelected" , names(ds))]
   ind <- !grepl( "class" , names(ds))
   ds[,ind] <- sapply(ds[,ind], as.numeric)
   library(caret)

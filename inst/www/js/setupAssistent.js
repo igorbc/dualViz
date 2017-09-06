@@ -3,8 +3,8 @@
 function SetupAssistent(){
     //this.defaultFile = "db/ecoli.csv";
     //this.defaultFile = "db/iris.csv";
-    //this.defaultFile = "db/iris_original.csv"
-    this.defaultFile = "db/iris naive bayes.csv"
+    this.defaultFile = "db/iris_original.csv"
+    //this.defaultFile = "db/iris naive bayes.csv"
     this.data;
 
     this.dataPointOpacity = 0.8;
@@ -134,23 +134,33 @@ function SetupAssistent(){
                 .on("brush", function () {
                     // set the 'selected' class for the circle
 
+
                     vc.instGroup.selectAll("circle").classed("selected", function (d) {
+                        if(d.clickSelected) return true;
 
                         var x = d3.select(this).attr("cx");
                         var y = d3.select(this).attr("cy");
 
                         if (brush.isWithinExtent(x, y)) {
                             d3.select(this).classed("selected", true);
-                            d.mouseOver = 1;
+                            d.selected = 1;
 
                             return true;
                         } else {
                             d3.select(this).classed("selected", false);
-                            d.mouseOver = 0;
+                            d.selected = 0;
+                            return false;
                         }
                     });
-                    colorAll = false;
-                    parcoords.data(csv).alpha(1).render();
+
+                    if(vc.instGroup.selectAll("circle.selected").empty()){
+                        colorAll = true;
+                    }
+                    else {
+                        colorAll = false;
+                    }
+
+                    parcoords.data(csv).alpha(0.7).render();
                 });
 
         svgContainer.append("g")

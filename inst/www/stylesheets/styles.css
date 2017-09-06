@@ -102,6 +102,25 @@ nav .active a:link, nav .active a:visited {
     /*border: 2px solid #000;*/
 }
 
+#attrLabel{
+    color: #a1a1a1;
+}
+
+#attrVarSlider{
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+    top: 200px;
+    -webkit-transition-property: none;
+       -moz-transition-property: none;
+         -o-transition-property: none;
+            transition-property: none;
+}
+
+#attrVarSlider .d3-slider-handle{
+    padding: 0;
+}
+
 #classContribSlider{
     z-index:0;
     width:300px;
@@ -336,6 +355,13 @@ circle.selected {
     stroke: black;
     stroke-width: 2;
 }
+
+circle.mouseOver {
+    stroke: black;
+    stroke-width: 3;
+}
+
+
 
 .checkb {
     outline: 1px solid #1e5180;

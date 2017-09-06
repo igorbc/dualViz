@@ -66,7 +66,7 @@ function useFile(data){
 
 
     dm.data = data.map(function (d) {
-        d.mouseOver = "false";
+        d.selected = 0;
         return d;
     });
 

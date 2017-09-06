@@ -41,35 +41,9 @@ setupTooltip = function(headers, headersClass, csv) {
 
     parcoords = createParCoords(csv, headers);
     parcoords.colorAll = true;
-//*
+
     vc.instGroup.selectAll("circle").on("mouseover", function (d) {
-
-        d.mouseOver = 1;
-
-        tooltip.html(getInstanceStr(d, headers, headersClass));
-
-        var x = parseInt(d3.select(this).attr("cx"));
-        var y = parseInt(d3.select(this).attr("cy"));
-
-        tooltip.style("top", (y + 10) + "px")
-            .style("left", (x + 10) + "px");
-
-        tooltip.style("display", "block");
-        tooltip.transition().duration(150).style("opacity", .9)
-        d3.select(this).classed("selected", true);
-        //d3.select(this).attr("stroke", "black");
-        //d3.select(this).attr("stroke-width", 3);
-
-        //console.log(d3.select(this));
-
-        colorAll = false;
-        parcoords.data(csv).alpha(1).render();
-    });
-
-    vc.instGroup.selectAll("circle").on("click", function (d) {
-
-        d.mouseOver = 1;
-        d.clicked = !d.clicked;
+        d.selected = 1;
 
         tooltip.html(getInstanceStr(d, headers, headersClass));
 
@@ -81,30 +55,42 @@ setupTooltip = function(headers, headersClass, csv) {
 
         tooltip.style("display", "block");
         tooltip.transition().duration(150).style("opacity", .9)
-        d3.select(this).classed("selected", true);
-        //d3.select(this).attr("stroke", "black");
-        //d3.select(this).attr("stroke-width", 3);
-
-        //console.log(d3.select(this));
-
+        d3.select(this).classed("mouseOver", true);
         colorAll = false;
-        parcoords.data(csv).alpha(1).render();
+        parcoords.data(csv).alpha(0.7).render();
     });
 
     vc.instGroup.selectAll("circle").on("mouseout", function (d) {
+        if(!d3.select(this).classed("selected")){
+            d.selected = false;
+        }
         tooltip.transition().duration(150).style("opacity", 0);
         tooltip.style("display", "none");
-        d.mouseOver = 0;
-        if(d.clicked != 1){
-            //d3.select(this).attr("stroke-width", 0);
-            d3.select(this).classed("selected", false);
-            tooltip.transition().duration(150).style("opacity", 0);
-            tooltip.style("display", "none");
+        d3.select(this)
+            .classed("mouseOver", false);
+
+        if(vc.instGroup.selectAll("circle.selected").empty()){
             colorAll = true;
-            parcoords.data(csv).alpha(0.4).render();
         }
+        else{
+            colorAll = false;
+        }
+
+        parcoords.data(csv).alpha(0.7).render();
+
     });
 
+    vc.instGroup.selectAll("circle").on("click", function (d) {
+        d.clickSelected = !d.clickSelected;
+        var curInst = d3.select(this);
+            curInst.classed("selected", !curInst.classed("selected"))
+            ;
+        console.log(curInst.classed("selected"));
+        console.log(curInst.classList);
+
+
+        parcoords.data(csv).alpha(0.7).render();
+    });
 
     vc.instGroup.selectAll("circle").on("mousemove", function (d) {
         var x = parseInt(d3.select(this).attr("cx"));
@@ -113,7 +99,7 @@ setupTooltip = function(headers, headersClass, csv) {
         tooltip.style("top", (y + 10) + "px")
             .style("left", (x + 10) + "px");
     });
-    //*/
+
     return parcoords;
 }
 
@@ -134,7 +120,7 @@ createParCoords = function(csv, headers){
     var dataAttributes = csv.map(function(d){
         var e = {};
         e.class = d.class;
-        e.mouseOver = d.mouseOver;
+        e.selected = d.selected;
         for (var i = 0; i < headers.length; i++) {
             e[headers[i]] = +d[headers[i]];
         }
@@ -152,14 +138,15 @@ createParCoords = function(csv, headers){
     parcoords
         .data(dataAttributes)
         .hideAxis(vc.pcHiddenAxes)
-        .alpha(0.4)
+        .alpha(0.7)
         .color(function(d){
+            //console.log("data on parcoords");
             //console.log(d);
             if (colorAll){
                 return vc.colorScheme(d.class);
             }
             else {
-                return (d.mouseOver == 1)? vc.colorScheme(d.class): "rgba(100,100,100,0.1)";
+                return (d.selected == 1)? vc.colorScheme(d.class): "rgba(100,100,100,0.1)";
             }
         })
         .render()
