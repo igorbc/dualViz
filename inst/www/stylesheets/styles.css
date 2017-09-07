@@ -42,7 +42,7 @@ nav {
     background-color: #666;
     height: 30px;
     width: 100%;
-    z-index: 2;
+    z-index: 4;
     /*margin: 0 auto;*/
 }
 
@@ -98,27 +98,8 @@ nav .active a:link, nav .active a:visited {
     background-color: #fff;
 
     position: relative;
-    z-index: 1;
+    z-index: 2;
     /*border: 2px solid #000;*/
-}
-
-#attrLabel{
-    color: #a1a1a1;
-}
-
-#attrVarSlider{
-    width: 150px;
-    display: block;
-    margin: 0 auto;
-    top: 200px;
-    -webkit-transition-property: none;
-       -moz-transition-property: none;
-         -o-transition-property: none;
-            transition-property: none;
-}
-
-#attrVarSlider .d3-slider-handle{
-    padding: 0;
 }
 
 #classContribSlider{
@@ -157,7 +138,7 @@ nav .active a:link, nav .active a:visited {
     width: 15%;
 
     display: inline-block;
-    z-index: 2;
+    z-index: 3;
     float: left;
 }
 
@@ -367,12 +348,46 @@ circle.mouseOver {
     outline: 1px solid #1e5180;
 }
 
+.txt{
+    padding: 8px 8px 8px 8px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #a1a1a1;
+    display: block;
+    transition: 0.3s;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.sidenavTxtContainer{
+    border-top: 1px solid #666;
+    border-bottom: 1px solid #666;
+    background-color: #222;
+}
+
+#attrVarSlider{
+    width: 185px;
+    display: block;
+    margin: 0 auto;
+}
+
+#attrVarSlider a{
+    -webkit-transition-property: none;
+       -moz-transition-property: none;
+         -o-transition-property: none;
+            transition-property: none;
+}
+
+#attrVarSlider .d3-slider-handle{
+    padding: 0;
+}
+
 /* The side navigation menu */
 .sidenav {
     height: 100%; /* 100% Full-height */
     width: 0; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
-    z-index: 3; /* Stay on top */
+    z-index: 5; /* Stay on top */
     top: 0;
     right: 0;
     background-color: #111; /* Black*/
@@ -382,7 +397,7 @@ circle.mouseOver {
 }
 
 /* The navigation menu links */
-.sidenav a {
+.sidenav a{
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 14px;
@@ -440,9 +455,7 @@ a:hover[class="closebtn"]{
 }
 
 #chosenModel{
-    color: #333;
-    text-align: center;
-    padding-bottom: 6px;
+    color: #888;
 }
 
 /* Style page content - use this if you want to push the page content

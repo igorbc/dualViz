@@ -29,7 +29,7 @@ return function module() {
   var min = 0,
       max = 100,
       step = 0.01,
-      animate = true,
+      animate = false,
       orientation = "horizontal",
       axis = false,
       margin = 50,

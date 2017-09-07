@@ -30,7 +30,7 @@ function mouseDownUp(ev, el, val) {
     mouseDown = val;
 }
 
-setupTooltip = function(headers, headersClass, csv) {
+setupTooltip = function(headers, headersClass, data) {
 
     var tooltip = d3.select("#chart")
         .append("div")
@@ -39,7 +39,7 @@ setupTooltip = function(headers, headersClass, csv) {
     tooltip.append("div")
         .attr("class", "label");
 
-    parcoords = createParCoords(csv, headers);
+    parcoords = createParCoords(data, headers);
     parcoords.colorAll = true;
 
     vc.instGroup.selectAll("circle").on("mouseover", function (d) {
@@ -57,7 +57,7 @@ setupTooltip = function(headers, headersClass, csv) {
         tooltip.transition().duration(150).style("opacity", .9)
         d3.select(this).classed("mouseOver", true);
         colorAll = false;
-        parcoords.data(csv).alpha(0.7).render();
+        parcoords.data(data).alpha(0.7).render();
     });
 
     vc.instGroup.selectAll("circle").on("mouseout", function (d) {
@@ -76,7 +76,7 @@ setupTooltip = function(headers, headersClass, csv) {
             colorAll = false;
         }
 
-        parcoords.data(csv).alpha(0.7).render();
+        parcoords.data(data).alpha(0.7).render();
 
     });
 
@@ -88,8 +88,7 @@ setupTooltip = function(headers, headersClass, csv) {
         console.log(curInst.classed("selected"));
         console.log(curInst.classList);
 
-
-        parcoords.data(csv).alpha(0.7).render();
+        parcoords.data(data).alpha(0.7).render();
     });
 
     vc.instGroup.selectAll("circle").on("mousemove", function (d) {
@@ -115,17 +114,7 @@ getInstanceStr = function (d, headers, headersClass) {
     return str;
 }
 
-createParCoords = function(csv, headers){
-
-    var dataAttributes = csv.map(function(d){
-        var e = {};
-        e.class = d.class;
-        e.selected = d.selected;
-        for (var i = 0; i < headers.length; i++) {
-            e[headers[i]] = +d[headers[i]];
-        }
-        return e;
-    });
+createParCoords = function(data, headers){
 
     //if(parcoords == undefined) {
         console.log("inicializando");
@@ -136,7 +125,7 @@ createParCoords = function(csv, headers){
 
 
     parcoords
-        .data(dataAttributes)
+        .data(dm.getParcoordsData())
         .hideAxis(vc.pcHiddenAxes)
         .alpha(0.7)
         .color(function(d){

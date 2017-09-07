@@ -82,6 +82,7 @@ function AvApContainer(){
             this.vc.pcHiddenAxes.splice(i, 1);
             this.nEnabled++;
 
+            parcoords.data(dm.getParcoordsData());
             parcoords.detectDimensions();
             parcoords.hideAxis(this.vc.pcHiddenAxes);
             parcoords.updateAxes();

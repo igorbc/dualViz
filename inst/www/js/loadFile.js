@@ -35,17 +35,18 @@ function handleFile(files, isClassified) {
     }
 }
 
+
 function useFile(data){
+    var ds = data.map(function (d) {
+            d.selected = 0;
+            return d;
+        });
+    dm.setData(ds);
 
-    var headers = sa.getAttrAndClassHeaders(data);
-    headersAttr = headers[0];
-    headersClass = headers[1];
-    classNames = sa.getClassNames(data);
+    sa.setupBrush(dm.data, svgContainer, vc.acAttr);
 
-    sa.setupBrush(data, svgContainer, vc.acAttr);
-
-    vc.acAttr.initializeAvApInfo(headersAttr, data);
-    vc.acClass.initializeAvApInfo(headersClass, data, classNames, vc.colorScheme);
+    vc.acAttr.initializeAvApInfo(dm.attrHeader, dm.data);
+    vc.acClass.initializeAvApInfo(dm.probHeader, dm.data, dm.classNames, vc.colorScheme);
 
     if(vc.isRadviz){
         vc.acAttr.createPath(sa.delay);
@@ -55,24 +56,18 @@ function useFile(data){
         vc.acAttr.createStarCoordLines();
         vc.acClass.createStarCoordLines();
     }
-    vc.initializeInstGroup(data);
+    vc.initializeInstGroup(dm.data);
     vc.acClass.createAvApGroup();
     vc.acAttr.createAvApGroup();
 
     vc.acAttr.addDoubleClickBehaviour(sa.delay);
-    vc.acClass.rotate(-TWO_PI/headersAttr.length, "z", false);
+    vc.acClass.rotate(-TWO_PI/dm.attrHeader.length, "z", false);
 
     vc.updateInst(sa.delay);
 
+    setupTooltip(dm.attrHeader, dm.probHeader, dm.data);
 
-    dm.data = data.map(function (d) {
-        d.selected = 0;
-        return d;
-    });
-
-    setupTooltip(headersAttr, headersClass, data);
-
-    addSvgLegend(classNames, svgContainer);
+    addSvgLegend(dm.classNames, svgContainer);
     setupDragBehaviour(vc.acAttr, vc.acClass);
 
     sliderConfigured = configSlider(sliderConfigured);

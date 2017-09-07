@@ -1,10 +1,49 @@
 function DataManager(){
     this.data;
     this.vData = []; // varying data
-    this.tData = []; // true data
+    this.tData = []; // true data (backed up when data varies)
     this.vDimension; // varying dimensionSelector
     this.dIndices = []; // index of the instances being varied
-    this.nSteps = 20;
+    this.nSteps = 50;
+    this.slider = null;
+    this.classNames;
+    this.isClassified;
+    this.attrHeader = []; // array with the headers for the Attirbute columns
+    this.probHeader = []; // array with the headers for the Class Probabilities columns
+
+    this.updateAttrAndProbHeaders = function(){
+        var firstLine = d3.entries(this.data[0]);
+        var allHeaders = [];
+        var classIndex = -1;
+        // gets the index of where the Class Probabilities columns start
+        for (var i = 0; i < firstLine.length; i++) {
+            allHeaders.push(firstLine[i].key.toString());
+            if (allHeaders[i] == "class") {
+                classIndex = i;
+            }
+        }
+
+        this.attrHeader = allHeaders.slice(0, classIndex);
+        this.probHeader = allHeaders.slice(classIndex + 1, allHeaders.length - 2);
+        //if(this.probHeader.length != 0){
+        //    vc.pcHiddenAxes = vc.pcHiddenAxes.concat(this.probHeader);
+        //}
+        //this.probHeader.pop();
+    }
+
+    this.setData = function(data){
+        this.data = data;
+        this.classNames = d3.map(this.data, function(d){return d.class;}).keys();
+        this.updateAttrAndProbHeaders();
+        if(this.probHeader.length == 0){
+            console.log("NO PROBABILITIES");
+            this.isClassified = false;
+        }
+        else{
+            console.log("CLASSIFIED ALRIGHT!");
+            this.isClassified = true;
+        }
+    }
 
     this.varyAttribute = function(){
         var indices = [];
@@ -20,31 +59,13 @@ function DataManager(){
         if(indices.length > 0){
             this.multiCreateInstances();
             //console.log(this.vData);
-            useModel(this.vData);
+            if(this.isClassified){
+                useModel(this.vData);
+            }
         }
         else{
             alert("Select at least one data point to use this feature.");
         }
-    }
-
-    this.setupSlider = function(){
-        var avap = vc.acAttr.avap[document.getElementById("varyAttrSelector").value];
-
-        //d3.select("#attrVarSlider").remove();
-        d3.select("#attrVarSlider").call(d3.slider()
-                .min(0)
-                .max(this.nSteps-1)
-                .value(Math.round(this.nSteps/2))
-                .step(1)
-                .on("slide", (function(evt, value){
-                    this.updateVaryingData(value);
-                    vc.instGroup.selectAll("circle").data(this.data);
-                    vc.updateInst(sa.delay/2);
-                    document.getElementById("attrLabel").innerHTML = "Value: " +
-                        Math.round(
-                            avap.invertedScale(value/(this.nSteps-1))*100
-                        )/100;
-                }).bind(this)));
     }
 
     this.updateVaryingData = function(index){
@@ -101,7 +122,63 @@ function DataManager(){
         return r;
     }
 
+    this.updateSlider = function(){
+        this.slider
+            .on("slide", this.getOnSlideFunction())
+            .value(0);
+        this.updateSliderText(0);
+    }
+
+    this.getOnSlideFunction = function(){
+        return (function(evt, value){
+            this.updateVaryingData(value);
+            vc.instGroup.selectAll("circle").data(this.data);
+            vc.updateInst(80);
+            this.updateSliderText(value);
+            parcoords.data(dm.data).alpha(0.7).render();
+        }).bind(this);
+    }
+
+    this.updateSliderText = function(value){
+        var avap = vc.acAttr.avap[
+            document.getElementById("varyAttrSelector").value];
+        document.getElementById("attrLabel").innerHTML = "Value: " +
+            Math.round(
+                avap.invertedScale(value/(this.nSteps-1))*100
+            )/100;
+        document.getElementById("attrDomainLabel").innerHTML =
+            "Domain: [" + avap.scale.domain() + "]";
+    }
+
+    this.setupSlider = function(){
+        if(this.slider){
+            this.updateSlider();
+        }
+        else{
+            this.slider = d3.slider()
+                    .min(0)
+                    .max(this.nSteps-1)
+                    .step(1);
+            this.updateSlider();
+            d3.select("#attrVarSlider").call(this.slider);
+        }
+    }
+
     this.varyAttrSelected = function(event){
+        this.updateSlider();
         //alert(this.selectedIndex + " " + this.options[this.selectedIndex].text);
+    }
+
+    this.getParcoordsData = function(){
+        var dataAttributes = this.data.map((function(d){
+            var e = {};
+            e.class = d.class;
+            e.selected = d.selected;
+            for (var i = 0; i < this.attrHeader.length; i++) {
+                e[this.attrHeader[i]] = +d[this.attrHeader[i]];
+            }
+            return e;
+        }).bind(this));
+        return dataAttributes;
     }
 }

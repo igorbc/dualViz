@@ -79,11 +79,12 @@
 
         <!-- CHOOSE MODEL SIDENAV -->
         <div id="chooseModelSidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('settings')">&times;</a>
-            <div class = "pretrainedModel">
-                <p>Loaded model</p>
-                <div id="chosenModel">none</div>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('chooseModel')">&times;</a>
+            <div class="sidenavTxtContainer">
+                <span class="txt">Loaded model</span>
+                <span id="chosenModel" class="txt">none</span>
             </div>
+
             <div class="styled-select slate">
                 <select id="modelSelector" onchange="modelSelected.call(this, event)">
                     <option selected disabled>Available models</option>
@@ -121,16 +122,18 @@
         <div id="varyAttrSidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav('varyAttr')">&times;</a>
             <div class="styled-select slate">
-                <select id="varyAttrSelector" onchange="dm.varyAttrSelected.call(this, event)">
+                <select id="varyAttrSelector" onchange="dm.varyAttrSelected(event)">
                     <option selected disabled>Choose attribute</option>
                 </select>
             </div>
             <a href="javascript:dm.varyAttribute()" id="varyAttr">Vary attribute</a>
             <a href="javascript:dm.restoreData()" id="restoreDatar">Restore data</a>
-            <a href="#">About</a>
-            <div id="attrVarSlider">
-                <h4><span id="attrLabel">Value: </span></h4>
+            <div class="sidenavTxtContainer">
+                <span id="attrDomainLabel" class="txt"></span>
+                <div id="attrVarSlider"></div>
+                <span id="attrLabel" class="txt">Value: </span>
             </div>
+            <a href="#">About</a>
         </div>
 
         <!-- NAVIGATION BAR -->
@@ -178,17 +181,11 @@
             var trainSessions = new SessionsInfo();
             var classificationSessions = new SessionsInfo();
             var curChosenModel;
-            var headersAttr = [];
             var dm = new DataManager();
 
-            var classIndex;
-
             var curSidebar = 0;
-            var isFileClassified = false;
             var curDataFileName;
-
-            var headersClass = [];
-            var classNames = [];
+            
             var parcoords;
 
             var sliderConfigured;
@@ -219,7 +216,6 @@
                     addVaryAttrFields()
                     windowResized();
                     dm.setupSlider();
-
                 });
             }
 

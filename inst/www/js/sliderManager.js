@@ -1,5 +1,6 @@
  configSlider = function(sliderConfigured){
     if(sliderConfigured != true)
+
         d3.select("#classContribSlider").call(contribSlider);
 
     return true;

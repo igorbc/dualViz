@@ -86,7 +86,7 @@ handleKeys = function(){
                     console.log(tCount);
                     //console.log(dm.data[25]);
 
-                    dm.updateVaryingData(tCount==19?tCount:++tCount);
+                    dm.updateVaryingData(tCount==(dm.nSteps-1)?tCount:++tCount);
                     vc.instGroup.selectAll("circle").data(dm.data);
                     vc.updateInst(sa.delay/2);
                     /*

@@ -52,32 +52,35 @@ function VizContainer(){
             selection = this.instGroup.selectAll("circle");
         }
 
-        selection
-            .each(function(d,i){
-                vc.instPos.push(vc.getInstancePosition(d));
-            })
-            .attr("cx", function(d, i){
-                return vc.instPos[i][0];
-            })
-            .attr("cy", function(d, i){
-                return vc.instPos[i][1];
-            })
-            .attr("opacity", this.dataPointOpacity)
-            .attr("r", this.dataPointRadius)
-            /*
-            .attr("opacity", function(d, i){
-                //console.log(vc.acAttr.instPos[i][2]);
-                return  vc.acAttr.zOpacityScale(this.instPos[i][2]);
-            })
-            .attr("r", function(d, i){
-                return vc.acAttr.zSizeScale(this.instPos[i][2])
-            })
-            */
-            .attr("fill", vc.colorFunction);
+        if(selection.empty())
+            alert("Error: no instances.");
+        else{
+            selection
+                .each(function(d,i){
+                    vc.instPos.push(vc.getInstancePosition(d));
+                })
+                .attr("cx", function(d, i){
+                    return vc.instPos[i][0];
+                })
+                .attr("cy", function(d, i){
+                    return vc.instPos[i][1];
+                })
+                .attr("opacity", this.dataPointOpacity)
+                .attr("r", this.dataPointRadius)
+                /*
+                .attr("opacity", function(d, i){
+                    //console.log(vc.acAttr.instPos[i][2]);
+                    return  vc.acAttr.zOpacityScale(this.instPos[i][2]);
+                })
+                .attr("r", function(d, i){
+                    return vc.acAttr.zSizeScale(this.instPos[i][2])
+                })
+                */
+                .attr("fill", vc.colorFunction);
+            }
     }
 
     this.getInstancePosition = function(d) {
-
         var sum = [0, 0, 0];
         var denominatorSum = 0;
 

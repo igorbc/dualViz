@@ -3,8 +3,8 @@
 function SetupAssistent(){
     //this.defaultFile = "db/ecoli.csv";
     //this.defaultFile = "db/iris.csv";
-    this.defaultFile = "db/iris_original.csv"
-    //this.defaultFile = "db/iris naive bayes.csv"
+    //this.defaultFile = "db/iris_original.csv"
+    this.defaultFile = "db/iris naive bayes.csv"
     this.data;
 
     this.dataPointOpacity = 0.8;
@@ -82,48 +82,6 @@ function SetupAssistent(){
             //.style("border", "1px solid black")
             .attr("transform", "translate(0,0)")
             ;
-    }
-
-    // returns arrays where
-    // [0] is an array with the headers for the Attirbute columns
-    // [1] is an array with the headers for the Class Probabiliies columns
-    this.getAttrAndClassHeaders = function(data){
-        var firstLine = d3.entries(data[0]);
-        var allHeaders = [];
-        var allHeaderLines = [];
-
-        // what will be returned
-        var headerAttr = [];
-        var headerClass = [];
-        var headerLineAttr = [];
-
-        // gets the index of where the Class Probabiliies columns start
-
-        for (var i = 0; i < firstLine.length; i++) {
-            allHeaders.push(firstLine[i].key.toString());
-            if (allHeaders[i] == "class") {
-                classIndex = i;
-            }
-        }
-
-        headerAttr = allHeaders.slice(0, classIndex);
-        headerClass = allHeaders.slice(classIndex + 1, allHeaders.length - 1);
-
-        return [headerAttr, headerClass];
-    }
-
-    this.getClassNames = function(data){
-        return d3.map(data, function(d){return d.class;}).keys();
-        /*
-        var classNames = [];
-
-        for (var i = 0; i < headerClass.length; i++) {
-            var keyName =  headerClass[i].replace("confidence(", "").replace(")", "");
-            console.log(keyName);
-            classNames.push(keyName);
-        }
-        return classNames;
-        */
     }
 
     this.setupBrush = function(csv, svgContainer, acAttr) {
