@@ -1,5 +1,19 @@
 
-useModel = function(data){
+callTrain = function(){
+    if(dm.fullData){
+        train(dm.fullData);
+    }
+    else{
+        if(dm.isClassified){
+            alert("The current data is already classified and the original data is not available.");
+        }
+        else{
+            train(dm.data);
+        }
+    }
+}
+
+useModel = function(data, vary){
     if(!chosenModel){
         alert("Load an .rds model from disk or select from the available");
         return false;
@@ -19,11 +33,17 @@ useModel = function(data){
                 session.getObject(function(data){
                     console.log(data);
 
-                    //sa.destroyCurrent();
-                    //vc.createAcApContainers();
-                    //vc.colorScheme = sa.getClassColorScheme();
-                    //useFile(data);
-                    dm.vData = data;
+                    if(vary){
+                        dm.vData = data;
+                    }
+                    else{
+                        sa.destroyCurrent();
+                        vc.createAcApContainers();
+                        vc.colorScheme = sa.getClassColorScheme();
+                        useFile(data);
+                    }
+
+
                 });
            });
 
@@ -104,6 +124,7 @@ methodSelected = function(event){
 
 modelSelected = function(event){
     document.getElementById("chosenModel").innerHTML = this.options[this.selectedIndex].text;
+    document.getElementById("chosenModelLabel").innerHTML = this.options[this.selectedIndex].text;
     curChosenModel = trainSessions.getFullFilePath(this.value);
     document.getElementById("saveModel").href = trainSessions.getLastDownloadPath();
     document.getElementById("saveModel").classList.remove("disabled");

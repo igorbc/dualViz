@@ -1,9 +1,10 @@
 
 ml <- function(ds, mlMethod = "rpart", modelPath = "", splitRatio = 0.80){
+  browser()
   set.seed(42)
 
   if(is.null(ds)){
-    filename <- "file:///Applications/XAMPP/xamppfiles/htdocs/dualViz/inst/www/db/winedata.csv"
+    filename <- "file:///Applications/XAMPP/xamppfiles/htdocs/dualViz/inst/www/db/iris_original.csv"
     ds <- read.csv(filename, header = TRUE)
   }
 
@@ -24,12 +25,13 @@ ml <- function(ds, mlMethod = "rpart", modelPath = "", splitRatio = 0.80){
     method = "repeatedcv",
     number = 10,
     ## repeated ten times
-    repeats = 10)
+    repeats = 2)
 
   #m <- train(class ~., method = mlMethod, data=trainset, trControl=fitControl, verbose = FALSE)
 
   if(modelPath == ""){
-    m <- train(class ~., method = mlMethod, data=trainset)
+    #m <- train(class ~., method = mlMethod, data=trainset)
+    m <- train(class ~., method = mlMethod, data=trainset, trControl=fitControl, tuneLength=3)
     saveRDS(m, file = paste(mlMethod, ".rds", sep=""))
   }
   else{

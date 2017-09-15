@@ -454,7 +454,7 @@ a:hover[class="closebtn"]{
     white-space: nowrap;
 }
 
-#chosenModel{
+#chosenModel, #chosenModelLabel{
     color: #888;
 }
 
@@ -526,12 +526,15 @@ change the style of the sidenav (less padding and a smaller font size) */
    height: 29px;
    padding: 5px; /* If you add too much padding here, the options won't show in IE */
    width: 200px;
+   border: 1px solid;
+   border-color: #aaa;
 }
 
 .styled-select.slate {
     display: block;
     height: 34px;
     width: 200px;
+
 }
 
 .styled-select.slate select {

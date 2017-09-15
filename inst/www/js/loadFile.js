@@ -8,7 +8,8 @@ function handleModel(files) {
     }
     else {
         document.getElementById("chosenModel").innerHTML = files[0].name + " (from disk)";
-        document.getElementById("saveModel").classList.add("disabled");
+        document.getElementById("chosenModelLabel").innerHTML = files[0].name + " (from disk)";;
+        //document.getElementById("saveModel").classList.add("disabled");
         document.getElementById("modelSelector").selectedIndex = 0;
         document.getElementById("useModelButton").classList.remove("disabled");
         curChosenModel = files[0];
@@ -16,17 +17,11 @@ function handleModel(files) {
 }
 
 
-function handleFile(files, isClassified) {
+function handleFile(files) {
     if(typeof files === "undefined"){
         return false;
     }
     else {
-        isFileClassified = isClassified;
-        if (isClassified)
-            console.log("IS classified");
-        else
-            console.log("is NOT classified");
-
         console.log(files[0]);
 
         curDataFileName = window.URL.createObjectURL(files[0]);
@@ -42,6 +37,7 @@ function useFile(data){
             return d;
         });
     dm.setData(ds);
+    dm.updateDataOptions();
 
     sa.setupBrush(dm.data, svgContainer, vc.acAttr);
 

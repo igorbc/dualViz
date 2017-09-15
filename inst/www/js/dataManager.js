@@ -1,5 +1,7 @@
 function DataManager(){
     this.data;
+    this.fullData = null;
+    this.classifiedData = null;
     this.vData = []; // varying data
     this.tData = []; // true data (backed up when data varies)
     this.vDimension; // varying dimensionSelector
@@ -38,11 +40,58 @@ function DataManager(){
         if(this.probHeader.length == 0){
             console.log("NO PROBABILITIES");
             this.isClassified = false;
+            this.fullData = data;
         }
         else{
             console.log("CLASSIFIED ALRIGHT!");
             this.isClassified = true;
+            this.classifiedData = data;
         }
+    }
+
+    this.updateDataOptions = function(){
+        var selector = document.getElementById("dataSelector");
+        // Clear previous contents of the container
+        while (selector.hasChildNodes()) {
+            selector.removeChild(selector.lastChild);
+        }
+
+        if(this.fullData){
+            var o = document.createElement("option");
+            o.value = "original";
+            o.innerHTML = "original (" + this.fullData.length + " instances)";
+            selector.appendChild(o);
+        }
+
+        if(this.classifiedData){
+            var o = document.createElement("option");
+            o.value = "classified";
+            o.innerHTML = "classified (" + this.classifiedData.length + " instances)";
+            selector.appendChild(o);
+        }
+
+        if(this.data == dm.classifiedData){
+            selector.value = "classified";
+        }
+        else{
+            selector.value = "original";
+        }
+
+    }
+
+
+    this.dataSelected = function(el, event){
+
+        if(el.value == "classified"){
+            this.data = this.classifiedData;
+        }
+        else{
+            this.data = this.fullData;
+        }
+        sa.destroyCurrent();
+        vc.createAcApContainers();
+        vc.colorScheme = sa.getClassColorScheme();
+        useFile(this.data);
     }
 
     this.varyAttribute = function(){
@@ -60,7 +109,7 @@ function DataManager(){
             this.multiCreateInstances();
             //console.log(this.vData);
             if(this.isClassified){
-                useModel(this.vData);
+                useModel(this.vData, true);
             }
         }
         else{

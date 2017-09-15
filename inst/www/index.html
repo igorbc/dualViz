@@ -50,12 +50,8 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav('file')">&times;</a>
             <input id="openFile" name="openFile" type="file" class="inputFile"
                 accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
-                onchange="handleFile(this.files, false)"/>
+                onchange="handleFile(this.files)"/>
             <a href="" onclick="document.getElementById('openFile').click(); return false">Open file</a>
-            <input id="openClassifiedFile" name="openClassifiedFile" type="file" class="inputFile"
-                accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
-                onchange="handleFile(this.files, true)"/>
-            <a href="" onclick="document.getElementById('openClassifiedFile').click(); return false">Open classified file</a>
             <a href="#">About</a>
         </div>
 
@@ -74,6 +70,20 @@
             <a href="javascript:increasePointOpacity()">Point opacity &uarr;</a>
             <a href="javascript:decreasePointOpacity()">Point opacity &darr;</a>
             <a href="javascript:vc.adjustStarCoord()">Adjust Star Coordinates</a>
+            <a href="#">About</a>
+        </div>
+
+        <!-- DATA SIDENAV -->
+        <div id="dataSidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('data§')">&times;</a>
+            <div class="sidenavTxtContainer">
+                <span class="txt">Loaded data</span>
+                <!-- <span class="txt" id="dataDescription"></span> -->
+            </div>
+            <div class="styled-select slate">
+                <select id="dataSelector" onchange="dm.dataSelected(this, event)">
+                </select>
+            </div>
             <a href="#">About</a>
         </div>
 
@@ -110,11 +120,15 @@
                 <a href="#" id="trainTestSplitLink">Train/test %</a>
                 <input type="number" value="80" min="0" max="100" id="trainTestSplit" oninput="javascript:handleSplitInput()">
             </div>
+            <div class="sidenavTxtContainer">
+                <span class="txt">Chosen model</span>
+                <span id="chosenModelLabel" class="txt">none</span>
+            </div>
             <a href="javascript:saveModel()" class="disabled" id="saveModel" download>Save model</a>
             <input id="openModel" name="openModel" type="file" class="inputFile"
                 accept=".rds"
                 onchange="handleModel(this.files, false)"/>
-            <a href="javascript:useModel(dm.data)" class="disabled" id="useModelButton">Use chosen model</a>
+            <a href="javascript:useModel(dm.data, false)" class="disabled" id="useModelButton">Use chosen model</a>
             <a href="#">About</a>
         </div>
 
@@ -141,6 +155,7 @@
             <li><div class="loader" id="loadingIcon" visible=false></div></li>
             <li><a id="fileNav" href="javascript:openNav('file')">File</a></li>
             <li><a id="settingsNav" href="javascript:openNav('settings')">Settings</a></li>
+            <li><a id="dataNav" href="javascript:openNav('data')">Data</a></li>
             <li><a id="chooseModelNav" href="javascript:openNav('chooseModel')">Choose Model</a></li>
             <li><a id="trainNav" href="javascript:openNav('train')">Training</a></li>
             <li><a id="varyAttrNav" href="javascript:openNav('varyAttr')">Vary Attribute</a></li>
@@ -185,7 +200,7 @@
 
             var curSidebar = 0;
             var curDataFileName;
-            
+
             var parcoords;
 
             var sliderConfigured;
@@ -211,6 +226,8 @@
                 console.log(fileName);
                 handleSplitInput();
                 d3.csv(fileName, function (csv) {
+                    dm.fullData = null;
+                    dm.classifiedData = null;
                     useFile(csv);
                     getAllModelsInfo();
                     addVaryAttrFields()
