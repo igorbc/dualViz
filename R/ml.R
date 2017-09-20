@@ -1,9 +1,9 @@
-#' @import caret
-
 
 ml <- function(ds, mlMethod = "rpart", modelPath = "", splitRatio = 0.80){
 
   set.seed(42)
+
+  library(caret)
 
   if(is.null(ds)){
     filename <- "file:///Applications/XAMPP/xamppfiles/htdocs/dualViz/inst/www/db/iris_original.csv"
