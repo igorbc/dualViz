@@ -1,6 +1,4 @@
 checkModel <- function(rdsUrl){
-  library(caret)
-
   warning(getwd())
 
   print(getwd())

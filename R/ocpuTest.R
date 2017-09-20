@@ -1,6 +1,5 @@
 
 saveOrLoadModel <- function(theFile, modelPaths, justPaths){
-    library(caret)
 
     ds <- read.csv(theFile, TRUE)
     index <- createDataPartition(ds$class, p=0.80, list=FALSE)

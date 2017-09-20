@@ -1,9 +1,11 @@
+#' @importFrom caret createDataPartition train getModelInfo trainControl
+#' @importFrom stats predict
+#' @importFrom utils read.csv
+
 
 ml <- function(ds, mlMethod = "rpart", modelPath = "", splitRatio = 0.80){
 
   set.seed(42)
-
-  library(caret)
 
   if(is.null(ds)){
     filename <- "file:///Applications/XAMPP/xamppfiles/htdocs/dualViz/inst/www/db/iris_original.csv"
@@ -70,7 +72,6 @@ useModel <- function(ds, modelPath){
   ds <- ds[,!grepl( "confidence|prediction|selected|clickSelected" , names(ds))]
   ind <- !grepl( "class" , names(ds))
   ds[,ind] <- sapply(ds[,ind], as.numeric)
-  library(caret)
 
   colnames(ds)[length(colnames(ds))] <- "class"
   ds$class <- factor(ds$class)
