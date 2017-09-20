@@ -16,7 +16,6 @@ function handleModel(files) {
     }
 }
 
-
 function handleFile(files) {
     if(typeof files === "undefined"){
         return false;
