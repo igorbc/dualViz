@@ -1,6 +1,8 @@
+#' @import caret
+
 
 ml <- function(ds, mlMethod = "rpart", modelPath = "", splitRatio = 0.80){
-  browser()
+
   set.seed(42)
 
   if(is.null(ds)){
@@ -11,7 +13,6 @@ ml <- function(ds, mlMethod = "rpart", modelPath = "", splitRatio = 0.80){
   ds <- ds[,!grepl( "confidence|prediction|selected|clickSelected" , names(ds))]
   ind <- !grepl( "class" , names(ds))
   ds[,ind] <- sapply(ds[,ind], as.numeric)
-  library(caret)
 
   colnames(ds)[length(colnames(ds))] <- "class"
   ds$class <- factor(ds$class)

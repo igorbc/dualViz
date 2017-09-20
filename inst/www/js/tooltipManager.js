@@ -39,9 +39,6 @@ setupTooltip = function(headers, headersClass, data) {
     tooltip.append("div")
         .attr("class", "label");
 
-        console.log("data, headers");
-        console.log(data[0]);
-        console.log(headers);
     parcoords = createParCoords(data, headers);
     parcoords.colorAll = true;
 
