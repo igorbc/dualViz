@@ -70,6 +70,7 @@ train = function(data){
     }
     */
 
+
     var selector = document.getElementById("methodSelector");
     if(selector.selectedIndex == 0){
         alert("Choose a method first.");

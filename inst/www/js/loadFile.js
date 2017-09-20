@@ -61,6 +61,12 @@ function useFile(data){
 
     vc.updateInst(sa.delay);
 
+    //parcoords = createParCoords(dm.data, dm.attrHeader);
+    //parcoords.colorAll = true;
+
+    console.log("dm.attrHeader, dm.data");
+    console.log(dm.data[0]);
+    console.log(dm.attrHeader);
     setupTooltip(dm.attrHeader, dm.probHeader, dm.data);
 
     addSvgLegend(dm.classNames, svgContainer);

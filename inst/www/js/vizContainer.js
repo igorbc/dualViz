@@ -18,7 +18,7 @@ function VizContainer(){
     this.confusionClass = 0;
 
     this.dynamicOpacity = true;
-    this.pcHiddenAxes = ["class", "selected"];
+    this.pcHiddenAxes = [];
 
     this.createAcApContainers = function(){
         this.acAttr = new AvApContainer();
@@ -27,6 +27,7 @@ function VizContainer(){
         sa.setBasicVizContainerInfo(this);
         sa.setAvApContainerAttrInfo(this.acAttr, vc);
         sa.setAvApContainerClassInfo(this.acClass, vc);
+        this.pcHiddenAxes = ["class", "selected"];
     }
 
     this.initializeInstGroup = function(data) {

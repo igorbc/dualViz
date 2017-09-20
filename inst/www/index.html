@@ -10,7 +10,11 @@
     <script src="opencpu/jquery-3.2.1.min.js"></script>
     <script src="opencpu/opencpu-0.5.js"></script>
 
-    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+
+    <!-- <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+    <!--  -->
+    <script type="text/javascript" src="js/d3.v3.min.js"></script>
     <script type="text/javascript" src="js/d3.slider.js"></script>
     <script type="text/javascript" src="js/d3extension.js"></script>
     <script type="text/javascript" src="js/d3.parcoords.js"></script>
@@ -78,10 +82,12 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav('data§')">&times;</a>
             <div class="sidenavTxtContainer">
                 <span class="txt">Loaded data</span>
-                <!-- <span class="txt" id="dataDescription"></span> -->
+                <span class="txt" id="dataDescription"></span>
             </div>
             <div class="styled-select slate">
                 <select id="dataSelector" onchange="dm.dataSelected(this, event)">
+                    <option selected>bla</option>
+                    <option selected>bli</option>
                 </select>
             </div>
             <a href="#">About</a>
@@ -114,7 +120,7 @@
                 </select>
             </div>
 
-            <a href="javascript:train(dm.data)" id="trainButton">Train model</a>
+            <a href="javascript:train(dm.getSelectedDimensions())" id="trainButton">Train model</a>
 
             <div id="trainTestSplitContainer">
                 <a href="#" id="trainTestSplitLink">Train/test %</a>

@@ -13,6 +13,20 @@ function DataManager(){
     this.attrHeader = []; // array with the headers for the Attirbute columns
     this.probHeader = []; // array with the headers for the Class Probabilities columns
 
+    this.getSelectedDimensions = function(){
+        var avaps = vc.acAttr.avap;
+        var mappedData = [];
+        mappedData = this.data.map(function(d){
+            for(var i = 0; i < avaps.length; i++){
+                if(!avaps[i].enabled){
+                    delete d[avaps[i].key];
+                }
+            }
+            return d;
+        });
+        return mappedData;
+    }
+
     this.updateAttrAndProbHeaders = function(){
         var firstLine = d3.entries(this.data[0]);
         var allHeaders = [];
