@@ -1,4 +1,4 @@
-#' @importFrom caret createDataPartition train getModelInfo trainControl
+#' @importFrom caret createDataPartition train getModelInfo trainControl confusionMatrix
 #' @importFrom stats predict
 #' @importFrom utils read.csv
 

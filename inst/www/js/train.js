@@ -1,4 +1,35 @@
 
+loadModelInfo = function(){
+    if(!chosenModel){
+        alert("Load an .rds model from disk or select from the available");
+        return false;
+    }
+    else{
+        document.getElementById("loadModelInfoButton").classList.add("disabled");
+        document.getElementById("loadingIcon").setAttribute("visible", true);
+        console.log("will call getSingleModelInfo")
+        var req = ocpu.call("getSingleModelInfo",
+            {
+                modelPath: curChosenModel,
+            }, function(session)
+            {
+                session.getObject(processModelInfo);
+           });
+
+           //if R returns an error, alert the error message
+           req.fail(function()
+           {
+               alert("Server error: " + req.responseText);
+           });
+
+           req.always(function()
+           {
+               document.getElementById("loadModelInfoButton").classList.remove("disabled");
+               document.getElementById("loadingIcon").setAttribute("visible", false);
+           });
+    }
+}
+
 callTrain = function(){
     if(dm.fullData){
         train(dm.fullData);

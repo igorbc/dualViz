@@ -40,6 +40,7 @@ function VizContainer(){
             .attr("cy", this.center[1])
             .attr("r", 1)
             .attr("fill",function(d){return vc.colorScheme(d.class);});
+            //.attr("stroke",function(d){return vc.colorScheme(d.class);});
     }
 
     this.updateInst = function(delay = 0) {

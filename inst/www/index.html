@@ -31,6 +31,7 @@
     <script type="text/javascript" src="js/sliderManager.js"></script>
     <script type="text/javascript" src="js/tooltipManager.js"></script>
     <script type="text/javascript" src="js/loadFile.js"></script>
+    <script type="text/javascript" src="js/confusionMatrix.js"></script>
     <script type="text/javascript" src="js/vec.js"></script>
 
     <script type="text/javascript" src="js/train.js"></script>
@@ -106,7 +107,8 @@
                     <option selected disabled>Available models</option>
                 </select>
             </div>
-            <a href="" onclick="document.getElementById('openModel').click(); return false">Load trained model</a>
+            <a href="" onclick="document.getElementById('openModel').click(); return false">Open trained model</a>
+            <a href="javascript:void(0)" onclick="loadModelInfo()" id="loadModelInfoButton">Load model info</a>
             <!-- <a href="javascript:increasePointSize()">Point size &uarr;</a> -->
             <a href="#">About</a>
         </div>
@@ -177,7 +179,7 @@
                     <a href="javascript:vc.setViz(true)" class = "curViz" id="useRadViz">RadViz</a>
                     <a href="javascript:vc.setViz(false)" id="useStarCoord">Star Coordinates</a>
                 </div>
-                <br>
+
                 <div class="menuTitle">Dimensions</div>
                 <div id="dimensionSelector"></div>
             </div>
@@ -194,6 +196,16 @@
                 onmousemove="mouseMove(event, this)" class="pressed"></div>
             </div>
             <div id="parc" class="parcoords"></div>
+            <div id="confMatrixContainer"></div>
+            <div id="statusBar">
+                <ul>
+                    <li>Model Info</li>
+                    <li id="modelName"></li>
+                    <li id="modelTraningData"></li>
+                    <li id="modelAcc"></li>
+                    <li id="modelKappa"></li>
+                </ul>
+            </div>
         </div>
 
         <script>

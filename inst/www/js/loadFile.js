@@ -2,6 +2,23 @@
  * Created by igorcorrea on 03/12/2015.
  */
 
+function processModelInfo(mInfo){
+        console.log("ahoy!");
+        var stats = mInfo[0][0];
+
+        document.getElementById("modelName").textContent =
+                "Name: " + stats.label + " (" + stats.library + ")";
+        document.getElementById("modelTraningData").textContent =
+                "Size of training data: " + stats.dataLength;
+        document.getElementById("modelAcc").textContent =
+                "Accuracy: " + Math.round(stats.accuracy*10000)/100;
+        document.getElementById("modelKappa").textContent =
+                "Kappa: " + Math.round(stats.kappa*10000)/100;
+        mcm = mInfo[1];
+        createConfusionMatrix(mInfo[1]);
+
+}
+
 function handleModel(files) {
     if(files === "undefined"){
         return false;

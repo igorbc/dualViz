@@ -38,9 +38,9 @@ saveOrLoadModel <- function(theFile, modelPaths, justPaths){
 
 
 
-        m1 <- readRDS(modelPaths[13])
+        #m1 <- readRDS(modelPaths[13])
 
         predictions <- predict(object = m1$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="class")
-        return(predictions)
+        return(m1)
     }
 }

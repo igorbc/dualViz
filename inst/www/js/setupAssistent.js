@@ -7,8 +7,8 @@ function SetupAssistent(){
     this.defaultFile = "db/iris_naive_bayes.csv"
     this.data;
 
-    this.dataPointOpacity = 0.8;
-    this.dataPointRadius = 2.5;
+    this.dataPointOpacity = 0.7;
+    this.dataPointRadius = 3.5;
 
     this.svgWidth = 700;
     this.svgHeight = 620;
@@ -140,16 +140,14 @@ function SetupAssistent(){
     }
 
     this.getClassColorScheme = function(){
-        return d3.scale.category10();
-
-        // TODO: Change the application to accomodate a better color scheme.
-
         /*
-        return function(d,i) { return function (i) {
-                var colores_g = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6",
-                "#3b3eac"];
-                return colores_g[n % colores_g.length];sa.g_color(i)};
-            };
+        return d3.scale.category10();
+        /*/
+        return d3.scale.ordinal()
+                .range(["#3366cc", "#dc3912", "#109618", "#990099", "#0099c6",
+                        "#ff9900", "#dd4477", "#66aa00", "#b82e2e", "#316395",
+                        "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300",
+                        "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"]);
         //*/
     }
 }
