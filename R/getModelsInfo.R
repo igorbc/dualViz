@@ -8,8 +8,8 @@ getSingleModelInfo <- function(modelPath=""){
 
     perf <- c(m$modelInfo$label, m$modelInfo$library,
              m$results$Accuracy[1], m$results$Kappa[1],
-             length(m$trainingData[,1]))
-    names(perf) <- c("label", "library", "accuracy", "kappa", "dataLength")
+             length(m$trainingData[,1]), length(m$coefnames))
+    names(perf) <- c("label", "library", "accuracy", "kappa", "dataLength", "attributeLength")
     perf <- as.data.frame.list(perf)
     cm <- confusionMatrix(m)$table
     dimNames <- attr(cm, "dimnames")$Reference

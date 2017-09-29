@@ -7,19 +7,41 @@ function createConfusionMatrix(data){
     var table = d3.select("#confMatrixContainer").append("table");
     var thead = table.append("thead");
     var tbody = table.append("tbody");
+    var colorScale = d3.scale.linear()
+        .domain([0, 1])
+        .range(["white", "blue"]);
 
     data = data.map(function(d){
-                delete(d["_row"]);
+                //delete(d["_row"]);
                 return d;
             });
-    var columns = [""].concat(Object.keys(data[0]));
+    var columns = Object.keys(data[0]);
+    columns = [columns.pop()].concat(columns);
+
+    //var sums = new Array(columns.length - 1).fill(0);
+    var sums = {};
+    columns.forEach(function(d){
+        sums[d] = 0;
+    });
+    data.forEach(function(d){
+        for(var i = 1; i < columns.length; i++){
+            sums[columns[i]] += d[columns[i]];
+        }
+    });
+
+    console.log(sums);
 
     thead.append("tr")
         .selectAll("th")
         .data(columns)
         .enter()
         .append("th")
-        .text(function(column) { return column; });
+        .text(function(column) {
+                if(column == "_row")
+                    return "";
+                else {
+                    return column;
+                }});
 
     var rows = tbody.selectAll("tr")
         .data(data)
@@ -32,11 +54,31 @@ function createConfusionMatrix(data){
             // values for the columns you provide.
             return columns.map(function(column) {
                 // return a new object with a value set to the row's column value.
-                return {value: row[column]};
+                return {value: row[column],
+                        column: column};
             });
         })
         .enter()
         .append("td")
-        .text(function(d) { return d.value; });
+        .style("background-color", function(d){
+            if(typeof(d.value) === "string")
+                return "white";
+            else{
+                //console.log(d.column);
+                //console.log(d.value);
+                //console.log(colorScale(d.value));
+                return colorScale(d.value/sums[d.column]);
+            }
+
+        })
+        .text(function(d) {
+
+                if(typeof(d.value) === "string"){
+                    return d.value;
+                }
+                else {
+                    return Math.round(d.value*100)/100;
+                }
+            });
     return table;
 }

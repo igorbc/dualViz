@@ -9,7 +9,9 @@ function processModelInfo(mInfo){
         document.getElementById("modelName").textContent =
                 "Name: " + stats.label + " (" + stats.library + ")";
         document.getElementById("modelTraningData").textContent =
-                "Size of training data: " + stats.dataLength;
+                 stats.dataLength + " instances - " +
+                 mInfo[2].length + " classes - " +
+                 stats.attributeLength + " attributes";
         document.getElementById("modelAcc").textContent =
                 "Accuracy: " + Math.round(stats.accuracy*10000)/100;
         document.getElementById("modelKappa").textContent =
