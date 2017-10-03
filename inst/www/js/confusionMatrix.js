@@ -3,8 +3,20 @@ createConfusionMatrix contains code from tabulate.js by Shawn Allen (@shawnbot)
 created by shiyan on 9/13/15 and with minor modification by Lynn.
 */
 
+function displaycm(){
+    if(this.textContent.charCodeAt(0) == "9660"){
+        document.getElementById("statusBar").style.height = "18px";
+        this.innerHTML= "&#9650";
+    }
+    else{
+        document.getElementById("statusBar").style.height = "200px";
+        this.innerHTML = "&#9660";
+    }
+}
+
 function createConfusionMatrix(data){
-    var table = d3.select("#confMatrixContainer").append("table");
+    d3.selectAll("#confMatrix table").remove();
+    var table = d3.select("#confMatrix").append("table");
     var thead = table.append("thead");
     var tbody = table.append("tbody");
     var colorScale = d3.scale.linear()
@@ -28,8 +40,6 @@ function createConfusionMatrix(data){
             sums[columns[i]] += d[columns[i]];
         }
     });
-
-    console.log(sums);
 
     thead.append("tr")
         .selectAll("th")
@@ -80,5 +90,7 @@ function createConfusionMatrix(data){
                     return Math.round(d.value*100)/100;
                 }
             });
+            
+    document.getElementById("confMatrixContainer").classList.add("enabled");
     return table;
 }

@@ -80,7 +80,7 @@
 
         <!-- DATA SIDENAV -->
         <div id="dataSidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('data§')">&times;</a>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('data')">&times;</a>
             <div class="sidenavTxtContainer">
                 <span class="txt">Loaded data</span>
                 <span class="txt" id="dataDescription"></span>
@@ -196,15 +196,24 @@
                 onmousemove="mouseMove(event, this)" class="pressed"></div>
             </div>
             <div id="parc" class="parcoords"></div>
-            <div id="confMatrixContainer"></div>
             <div id="statusBar">
                 <ul>
                     <li>Model Info</li>
+                    <li><a href="javascript:void(0)" onclick="displaycm.call(this)">&#9650</a></li>
                     <li id="modelName"></li>
                     <li id="modelTraningData"></li>
                     <li id="modelAcc"></li>
                     <li id="modelKappa"></li>
                 </ul>
+                <div id="confMatrixContainer" class="invisibleWhenDisabled">
+                    <table>
+                        <tr><td></td><th>True</th></tr>
+                        <tr>
+                            <th class="rotate"><div>Predicted</div></th>
+                            <td><div id="confMatrix"></div></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
 

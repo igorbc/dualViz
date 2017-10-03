@@ -250,19 +250,16 @@ function VizContainer(){
                         case 1:
                             avap.setNewPos(add3(mul3([0, -1, 0],(.5 * sa.svgHeight)),
                                             vc.center));
-                            console.log("first");
                         break;
 
                         case 2:
                             avap.setNewPos(add3(mul3([1, 0, 0],(.5 * sa.svgHeight)),
                                         vc.center));
-                            console.log("second");
                         break;
 
                         case 3:
                             avap.setNewPos(add3(mul3([0, 0, -1],(.5 * sa.svgHeight)),
                                     vc.center));
-                            console.log("third");
                     }
                     n++;
                 }

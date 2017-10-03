@@ -3,7 +3,6 @@
  */
 
 function processModelInfo(mInfo){
-        console.log("ahoy!");
         var stats = mInfo[0][0];
 
         document.getElementById("modelName").textContent =

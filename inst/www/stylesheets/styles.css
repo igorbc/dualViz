@@ -604,9 +604,13 @@ change the style of the sidenav (less padding and a smaller font size) */
     border-top: 1px solid;
     border-color: #bbb;
     width: 100%;
+    height: 18px;
+    transition: 0.4s;
+    z-index: 5;
 }
 
 #statusBar ul {
+    display: inline-block;
     list-style: none;
     margin: 0 auto;
 }
@@ -615,4 +619,63 @@ change the style of the sidenav (less padding and a smaller font size) */
     padding: 0px 25px;
     float: left;
     display: inline;
+}
+
+#statusBar ul li a{
+    text-decoration: none;
+    color: #444;
+    display: inline-block;
+}
+
+#statusBar ul li a:hover{
+    background-color: #fff;
+    color: #222;
+}
+
+#confMatrixContainer table {
+    padding: 0;
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+#confMatrixContainer table td, table th{
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+    border-collapse: collapse;
+    padding: 3px;
+}
+
+.rotate {
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  width: 1.5em;
+}
+.rotate div {
+     -moz-transform: rotate(-90.0deg);  /* FF3.5+ */
+       -o-transform: rotate(-90.0deg);  /* Opera 10.5 */
+  -webkit-transform: rotate(-90.0deg);  /* Saf3.1+, Chrome */
+             filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083);  /* IE6,IE7 */
+         -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
+         margin-left: -10em;
+         margin-right: -10em;
+}
+
+#confMatrixContainer table th{
+    font-weight: bold;
+
+}
+
+#confMatrixContainer table{
+    border-collapse: collapse;
+}
+
+#confMatrixContainer table td {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+#confMatrix table th{
+    font-weight: normal;
 }
