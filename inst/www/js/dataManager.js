@@ -10,8 +10,42 @@ function DataManager(){
     this.slider = null;
     this.classNames;
     this.isClassified;
+    this.selectedDimension = ""; // key for the selected dimension
     this.attrHeader = []; // array with the headers for the Attirbute columns
     this.probHeader = []; // array with the headers for the Class Probabilities columns
+    this.pdData = [];
+
+    this.computePartialDependency = function(){
+        if(dm.vData.length == 0){
+            alert("First pick a dimension and vary the data.");
+            return 0;
+        }
+
+        var iScale = vc.acAttr.avap[this.selectedDimension].invertedScale;
+        var s = this.nSteps;
+        var pdData = [];
+
+        for(var i = 0; i < s; i++){
+            pdData.push([]);
+            pdData[i].v = iScale(i/(s-1));
+
+            for(var k = 0; k < this.classNames.length; k++){
+                pdData[i][this.classNames[k]] = 0;
+            }
+
+            for(var j = 0; j < this.dIndices.length; j++){
+                for(var k = 0; k < this.classNames.length; k++){
+                    pdData[i][this.classNames[k]] +=
+                        this.vData[i + j*s]["confidence("+this.classNames[k]+")"];
+                }
+            }
+            for(var k = 0; k < this.classNames.length; k++){
+                pdData[i][this.classNames[k]] /= this.dIndices.length;
+            }
+        }
+        this.pdData = pdData;
+        return pdData;
+    }
 
     this.getSelectedDimensions = function(){
         var avaps = vc.acAttr.avap;
@@ -90,9 +124,7 @@ function DataManager(){
         else{
             selector.value = "original";
         }
-
     }
-
 
     this.dataSelected = function(el, event){
 
@@ -151,11 +183,13 @@ function DataManager(){
     this.multiCreateInstances = function(){
         this.vData = [];
         this.tData = [];
-        var attr = document.getElementById("varyAttrSelector").value;
+        this.selectedDimension = document.getElementById("varyAttrSelector").value;
         for(var i = 0; i < this.dIndices.length; i++){
             this.vData = this.vData.concat(
                     this.createTestInstances(
-                        this.data[this.dIndices[i]], attr, this.nSteps));
+                        this.data[this.dIndices[i]],
+                        this.selectedDimension,
+                        this.nSteps));
             this.tData[i] = this.data[this.dIndices[i]];
         }
         return this;
