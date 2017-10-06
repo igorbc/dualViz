@@ -375,7 +375,7 @@ circle.mouseOver {
 #attrVarSlider{
     width: 185px;
     display: block;
-    margin: 0 auto;
+    margin: 0 auto 8px auto;
 }
 
 #attrVarSlider a{
@@ -679,3 +679,17 @@ change the style of the sidenav (less padding and a smaller font size) */
 #confMatrix table th{
     font-weight: normal;
 }
+
+/*
+.axis line{
+  stroke: "#eee";
+}
+
+.axis path{
+  fill: "#eee";
+}
+
+.axis text{
+  stroke: "#eee";
+}
+*/

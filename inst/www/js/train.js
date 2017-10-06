@@ -66,6 +66,15 @@ useModel = function(data, vary){
 
                     if(vary){
                         dm.vData = data;
+                        dm.computePartialDependency();
+                        createPdAreaPlot("#pdpArea",
+                            dm.pdData,
+                            dm.classNames,
+                            vc.colorScheme);
+                        createPdLinePlot("#pdpLine",
+                            dm.pdData,
+                            dm.classNames,
+                            vc.colorScheme);
                     }
                     else{
                         sa.destroyCurrent();
@@ -73,8 +82,6 @@ useModel = function(data, vary){
                         vc.colorScheme = sa.getClassColorScheme();
                         useFile(data);
                     }
-
-
                 });
            });
 
