@@ -33,6 +33,7 @@
     <script type="text/javascript" src="js/loadFile.js"></script>
     <script type="text/javascript" src="js/confusionMatrix.js"></script>
     <script type="text/javascript" src="js/pdPlot.js"></script>
+    <script type="text/javascript" src="js/histogram.js"></script>
     <script type="text/javascript" src="js/vec.js"></script>
 
     <script type="text/javascript" src="js/train.js"></script>
@@ -155,6 +156,7 @@
                 <span id="attrDomainLabel" class="txt"></span>
                 <span id="attrLabel" class="txt">Value: </span>
                 <div id="attrVarSlider"></div>
+                <div id="histogram"></div>
                 <div id="pdp">
                     <div id="pdpArea"></div>
                     <div id="pdpLine"></div>
@@ -231,6 +233,7 @@
             var curChosenModel;
             var dm = new DataManager();
             var pdPlot = new PdPlot();
+            var hist = new Histogram();
 
             var curSidebar = 0;
             var curDataFileName;
