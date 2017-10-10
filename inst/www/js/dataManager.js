@@ -233,16 +233,16 @@ function DataManager(){
             vc.updateInst(80);
             this.updateSliderText(value);
             parcoords.data(dm.data).alpha(0.7).render();
+            pdPlot.updateCurValueLine();
         }).bind(this);
     }
 
     this.updateSliderText = function(value){
         var avap = vc.acAttr.avap[
             document.getElementById("varyAttrSelector").value];
+        var scaledVal = avap.invertedScale(value/(this.nSteps-1));
         document.getElementById("attrLabel").innerHTML = "Value: " +
-            Math.round(
-                avap.invertedScale(value/(this.nSteps-1))*100
-            )/100;
+            Math.round(scaledVal*100)/100;
         document.getElementById("attrDomainLabel").innerHTML =
             "Domain: [" + avap.scale.domain() + "]";
     }
@@ -262,6 +262,7 @@ function DataManager(){
     }
 
     this.varyAttrSelected = function(event){
+        pdPlot.removePdPlots("#pdpArea", "#pdpLine");
         this.updateSlider();
         //alert(this.selectedIndex + " " + this.options[this.selectedIndex].text);
     }

@@ -680,6 +680,29 @@ change the style of the sidenav (less padding and a smaller font size) */
     font-weight: normal;
 }
 
+#pdp text{
+    font-size: 10px;
+}
+
+.axis text{
+    fill:  #aaa;
+}
+
+.axis .domain{
+    stroke: #ddd;
+    fill: none;
+}
+
+.axis line{
+    stroke: #aaa;
+}
+
+.varLine {
+    stroke: #eee;
+    stroke-width: 1.5px;
+    z-index: 6;
+}
+
 /*
 .axis line{
   stroke: "#eee";

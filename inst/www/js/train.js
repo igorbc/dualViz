@@ -67,11 +67,9 @@ useModel = function(data, vary){
                     if(vary){
                         dm.vData = data;
                         dm.computePartialDependency();
-                        createPdAreaPlot("#pdpArea",
-                            dm.pdData,
-                            dm.classNames,
-                            vc.colorScheme);
-                        createPdLinePlot("#pdpLine",
+                        pdPlot.createPdPlots(
+                            "#pdpArea",
+                            "#pdpLine",
                             dm.pdData,
                             dm.classNames,
                             vc.colorScheme);
