@@ -57,6 +57,7 @@ function useFile(data){
     dm.updateDataOptions();
 
     sa.setupBrush(dm.data, svgContainer, vc.acAttr);
+    hist.createAllHistograms(dm.data, dm.attrHeader);
 
     vc.acAttr.initializeAvApInfo(dm.attrHeader, dm.data);
     vc.acClass.initializeAvApInfo(dm.probHeader, dm.data, dm.classNames, vc.colorScheme);
@@ -90,4 +91,8 @@ function useFile(data){
 
     handleKeys();
     addDimensionFields();
+    addVaryAttrFields();
+    windowResized();
+    dm.setupSlider();
+    hist.update();
 }

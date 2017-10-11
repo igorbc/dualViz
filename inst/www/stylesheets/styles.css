@@ -399,6 +399,7 @@ circle.mouseOver {
     right: 0;
     background-color: #111; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: scroll;
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
@@ -680,7 +681,7 @@ change the style of the sidenav (less padding and a smaller font size) */
     font-weight: normal;
 }
 
-#pdp text{
+#pdp text, #histogram{
     font-size: 10px;
 }
 

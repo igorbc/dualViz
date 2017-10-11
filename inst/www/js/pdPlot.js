@@ -2,7 +2,7 @@ function PdPlot(){
     this.x = null;
     this.y = null;
     this.color;
-    this.margin = {top: 20, right: 22, bottom: 30, left: 35},
+    this.margin = {top: 20, right: 25, bottom: 30, left: 35},
     this.width = 245 - this.margin.left - this.margin.right,
     this.height = 150 - this.margin.top - this.margin.bottom;
     this.pdpLineSvg;
@@ -14,8 +14,9 @@ function PdPlot(){
                 document.getElementById("varyAttrSelector").value];
             var value = dm.slider.value();
             var scaledVal = avap.invertedScale(value/(dm.nSteps-1));
-            d3.selectAll(".varLine").attr("x1", this.x(scaledVal));
-            d3.selectAll(".varLine").attr("x2", this.x(scaledVal));
+            d3.selectAll(".varLine")
+                .attr("x1", this.x(scaledVal))
+                .attr("x2", this.x(scaledVal));
         }
     }
 

@@ -131,6 +131,9 @@ function SetupAssistent(){
 
         color = this.getClassColorScheme();
 
+        d3.selectAll("#pdpArea *").remove();
+        d3.selectAll("#pdpLine *").remove();
+        hist.remove();
         d3.selectAll("#parc").remove();
         d3.selectAll(".body").append("div")
                 .attr("id", "parc")

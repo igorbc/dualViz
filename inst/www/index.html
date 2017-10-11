@@ -156,12 +156,11 @@
                 <span id="attrDomainLabel" class="txt"></span>
                 <span id="attrLabel" class="txt">Value: </span>
                 <div id="attrVarSlider"></div>
-                <div id="histogram"></div>
                 <div id="pdp">
                     <div id="pdpArea"></div>
                     <div id="pdpLine"></div>
                 </div>
-
+                <div id="histogram"></div>
             </div>
             <a href="#">About</a>
         </div>
@@ -267,9 +266,6 @@
                     dm.classifiedData = null;
                     useFile(csv);
                     getAllModelsInfo();
-                    addVaryAttrFields()
-                    windowResized();
-                    dm.setupSlider();
                 });
             }
 

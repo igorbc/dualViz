@@ -224,6 +224,7 @@ function DataManager(){
             .on("slide", this.getOnSlideFunction())
             .value(0);
         this.updateSliderText(0);
+        hist.update();
     }
 
     this.getOnSlideFunction = function(){
@@ -234,6 +235,7 @@ function DataManager(){
             this.updateSliderText(value);
             parcoords.data(dm.data).alpha(0.7).render();
             pdPlot.updateCurValueLine();
+            hist.updateCurValueLine();
         }).bind(this);
     }
 
