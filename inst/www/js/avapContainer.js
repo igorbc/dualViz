@@ -112,7 +112,9 @@ function AvApContainer(){
 
         this.path = svgContainer.append("path")
             .attr("d", lineFunction(data))
-            .attr("stroke", this.color)
+            .attr("
+
+            ", this.color)
             .attr("stroke-width", this.pxThickness)
             .attr("fill", "none")
             ;

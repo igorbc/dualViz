@@ -51,12 +51,26 @@ function DataManager(){
         var avaps = vc.acAttr.avap;
         var mappedData = [];
         mappedData = this.data.map(function(d){
+
             for(var i = 0; i < avaps.length; i++){
                 if(!avaps[i].enabled){
                     delete d[avaps[i].key];
                 }
             }
+            delete d["selected"];
+            delete d["classificationResult"];
             return d;
+
+            /*
+            var res = {};
+            for(var i = 0; i < avaps.length; i++){
+                if(avaps[i].enabled){
+                    res[avaps[i].key] = d[avaps[i].key];
+                }
+                res.class = d.class;
+            }
+            return res;
+            */
         });
         return mappedData;
     }

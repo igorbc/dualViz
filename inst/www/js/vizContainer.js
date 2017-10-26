@@ -20,6 +20,13 @@ function VizContainer(){
     this.dynamicOpacity = true;
     this.pcHiddenAxes = [];
 
+    this.classificationColor = {
+        tp: {name: "True Positive", color: "green", sName: "TP"},
+        fn: {name: "False Negative", color: "red", sName: "FN"},
+        tn: {name: "True Negative", color: "grey", sName: "TN"},
+        fp: {name: "False Positive", color: "rgb(255, 195, 0)", sName: "FP"},
+    };
+
     this.createAcApContainers = function(){
         this.acAttr = new AvApContainer();
         this.acClass = new AvApContainer();
@@ -203,17 +210,21 @@ function VizContainer(){
         else{
             if(d["prediction(class)"] == vc.confusionClass){
                 if(d["prediction(class)"] == d["class"]){
-                    return "green" // true positive
+                    d.classificationResult = vc.classificationColor.tp.sName;
+                    return  vc.classificationColor.tp.color // true positive
                 }
                 else {
-                    return "rgb(255, 195, 0)" // false positive
+                    d.classificationResult = vc.classificationColor.fp.sName;
+                    return  vc.classificationColor.fp.color // false positive
                 }
             }
             else if(d["class"] == vc.confusionClass){
-                    return "red" // false negative
+                d.classificationResult = vc.classificationColor.fn.sName;
+                    return  vc.classificationColor.fn.color // false negative
                 }
                 else{
-                    return "grey" // true negative
+                    d.classificationResult = vc.classificationColor.tn.sName;
+                    return  vc.classificationColor.tn.color // true negative
                 }
         }
     }

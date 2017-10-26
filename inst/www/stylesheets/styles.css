@@ -301,7 +301,7 @@ nav .active a:link, nav .active a:visited {
 }
 
 .legendRect {
-    x: 7px;
+
     width: 20px;
     height: 20px;
     rx: 3px;
@@ -309,6 +309,10 @@ nav .active a:link, nav .active a:visited {
     stroke-width: 0;
     stroke: #444;
     transition: 0.2s;
+}
+
+.classLegendRect {
+    x: 7px;
 }
 
 .legendRect:hover,
@@ -685,16 +689,16 @@ change the style of the sidenav (less padding and a smaller font size) */
     font-size: 10px;
 }
 
-.axis text{
+#pdp .axis text, #histogram .axis text{
     fill:  #aaa;
 }
 
-.axis .domain{
+#pdp .axis .domain, #histogram .axis .domain{
     stroke: #ddd;
     fill: none;
 }
 
-.axis line{
+ #pdp .axis line, #histogram .axis line{
     stroke: #aaa;
 }
 
