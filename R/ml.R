@@ -43,8 +43,17 @@ ml <- function(ds, mlMethod = "rpart", modelPath = "", splitRatio = 0.80){
     print("loaded model was used.")
   }
 
-  predictions <- predict(object = m$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="prob")
-  predictions_class <- predict(object = m$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="class")
+  if(mlMethod == "rpart" || mlMethod == "naive_bayes") {
+    predictionType = "prob"
+  }
+  else {
+    predictionType = "raw"
+  }
+
+  predictions <-
+    predict(object = m$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type=predictionType)
+  predictions_class <-
+    predict(object = m$finalModel,newdata = testset[,1:length(colnames(trainset)) - 1],type="class")
 
   cn <- colnames(predictions)
   for(i in 1:length(cn)){

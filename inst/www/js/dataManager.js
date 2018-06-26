@@ -75,7 +75,7 @@ function DataManager(){
         return mappedData;
     }
 
-    this.updateAttrAndProbHeaders = function(){
+    this.updateAttrAndProbHeaders = function(classes){
         var firstLine = d3.entries(this.data[0]);
         var allHeaders = [];
         var classIndex = -1;
@@ -86,9 +86,11 @@ function DataManager(){
                 classIndex = i;
             }
         }
-
         this.attrHeader = allHeaders.slice(0, classIndex);
         this.probHeader = allHeaders.slice(classIndex + 1, allHeaders.length - 2);
+        if(this.probHeader.length != 0)
+          this.probHeader = classes.map(function(d){return "confidence("+d+")"});
+
         //if(this.probHeader.length != 0){
         //    vc.pcHiddenAxes = vc.pcHiddenAxes.concat(this.probHeader);
         //}
@@ -98,7 +100,7 @@ function DataManager(){
     this.setData = function(data){
         this.data = data;
         this.classNames = d3.map(this.data, function(d){return d.class;}).keys();
-        this.updateAttrAndProbHeaders();
+        this.updateAttrAndProbHeaders(this.classNames);
         if(this.probHeader.length == 0){
             console.log("NO PROBABILITIES");
             this.isClassified = false;
