@@ -4,7 +4,7 @@
 
 
 ml <- function(ds, mlMethod = "rpart", modelPath = "", splitRatio = 0.80){
-
+  print(mlMethod)
   set.seed(42)
 
   if(is.null(ds)){
@@ -34,7 +34,11 @@ ml <- function(ds, mlMethod = "rpart", modelPath = "", splitRatio = 0.80){
 
   if(modelPath == ""){
     #m <- train(class ~., method = mlMethod, data=trainset)
+    sink("routput.txt")
+    print("training...")
+    sink()
     m <- train(class ~., method = mlMethod, data=trainset, trControl=fitControl, tuneLength=3)
+    print("trained...")
     saveRDS(m, file = paste(mlMethod, ".rds", sep=""))
   }
   else{
@@ -43,8 +47,23 @@ ml <- function(ds, mlMethod = "rpart", modelPath = "", splitRatio = 0.80){
     print("loaded model was used.")
   }
 
-  if(mlMethod == "rpart" || mlMethod == "naive_bayes") {
+  if(
+    mlMethod == "rpart" ||
+    mlMethod == "naive_bayes" ||
+    mlMethod == "C5.0" ||
+    mlMethod == "rpart2" ||
+    mlMethod == "rpart1SE" ||
+    mlMethod == "rf" ||
+    mlMethod == "C5.0Rules" ||
+    mlMethod == "C5.0Tree"
+   ) {
     predictionType = "prob"
+  }
+  else if (
+    mlMethod == "polr" ||
+    mlMethod == "multinom"
+    ) {
+    predictionType = "probs"
   }
   else {
     predictionType = "raw"

@@ -1,3 +1,23 @@
+allowedModels = [
+  "rpart",
+  "naive_bayes",
+  "C5.0",
+  "rpart2",
+  "rpart1SE",
+  "polr",
+  "multinom",
+  "rf",
+  "C5.0Rules",
+  "C5.0Tree",
+  "gam",
+  "avNNet",
+  "nnet",
+  "pcaNNet",
+  "pls",
+  "simpls",
+  "widekernelpls",
+  "kernelpls"
+];
 
 loadModelInfo = function(){
     if(!chosenModel){
@@ -169,7 +189,9 @@ modelSelected = function(event){
     console.log(curChosenModel);
 }
 
+var allMethods;
 getAllModelsInfo = function(){
+
     document.getElementById("loadingIcon").setAttribute("visible", true);
     var req = ocpu.call("getModelsInfo",
        {
@@ -180,11 +202,21 @@ getAllModelsInfo = function(){
                var selector = document.getElementById("methodSelector");
                var methods = data[0];
                var attrInfo = data[1];
+               methods.sort(function(a, b){
+                  var x = a.label.toLowerCase();
+                  var y = b.label.toLowerCase();
+                  if (x < y) {return -1;}
+                  if (x > y) {return 1;}
+                  return 0;
+               });
+               allMethods = methods;
                for (i=0; i<methods.length; i++){
+                 if(allowedModels.includes(methods[i].name)) {
                    var o = document.createElement("option");
                    o.value = methods[i].name;
                    o.innerHTML = methods[i].label + " (" + methods[i].name + ")";
                    selector.appendChild(o);
+                 }
                }
                selector.value = "rpart"
            });

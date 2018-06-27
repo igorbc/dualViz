@@ -274,7 +274,8 @@
                     dm.fullData = null;
                     dm.classifiedData = null;
                     useFile(csv);
-                    getAllModelsInfo();
+                    if(!allMethods)
+                      getAllModelsInfo();
                 });
             }
 
