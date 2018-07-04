@@ -4,17 +4,17 @@
 
 ## Setup
 1. Clone project
-- Download and install *R*
-- Donwload and install *RStudio*
-- Open project on *RStudio*
-- Install `caret` and its dependencies
-- Install `opencpu` and its dependencies
-- Install `httpuv` and its dependencies
+2. Download and install *R*
+3. Donwload and install *RStudio*
+4. Open project on *RStudio*
+5. Install `caret` and its dependencies
+6. Install `opencpu` and its dependencies
+7 Install `httpuv` and its dependencies
  - On *MacOS* make sure to run`xcode-select --install` to enable `httpuv` installation
 
 ## Run locally
 1. On *RStudio*, open the project
-- Go to *Build > Install and Restart*
-- Run `library(opencpu)` on the *RStudio* console
-- Run `ocpu_start_server()`
-- On the browser, go to `http://localhost:5656/ocpu/library/dualViz`
+2. Go to *Build > Install and Restart*
+3. Run `library(opencpu)` on the *RStudio* console
+4. Run `ocpu_start_server()`
+5. On the browser, go to `http://localhost:5656/ocpu/library/dualViz`
