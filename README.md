@@ -9,8 +9,9 @@
 4. Open project on *RStudio*
 5. Install `caret` and its dependencies
 6. Install `opencpu` and its dependencies
-7 Install `httpuv` and its dependencies
- - On *MacOS* make sure to run`xcode-select --install` to enable `httpuv` installation
+7. Install `httpuv` and its dependencies
+  - On *MacOS* make sure to run`xcode-select --install` to enable `httpuv` installation
+8. Install `e1071` and its dependencies
 
 ## Run locally
 1. On *RStudio*, open the project
