@@ -3,21 +3,22 @@
  */
 
 function processModelInfo(mInfo){
-        var stats = mInfo[0][0];
-
-        document.getElementById("modelName").textContent =
-                "Name: " + stats.label + " (" + stats.library + ")";
-        document.getElementById("modelTraningData").textContent =
-                 stats.dataLength + " instances - " +
-                 mInfo[2].length + " classes - " +
-                 stats.attributeLength + " attributes";
-        document.getElementById("modelAcc").textContent =
-                "Accuracy: " + Math.round(stats.accuracy*10000)/100;
-        document.getElementById("modelKappa").textContent =
-                "Kappa: " + Math.round(stats.kappa*10000)/100;
-        mcm = mInfo[1];
-        createConfusionMatrix(mInfo[1]);
-
+  var stats = mInfo[0][0];
+  console.log(stats);
+  document.getElementById("modelName").textContent =
+          "Name: " + stats.label + " (" + stats.library + ")";
+  document.getElementById("modelTraningData").textContent =
+           stats.dataLength + " instances - " +
+           mInfo[2].length + " classes - " +
+           stats.attributeLength + " attributes";
+  document.getElementById("modelAcc").textContent =
+          "Accuracy: " + Math.round(stats.accuracy*10000)/100;
+  document.getElementById("modelKappa").textContent =
+          "Kappa: " + Math.round(stats.kappa*10000)/100;
+  mcmOld = mInfo[1];
+  // console.log(mcm);
+  mcm = getConfusionMatrixData(dm.data, dm.classNames);
+  createConfusionMatrix(mcmOld);
 }
 
 function handleModel(files) {

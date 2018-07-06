@@ -14,6 +14,34 @@ function displaycm(){
     }
 }
 
+function getConfusionMatrixData(data, classNames) {
+  var results = classNames.map(function(className){
+    var result = {}
+    classNames.forEach(function(className){
+      result[className] = 0;
+    })
+    result['_row'] = className;
+    return result;
+  })
+
+  classNames.forEach(function(className){
+    data.forEach(function(d){
+      results.forEach(function(result){
+        if(d['class'] == className &&
+           d['prediction(class)'] == result['_row'])
+           result[className]++;
+      })
+    })
+  })
+
+  return results;
+}
+
+// function increaseResult(prediction, rowName, className){
+//   if (prediction == rowName)
+//     return rowName
+// }
+
 function createConfusionMatrix(data){
     d3.selectAll("#confMatrix table").remove();
     var table = d3.select("#confMatrix").append("table");
@@ -90,7 +118,7 @@ function createConfusionMatrix(data){
                     return Math.round(d.value*100)/100;
                 }
             });
-            
+
     document.getElementById("confMatrixContainer").classList.add("enabled");
     return table;
 }
