@@ -58,7 +58,7 @@ handleKeys = function(){
                     var selection = vc.instGroup.selectAll(".selected");
                     if(selection) selection.classed("selected", false);
 
-                    console.log(svgContainer.selectAll(".brush"));
+                    // console.log(svgContainer.selectAll(".brush"));
                     break;
 
                 case "ArrowLeft":
@@ -83,7 +83,7 @@ handleKeys = function(){
                     break;
                 case "ArrowUp":
                     d3.event.preventDefault();
-                    console.log(tCount);
+                    // console.log(tCount);
                     //console.log(dm.data[25]);
 
                     dm.updateVaryingData(tCount==(dm.nSteps-1)?tCount:++tCount);
@@ -101,7 +101,7 @@ handleKeys = function(){
 
                 case "ArrowDown":
                     d3.event.preventDefault();
-                    console.log(tCount);
+                    // console.log(tCount);
                     //console.log(dm.data[25]);
                     dm.updateVaryingData(tCount==0?tCount:--tCount);
                     vc.instGroup.selectAll("circle").data(dm.data);

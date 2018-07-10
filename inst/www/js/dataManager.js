@@ -102,14 +102,15 @@ function DataManager(){
         this.classNames = d3.map(this.data, function(d){return d.class;}).keys();
         this.updateAttrAndProbHeaders(this.classNames);
         if(this.probHeader.length == 0){
-            console.log("NO PROBABILITIES");
+            console.log("Loading unclassified data");
             this.isClassified = false;
             this.fullData = data;
         }
         else{
-            console.log("CLASSIFIED ALRIGHT!");
+            console.log("Loading classified data");
             this.isClassified = true;
             this.classifiedData = data;
+            updateStats();
         }
     }
 
