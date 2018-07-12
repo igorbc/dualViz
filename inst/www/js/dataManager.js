@@ -110,7 +110,7 @@ function DataManager(){
             console.log("Loading classified data");
             this.isClassified = true;
             this.classifiedData = data;
-            updateStats();
+            updateStats(this.data, this.classNames);
         }
     }
 

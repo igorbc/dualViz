@@ -1,22 +1,20 @@
 allowedModels = [
-  "rpart",
-  "naive_bayes",
   "C5.0",
   "rpart2",
   "rpart1SE",
-  "polr",
-  "multinom",
-  "rf",
-  "C5.0Rules",
-  "C5.0Tree",
-  "gam",
+  "rpart",
   "avNNet",
   "nnet",
   "pcaNNet",
+  "polr",
   "pls",
   "simpls",
   "widekernelpls",
-  "kernelpls"
+  "kernelpls",
+  "multinom",
+  "rf",
+  "C5.0Rules",
+  "C5.0Tree"
 ];
 
 loadModelInfo = function(){
