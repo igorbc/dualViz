@@ -241,7 +241,7 @@ function getStatsString(data, classNames){
     confusionData.rowTotal,
     confusionData.columnTotal
   );
-  var accuracyText = Math.round(accuracy*100)/100;
+  var accuracyText = Math.round(accuracy*10000)/10000;
   var kappaText = Math.round(kappa*100)/100;
 
   return accuracyText + ',' + kappaText;
