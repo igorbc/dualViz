@@ -49,7 +49,6 @@ ml <- function(ds, mlMethod = "rpart", modelPath = "", splitRatio = 0.80){
 
   if(
     mlMethod == "rpart" ||
-    mlMethod == "naive_bayes" ||
     mlMethod == "C5.0" ||
     mlMethod == "rpart2" ||
     mlMethod == "rpart1SE" ||
