@@ -591,7 +591,8 @@ change the style of the sidenav (less padding and a smaller font size) */
 #coordiv {
     width: 100px;
     height: 100px;
-    border: 1px solid;
+    /* border: 1px solid; */
+    border: none;
     border-color: #aaa;
     position: absolute;
     bottom: 10px;

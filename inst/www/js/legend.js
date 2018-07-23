@@ -20,6 +20,9 @@ addSvgLegend = function(classNames, svgContainer) {
         });
 
     vc.confusionColorsLegend = svgContainer.append("g");
+    vc.confusionColorsLegend
+      .attr('id', 'confusion-color-legend')
+      .attr('class', 'invisibleWhenDisabled');
     vc.confusionColorsLegend.selectAll("legendRect")
         .data(classificationColorData)
         .enter()
@@ -98,15 +101,18 @@ addSvgLegend = function(classNames, svgContainer) {
                 if(vc.confusionClass == 0){
                     vc.confusionClass = d;
                     d3.select("#id" + d).attr("selected", true);
+                    document.getElementById('confusion-color-legend').classList.add('enabled');
                 }
                 else if(vc.confusionClass == d){
                     vc.confusionClass = 0;
                     d3.select("#id" + d).attr("selected", false);
+                    document.getElementById('confusion-color-legend').classList.remove('enabled');
                 }
                 else{
                     d3.select("#id" + vc.confusionClass).attr("selected", false);
                     vc.confusionClass = d;
                     d3.select("#id" + d).attr("selected", true);
+                    document.getElementById('confusion-color-legend').classList.remove('enabled');
                 }
                 vc.updateColor(sa.delay);
             }

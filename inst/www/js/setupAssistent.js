@@ -143,14 +143,16 @@ function SetupAssistent(){
     }
 
     this.getClassColorScheme = function(){
-        /*
-        return d3.scale.category10();
-        /*/
+        // return d3.scale.category10();
         return d3.scale.ordinal()
-                .range(["#3366cc", "#dc3912", "#109618", "#990099", "#0099c6",
-                        "#ff9900", "#dd4477", "#66aa00", "#b82e2e", "#316395",
+                .range(["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f",
+                        "#edc948", "#b07aa1", "#ff9da7", "#9c755f", "#bab0ac",
                         "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300",
                         "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"]);
-        //*/
+        // return d3.scale.ordinal()
+        //         .range(["#3366cc", "#dc3912", "#109618", "#990099", "#0099c6",
+        //                 "#ff9900", "#dd4477", "#66aa00", "#b82e2e", "#316395",
+        //                 "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300",
+        //                 "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"]);
     }
 }
