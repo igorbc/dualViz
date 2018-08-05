@@ -108,7 +108,6 @@ function handleModel(files) {
     }
     else {
         document.getElementById("chosenModel").innerHTML = files[0].name + " (from disk)";
-        document.getElementById("chosenModelLabel").innerHTML = files[0].name + " (from disk)";;
         //document.getElementById("saveModel").classList.add("disabled");
         document.getElementById("modelSelector").selectedIndex = 0;
         document.getElementById("useModelButton").classList.remove("disabled");

@@ -176,7 +176,6 @@ methodSelected = function(event){
 
 modelSelected = function(event){
     document.getElementById("chosenModel").innerHTML = this.options[this.selectedIndex].text;
-    document.getElementById("chosenModelLabel").innerHTML = this.options[this.selectedIndex].text;
     curChosenModel = trainSessions.getFullFilePath(this.value);
     document.getElementById("saveModel").href = trainSessions.getLastDownloadPath();
     document.getElementById("saveModel").classList.remove("disabled");

@@ -2,389 +2,367 @@
 <html>
 
 <!-- inclusion of styles -->
-    <link rel="stylesheet" href="stylesheets/d3.parcoords.css" />
-    <link rel="stylesheet" href="stylesheets/d3.slider.css" />
-    <link rel="stylesheet" href="stylesheets/contextMenu.css" />
-    <link rel="stylesheet" href="stylesheets/styles.css" />
+<link rel="stylesheet" href="stylesheets/d3.parcoords.css" />
+<link rel="stylesheet" href="stylesheets/d3.slider.css" />
+<link rel="stylesheet" href="stylesheets/contextMenu.css" />
+<link rel="stylesheet" href="stylesheets/styles.css" />
 
-    <!--  inclusion of scripts -->
-    <script src="opencpu/jquery-3.2.1.min.js"></script>
-    <script src="opencpu/opencpu-0.5.js"></script>
+<!--  inclusion of scripts -->
+<script src="opencpu/jquery-3.2.1.min.js"></script>
+<script src="opencpu/opencpu-0.5.js"></script>
 
-    <!-- <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
-    <!--  -->
-    <script type="text/javascript" src="js/d3.v3.min.js"></script>
-    <script type="text/javascript" src="js/d3.slider.js"></script>
-    <script type="text/javascript" src="js/d3extension.js"></script>
-    <script type="text/javascript" src="js/d3.parcoords.js"></script>
-    <script type="text/javascript" src="js/polybrush.js"></script>
-    <script type="text/javascript" src="js/contextMenu.min.js"></script>
-    <script type="text/javascript" src="js/contextMenu.min.js"></script>
-    <script type="text/javascript" src="js/pearson-correlation.js"></script>
-    <script type="text/javascript" src="js/correlationCalculator.js"></script>
-    <!--  <script type="text/javascript" src="js/numeric-1.2.6.min.js"></script> -->
+<!-- <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+<!--  -->
+<script type="text/javascript" src="js/d3.v3.min.js"></script>
+<script type="text/javascript" src="js/d3.slider.js"></script>
+<script type="text/javascript" src="js/d3extension.js"></script>
+<script type="text/javascript" src="js/d3.parcoords.js"></script>
+<script type="text/javascript" src="js/polybrush.js"></script>
+<script type="text/javascript" src="js/contextMenu.min.js"></script>
+<script type="text/javascript" src="js/contextMenu.min.js"></script>
+<script type="text/javascript" src="js/pearson-correlation.js"></script>
+<script type="text/javascript" src="js/correlationCalculator.js"></script>
+<!--  <script type="text/javascript" src="js/numeric-1.2.6.min.js"></script> -->
 
-    <script type="text/javascript" src="js/setupAssistent.js"></script>
-    <script type="text/javascript" src="js/keyHandler.js"></script>
-    <script type="text/javascript" src="js/avap.js"></script>
-    <script type="text/javascript" src="js/avapContainer.js"></script>
-    <script type="text/javascript" src="js/vizContainer.js"></script>
-    <script type="text/javascript" src="js/legend.js"></script>
-    <script type="text/javascript" src="js/dragManager.js"></script>
-    <script type="text/javascript" src="js/sliderManager.js"></script>
-    <script type="text/javascript" src="js/tooltipManager.js"></script>
-    <script type="text/javascript" src="js/loadFile.js"></script>
-    <script type="text/javascript" src="js/confusionMatrix.js"></script>
-    <script type="text/javascript" src="js/pdPlot.js"></script>
-    <script type="text/javascript" src="js/histogram.js"></script>
-    <script type="text/javascript" src="js/vec.js"></script>
+<script type="text/javascript" src="js/setupAssistent.js"></script>
+<script type="text/javascript" src="js/keyHandler.js"></script>
+<script type="text/javascript" src="js/avap.js"></script>
+<script type="text/javascript" src="js/avapContainer.js"></script>
+<script type="text/javascript" src="js/vizContainer.js"></script>
+<script type="text/javascript" src="js/legend.js"></script>
+<script type="text/javascript" src="js/dragManager.js"></script>
+<script type="text/javascript" src="js/sliderManager.js"></script>
+<script type="text/javascript" src="js/tooltipManager.js"></script>
+<script type="text/javascript" src="js/loadFile.js"></script>
+<script type="text/javascript" src="js/confusionMatrix.js"></script>
+<script type="text/javascript" src="js/pdPlot.js"></script>
+<script type="text/javascript" src="js/histogram.js"></script>
+<script type="text/javascript" src="js/vec.js"></script>
 
-    <script type="text/javascript" src="js/train.js"></script>
-    <script type="text/javascript" src="js/dataManager.js"></script>
-    <script type="text/javascript" src="js/settings.js"></script>
-    <script type="text/javascript" src="js/rtest.js"></script>
-    <script type="text/javascript" src="js/sessionsInfo.js"></script>
+<script type="text/javascript" src="js/train.js"></script>
+<script type="text/javascript" src="js/dataManager.js"></script>
+<script type="text/javascript" src="js/settings.js"></script>
+<script type="text/javascript" src="js/rtest.js"></script>
+<script type="text/javascript" src="js/sessionsInfo.js"></script>
 
-    <head>
-        <meta charset="utf-8">
-        <title>Dual Radviz</title>
-        <meta name="description" content=
-        "Visual Analytics tool for visual analisys of data and classification results.">
-        <meta name="keywords" content="vizualization, data visualization,
-                infoviz, information visualization, ml, machine learning,
-                opencpu, radviz, parallel coordinates, partial dependency,
-                star coordinates">
-        <meta name="author" content="Igor B. Corrêa">
-    </head>
+<head>
+  <meta charset="utf-8">
+  <title>Dual Radviz</title>
+  <meta name="description" content=
+  "Visual Analytics tool for visual analisys of data and classification results.">
+  <meta name="keywords" content="vizualization, data visualization,
+  infoviz, information visualization, ml, machine learning,
+  opencpu, radviz, parallel coordinates, partial dependency,
+  star coordinates">
+  <meta name="author" content="Igor B. Corrêa">
+</head>
 
-    <!-- function called to initialize the system -->
-    <body id="main" onload="startRadviz()">
+<!-- function called to initialize the system -->
+<body id="main" onload="startRadviz()">
 
-        <!-- SIDENAV -->
+  <!-- SIDENAV -->
 
-        <!-- FILE SIDENAV -->
-        <div id="fileSidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('file')">&times;</a>
-            <input id="openFile" name="openFile" type="file" class="inputFile"
-                accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
-                onchange="handleFile(this.files)"/>
-            <a href="" onclick="document.getElementById('openFile').click(); return false">Open file</a>
-            <a href="#">About</a>
+  <!-- DATA SIDENAV -->
+  <div id="dataSidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav('data')">&times;</a>
+    <input id="openFile" name="openFile" type="file" class="inputFile"
+    accept="text/csv,text/comma-separated-values,text/tab-separated-values,text/plain,.csv,.tsv"
+    onchange="handleFile(this.files)"/>
+    <a href="" onclick="document.getElementById('openFile').click(); return false">Open csv file</a>
+    <div class="sidenavTxtContainer">
+      <span class="txt">Loaded data</span>
+      <span class="txt" id="dataDescription"></span>
+    </div>
+    <div class="styled-select slate">
+      <select id="dataSelector" onchange="dm.dataSelected(this, event)">
+
+      </select>
+    </div>
+    <a href="#">About</a>
+  </div>
+
+  <!-- SETTINGS SIDENAV -->
+  <div id="settingsSidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav('settings')">&times;</a>
+    <a href="#">
+      <input type="checkbox" class="checkb" id="separateRadvz" onclick="toggleAcClassRadius(this.checked)"/>
+      Separate RadViz circles</a>
+      <a href="#">
+        <input type="checkbox" class="checkb" id="dynamicRvOpacity" checked
+        onclick="toggleDynamicOpacity(this.checked)"/>Dynamic RadViz opacity</a>
+
+        <a href="javascript:increasePointSize()">Point size &uarr;</a>
+        <a href="javascript:decreasePointSize()">Point size &darr;</a>
+        <a href="javascript:increasePointOpacity()">Point opacity &uarr;</a>
+        <a href="javascript:decreasePointOpacity()">Point opacity &darr;</a>
+        <!-- <a href="javascript:vc.adjustStarCoord()">Adjust Star Coordinates</a> -->
+        <a href="#">About</a>
+      </div>
+
+      <!-- CHOOSE MODEL SIDENAV -->
+      <div id="chooseModelSidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav('chooseModel')">&times;</a>
+
+        <a href="javascript:void(0)" onclick="loadModelInfo()" id="loadModelInfoButton">Load model info</a>
+        <!-- <a href="javascript:increasePointSize()">Point size &uarr;</a> -->
+        <a href="#">About</a>
+      </div>
+
+      <!-- TRAIN SIDENAV -->
+      <div id="trainSidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav('train')">&times;</a>
+        <div class="styled-select slate">
+          <select id="methodSelector" onchange="methodSelected.call(this, event)">
+            <option selected disabled>Choose method</option>
+          </select>
         </div>
 
-        <!-- SETTINGS SIDENAV -->
-        <div id="settingsSidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('settings')">&times;</a>
-            <a href="#">
-                <input type="checkbox" class="checkb" id="separateRadvz" onclick="toggleAcClassRadius(this.checked)"/>
-                Separate RadViz circles</a>
-            <a href="#">
-                <input type="checkbox" class="checkb" id="dynamicRvOpacity" checked
-                onclick="toggleDynamicOpacity(this.checked)"/>Dynamic Radviz opacity</a>
+        <a href="javascript:train(dm.getSelectedDimensions())" id="trainButton">Train</a>
 
-            <a href="javascript:increasePointSize()">Point size &uarr;</a>
-            <a href="javascript:decreasePointSize()">Point size &darr;</a>
-            <a href="javascript:increasePointOpacity()">Point opacity &uarr;</a>
-            <a href="javascript:decreasePointOpacity()">Point opacity &darr;</a>
-            <a href="javascript:vc.adjustStarCoord()">Adjust Star Coordinates</a>
-            <a href="#">About</a>
+        <div id="trainTestSplitContainer">
+          <a href="#" id="trainTestSplitLink">Train/test %</a>
+          <input type="number" value="80" min="0" max="100" id="trainTestSplit" oninput="javascript:handleSplitInput()">
+        </div>
+        <div class="sidenavTxtContainer">
+          <span class="txt">Model</span>
+          <span id="chosenModel" class="txt">none</span>
         </div>
 
-        <!-- DATA SIDENAV -->
-        <div id="dataSidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('data')">&times;</a>
-            <div class="sidenavTxtContainer">
-                <span class="txt">Loaded data</span>
-                <span class="txt" id="dataDescription"></span>
-            </div>
-            <div class="styled-select slate">
-                <select id="dataSelector" onchange="dm.dataSelected(this, event)">
-
-                </select>
-            </div>
-            <a href="#">About</a>
+        <div class="styled-select slate">
+          <select id="modelSelector" onchange="modelSelected.call(this, event)">
+            <option selected disabled>Available models</option>
+          </select>
         </div>
+        <a href="" onclick="document.getElementById('openModel').click(); return false">Open trained model</a>
+        <a href="javascript:saveModel()" class="disabled" id="saveModel" download>Save model</a>
+        <input id="openModel" name="openModel" type="file" class="inputFile"
+        accept=".rds"
+        onchange="handleModel(this.files, false)"/>
+        <a href="javascript:useModel(dm.data, false)" class="disabled" id="useModelButton">Classify data</a>
+        <a href="#">About</a>
+      </div>
 
-        <!-- CHOOSE MODEL SIDENAV -->
-        <div id="chooseModelSidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('chooseModel')">&times;</a>
-            <div class="sidenavTxtContainer">
-                <span class="txt">Loaded model</span>
-                <span id="chosenModel" class="txt">none</span>
-            </div>
-
-            <div class="styled-select slate">
-                <select id="modelSelector" onchange="modelSelected.call(this, event)">
-                    <option selected disabled>Available models</option>
-                </select>
-            </div>
-            <a href="" onclick="document.getElementById('openModel').click(); return false">Open trained model</a>
-            <a href="javascript:void(0)" onclick="loadModelInfo()" id="loadModelInfoButton">Load model info</a>
-            <!-- <a href="javascript:increasePointSize()">Point size &uarr;</a> -->
-            <a href="#">About</a>
+      <!-- VARY ATTRIBUTE SIDENAV -->
+      <div id="varyAttrSidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav('varyAttr')">&times;</a>
+        <div class="styled-select slate">
+          <select id="varyAttrSelector" onchange="dm.varyAttrSelected(event)">
+            <option selected disabled>Choose attribute</option>
+          </select>
         </div>
-
-        <!-- TRAIN SIDENAV -->
-        <div id="trainSidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('train')">&times;</a>
-            <div class="styled-select slate">
-                <select id="methodSelector" onchange="methodSelected.call(this, event)">
-                    <option selected disabled>Choose method</option>
-                </select>
-            </div>
-
-            <a href="javascript:train(dm.getSelectedDimensions())" id="trainButton">Train model</a>
-
-            <div id="trainTestSplitContainer">
-                <a href="#" id="trainTestSplitLink">Train/test %</a>
-                <input type="number" value="80" min="0" max="100" id="trainTestSplit" oninput="javascript:handleSplitInput()">
-            </div>
-            <div class="sidenavTxtContainer">
-                <span class="txt">Chosen model</span>
-                <span id="chosenModelLabel" class="txt">none</span>
-            </div>
-            <a href="javascript:saveModel()" class="disabled" id="saveModel" download>Save model</a>
-            <input id="openModel" name="openModel" type="file" class="inputFile"
-                accept=".rds"
-                onchange="handleModel(this.files, false)"/>
-            <a href="javascript:useModel(dm.data, false)" class="disabled" id="useModelButton">Use chosen model</a>
-            <a href="#">About</a>
+        <a href="javascript:dm.varyAttribute()" id="varyAttr">Vary attribute</a>
+        <a href="javascript:dm.restoreData()" id="restoreDatar">Restore data</a>
+        <div class="sidenavTxtContainer">
+          <span id="attrDomainLabel" class="txt"></span>
+          <span id="attrLabel" class="txt">Value: </span>
+          <div id="attrVarSlider"></div>
+          <div id="pdp">
+            <div id="pdpArea"></div>
+            <div id="pdpLine"></div>
+          </div>
+          <div id="histogram"></div>
         </div>
+        <a href="#">About</a>
+      </div>
 
-        <!-- VARY ATTRIBUTE SIDENAV -->
-        <div id="varyAttrSidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('varyAttr')">&times;</a>
-            <div class="styled-select slate">
-                <select id="varyAttrSelector" onchange="dm.varyAttrSelected(event)">
-                    <option selected disabled>Choose attribute</option>
-                </select>
-            </div>
-            <a href="javascript:dm.varyAttribute()" id="varyAttr">Vary attribute</a>
-            <a href="javascript:dm.restoreData()" id="restoreDatar">Restore data</a>
-            <div class="sidenavTxtContainer">
-                <span id="attrDomainLabel" class="txt"></span>
-                <span id="attrLabel" class="txt">Value: </span>
-                <div id="attrVarSlider"></div>
-                <div id="pdp">
-                    <div id="pdpArea"></div>
-                    <div id="pdpLine"></div>
-                </div>
-                <div id="histogram"></div>
-            </div>
-            <a href="#">About</a>
-        </div>
+      <!-- NAVIGATION BAR -->
+      <nav class="shadowed"><ul>
+        <li><div class="loader" id="loadingIcon" visible=false></div></li>
+        <li><a id="settingsNav" href="javascript:openNav('settings')">Settings</a></li>
+        <li><a id="dataNav" href="javascript:openNav('data')">Data</a></li>
+        <li><a id="trainNav" href="javascript:openNav('train')">Training</a></li>
+        <li><a id="varyAttrNav" href="javascript:openNav('varyAttr')">Vary Attribute and PDP</a></li>
+        <li><a id="aboutNav" href="#">About</a></li>
+      </ul>
+    </nav>
 
-        <!-- NAVIGATION BAR -->
-        <nav class="shadowed"><ul>
-            <li><div class="loader" id="loadingIcon" visible=false></div></li>
-            <li><a id="fileNav" href="javascript:openNav('file')">File</a></li>
-            <li><a id="settingsNav" href="javascript:openNav('settings')">Settings</a></li>
-            <li><a id="dataNav" href="javascript:openNav('data')">Data</a></li>
-            <li><a id="chooseModelNav" href="javascript:openNav('chooseModel')">Choose Model</a></li>
-            <li><a id="trainNav" href="javascript:openNav('train')">Training</a></li>
-            <li><a id="varyAttrNav" href="javascript:openNav('varyAttr')">Vary Attribute</a></li>
-            <li><a id="aboutNav" href="#">About</a></li>
-            </ul>
-        </nav>
+    <!-- BODY BELOW NAV BAR-->
+    <div class="body">
+      <div class="shadowed" id="mainMenu">
+        <!-- <div id="vizSelector">
+        <div class="menuTitle">Viz Selector</div>
+        <a href="javascript:vc.setViz(true)" class = "curViz" id="useRadViz">RadViz</a>
+        <a href="javascript:vc.setViz(false)" id="useStarCoord">Star Coordinates</a>
+      </div> -->
 
-        <!-- BODY BELOW NAV BAR-->
-        <div class="body">
-            <div class="shadowed" id="mainMenu">
-                <div id="vizSelector">
-                    <div class="menuTitle">Viz Selector</div>
-                    <a href="javascript:vc.setViz(true)" class = "curViz" id="useRadViz">RadViz</a>
-                    <a href="javascript:vc.setViz(false)" id="useStarCoord">Star Coordinates</a>
-                </div>
+      <div class="menuTitle">Dimensions</div>
+      <div id="dimensionSelector"></div>
+    </div>
 
-                <div class="menuTitle">Dimensions</div>
-                <div id="dimensionSelector"></div>
-            </div>
+    <div class="shadowed" id="mainHeader">
+      <div id="classContribSlider">
+        <h4><span id="contribution">Class: 0% / Attributes: 100%</span></h4>
+      </div>
+    </div>
+    <div id="chart">
+      <div id="coordiv"
+      onmousedown="mouseDownUp(event, this, true)" onmouseup="mouseDownUp(event, this, false)"
+      onmouseout="mouseDownUp(event, this, false)"
+      onmousemove="mouseMove(event, this)" class="pressed"></div>
+    </div>
+    <div id="parc" class="parcoords"></div>
+    <div id="statusBar">
+      <ul>
+        <li>Classification Info</li>
+        <li><a href="javascript:void(0)" onclick="displaycm.call(this)">
+          &#9650;
+        </a>
+      </li>
+      <li id="modelName"></li>
+      <li id="modelTraningData"></li>
+      <li id="modelAcc"></li>
+      <li id="modelKappa"></li>
+    </ul>
+    <div id="confMatrixContainer" class="invisibleWhenDisabled">
+      <table>
+        <tr><td></td><th>True</th></tr>
+        <tr>
+          <th class="rotate"><div>Predicted</div></th>
+          <td><div id="confMatrix"></div></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
 
-            <div class="shadowed" id="mainHeader">
-                <div id="classContribSlider">
-                    <h4><span id="contribution">Class: 0% / Attributes: 100%</span></h4>
-                </div>
-            </div>
-            <div id="chart">
-                <div id="coordiv"
-                onmousedown="mouseDownUp(event, this, true)" onmouseup="mouseDownUp(event, this, false)"
-                onmouseout="mouseDownUp(event, this, false)"
-                onmousemove="mouseMove(event, this)" class="pressed"></div>
-            </div>
-            <div id="parc" class="parcoords"></div>
-            <div id="statusBar">
-                <ul>
-                    <li>Model Info</li>
-                    <li><a href="javascript:void(0)" onclick="displaycm.call(this)">
-                      &#9650
-                        </a>
-                    </li>
-                    <li id="modelName"></li>
-                    <li id="modelTraningData"></li>
-                    <li id="modelAcc"></li>
-                    <li id="modelKappa"></li>
-                </ul>
-                <div id="confMatrixContainer" class="invisibleWhenDisabled">
-                    <table>
-                        <tr><td></td><th>True</th></tr>
-                        <tr>
-                            <th class="rotate"><div>Predicted</div></th>
-                            <td><div id="confMatrix"></div></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
+<script>
+  var sa = new SetupAssistent();
+  var vc = new VizContainer();
+  var trainSessions = new SessionsInfo();
+  var classificationSessions = new SessionsInfo();
+  var curChosenModel;
+  var dm = new DataManager();
+  var pdPlot = new PdPlot();
+  var hist = new Histogram();
 
-        <script>
-            var sa = new SetupAssistent();
-            var vc = new VizContainer();
-            var trainSessions = new SessionsInfo();
-            var classificationSessions = new SessionsInfo();
-            var curChosenModel;
-            var dm = new DataManager();
-            var pdPlot = new PdPlot();
-            var hist = new Histogram();
+  var curSidebar = 0;
+  var curDataFileName;
 
-            var curSidebar = 0;
-            var curDataFileName;
+  var parcoords;
 
-            var parcoords;
+  var sliderConfigured;
+  var colorAll = true;
+  var PI = Math.PI;
+  var TWO_PI = PI * 2;
+  var tCount = 0;
 
-            var sliderConfigured;
-            var colorAll = true;
-            var PI = Math.PI;
-            var TWO_PI = PI * 2;
-            var tCount = 0;
+  svgContainer = sa.getSvgContainer();
+  window.onresize = windowResized;
 
+  function startRadviz(fileName) {
+    if (fileName == undefined) {
+      fileName = sa.defaultFile;
+    }
+    curDataFileName = fileName;
 
-            svgContainer = sa.getSvgContainer();
-            window.onresize = windowResized;
+    vc.createAcApContainers();
+    vc.colorScheme = sa.getClassColorScheme();
 
-            function startRadviz(fileName) {
+    console.log(fileName);
+    handleSplitInput();
+    d3.csv(fileName, function(csv) {
+      dm.fullData = null;
+      dm.classifiedData = null;
+      useFile(csv);
+      if (!allMethods) getAllModelsInfo();
+    });
+  }
 
-                if(fileName == undefined) {
-                    fileName = sa.defaultFile;
-                }
-                curDataFileName = fileName;
+  function handleSplitInput() {
+    var el = document.getElementById("trainTestSplit");
+    document.getElementById("trainTestSplitLink").innerHTML =
+    "Train/test % (" + el.value + "/" + (100 - el.value) + ")";
+  }
 
-                vc.createAcApContainers();
-                vc.colorScheme = sa.getClassColorScheme();
+  function windowResized() {
+    var el;
+    //el = document.getElementById("chart");
+    //el.getElementsByTagName("svg")[0].setAttribute("width", el.clientWidth + "px");
 
-                console.log(fileName);
-                handleSplitInput();
-                d3.csv(fileName, function (csv) {
-                    dm.fullData = null;
-                    dm.classifiedData = null;
-                    useFile(csv);
-                    if(!allMethods)
-                      getAllModelsInfo();
-                });
-            }
+    el = document.getElementById("parc");
+    var w = document.documentElement.clientWidth;
+    if (el.offsetTop > 100) {
+      if (!el.classList.contains("fullWidth")) el.classList.add("fullWidth");
 
-            function handleSplitInput(){
-                var el = document.getElementById("trainTestSplit");
-                document.getElementById("trainTestSplitLink").innerHTML =
-                    "Train/test % (" +
-                    el.value + "/" + (100-el.value) + ")";
+      parcoords.width(el.clientWidth);
+      parcoords.resize();
+      parcoords.render();
+    } else {
+      if (el.classList.contains("fullWidth")) el.classList.remove("fullWidth");
+    }
+  }
 
-            }
+  function addDimensionFields() {
+    // Container <div> where dynamic content will be placed
+    var container = document.getElementById("dimensionSelector");
+    // Clear previous contents of the container
+    while (container.hasChildNodes()) {
+      container.removeChild(container.lastChild);
+    }
+    var avaps = vc.acAttr.avap;
+    for (i = 0; i < avaps.length; i++) {
+      // Append a node with a random text
+      //container.appendChild(document.createTextNode("Member " + avaps[i].key));
+      // Create an <input> element, set its type and name attributes
+      var a = document.createElement("a");
+      a.value = i;
+      a.href = "javascript:vc.acAttr.toggleAvap(" + i + ")";
+      a.innerHTML = avaps[i].key;
+      if (avaps[i].enabled) a.classList.add("enabled");
+      a.id = avaps[i].key;
+      //a.onclick =
 
-            function windowResized(){
-                var el;
-                //el = document.getElementById("chart");
-                //el.getElementsByTagName("svg")[0].setAttribute("width", el.clientWidth + "px");
+      //input.name = "member" + i;
+      container.appendChild(a);
+      // Append a line break
+      //container.appendChild(document.createElement("br"));
+    }
+  }
 
-                el = document.getElementById("parc");
-                var w = document.documentElement.clientWidth;
-                if(el.offsetTop > 100){
-                    if(!el.classList.contains("fullWidth"))
-                        el.classList.add("fullWidth");
+  function addVaryAttrFields() {
+    // Container <div> where dynamic content will be placed
+    //var container = document.getElementById("dimensionSelector");
+    var selector = document.getElementById("varyAttrSelector");
+    // Clear previous contents of the container
+    while (selector.hasChildNodes()) {
+      selector.removeChild(selector.lastChild);
+    }
+    var avaps = vc.acAttr.avap;
+    for (i = 0; i < avaps.length; i++) {
+      var o = document.createElement("option");
+      o.value = i;
+      o.innerHTML = avaps[i].key;
+      selector.appendChild(o);
+    }
+  }
 
-                    parcoords.width(el.clientWidth);
-                    parcoords.resize();
-                    parcoords.render();
-                }
-                else{
-                    if(el.classList.contains("fullWidth"))
-                        el.classList.remove("fullWidth");
-                }
-            }
+  /* Set the width of the side navigation to 250px */
+  function openNav(id) {
+    if (curSidebar == id) {
+      closeNav(id);
+    } else {
+      if (curSidebar) {
+        document.getElementById(curSidebar + "Sidenav").style.width = "0";
+        document.getElementById(curSidebar + "Nav").classList.toggle("current");
+      }
 
-            function addDimensionFields(){
-                // Container <div> where dynamic content will be placed
-                var container = document.getElementById("dimensionSelector");
-                // Clear previous contents of the container
-                while (container.hasChildNodes()) {
-                    container.removeChild(container.lastChild);
-                }
-                var avaps = vc.acAttr.avap;
-                for (i=0; i<avaps.length; i++){
-                    // Append a node with a random text
-                    //container.appendChild(document.createTextNode("Member " + avaps[i].key));
-                    // Create an <input> element, set its type and name attributes
-                    var a = document.createElement("a");
-                    a.value = i;
-                    a.href = "javascript:vc.acAttr.toggleAvap("+i+")";
-                    a.innerHTML = avaps[i].key;
-                    if(avaps[i].enabled)
-                        a.classList.add("enabled");
-                    a.id = avaps[i].key;
-                    //a.onclick =
+      curSidebar = id;
+      document.getElementById(id + "Sidenav").style.width = "250px";
+      document.getElementById("main").style.marginRight = "250px";
+      document.getElementById(id + "Nav").classList.toggle("current");
+    }
+    windowResized();
+  }
 
-                    //input.name = "member" + i;
-                    container.appendChild(a);
-                    // Append a line break
-                    //container.appendChild(document.createElement("br"));
-                }
-            }
+  /* Set the width of the side navigation to 0 */
+  function closeNav(id) {
+    curSidebar = 0;
+    document.getElementById(id + "Sidenav").style.width = "0";
+    document.getElementById("main").style.marginRight = "0";
+    document.getElementById(id + "Nav").classList.toggle("current");
 
-            function addVaryAttrFields(){
-                // Container <div> where dynamic content will be placed
-                //var container = document.getElementById("dimensionSelector");
-                var selector = document.getElementById("varyAttrSelector");
-                // Clear previous contents of the container
-                while (selector.hasChildNodes()) {
-                    selector.removeChild(selector.lastChild);
-                }
-                var avaps = vc.acAttr.avap;
-                for (i=0; i<avaps.length; i++){
-                    var o = document.createElement("option");
-                    o.value = i;
-                    o.innerHTML = avaps[i].key;
-                    selector.appendChild(o);
-                }
-            }
-
-            /* Set the width of the side navigation to 250px */
-            function openNav(id) {
-
-                if(curSidebar == (id)){
-                    closeNav(id);
-                }
-                else {
-                    if(curSidebar){
-                        document.getElementById(curSidebar + "Sidenav").style.width = "0";
-                        document.getElementById(curSidebar + "Nav").classList.toggle("current");
-                    }
-
-                    curSidebar = id;
-                    document.getElementById(id + "Sidenav").style.width = "250px";
-                    document.getElementById("main").style.marginRight = "250px";
-                    document.getElementById(id + "Nav").classList.toggle("current");
-                }
-                windowResized();
-            }
-
-            /* Set the width of the side navigation to 0 */
-            function closeNav(id) {
-                curSidebar = 0;
-                document.getElementById(id + "Sidenav").style.width = "0";
-                document.getElementById("main").style.marginRight = "0";
-                document.getElementById(id + "Nav").classList.toggle("current");
-
-                windowResized();
-            }
-        </script>
-    </body>
+    windowResized();
+  }
+  </script>
+  </body>
 </html>
