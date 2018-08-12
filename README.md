@@ -1,6 +1,6 @@
 # DualViz
 
-*DualViz* is a visualization tool that can be used to explore data based on its attributes and also to explore the results from a classification task.
+*WBVA* is a visualization tool that can be used to explore data based on its attributes and also to explore the results from a classification task.
 
 ## Setup
 1. Clone project
@@ -18,4 +18,4 @@
 2. Go to *Build > Install and Restart*
 3. Run `library(opencpu)` on the *RStudio* console
 4. Run `ocpu_start_server()`
-5. On the browser, go to `http://localhost:5656/ocpu/library/dualViz`
+5. On the browser, go to `http://localhost:5656/ocpu/library/wbva`
